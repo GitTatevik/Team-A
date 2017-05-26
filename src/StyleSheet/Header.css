@@ -1,0 +1,172 @@
+.header_container{
+	position:fixed;
+    height:61px;
+	width:100%;
+	top:0;
+	
+}
+.flex{
+    display:flex;
+}
+.row{
+    width: 100%;
+    height: 100%;
+    background-color:  #513654;
+    justify-content: center;
+    align-items: center;
+}
+.menu_icon{
+    display:none;
+    margin-left:15px;
+    cursor:pointer;
+
+}
+
+h1{
+		font-size:3em;
+}
+
+.icon_item{
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    margin: 4px 0;
+    border-radius:5px;
+}
+.header{
+    width:90%;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    color:#fff;
+}
+.user{
+    width:40%;
+    height:100%;
+    align-items:center;
+    justify-content:flex-end;
+}
+.list{
+    list-style-type: none;
+    width: 100%;
+    justify-content:flex-end;
+}
+.list_menu{
+    list-style-type: none;
+    width: 100%;
+}
+
+.list_item{
+  cursor:pointer;
+    width:120px;
+    text-align: right;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+}
+#sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #735a73;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.close_icon{
+  width: 40px;
+  height: 40px;
+    cursor:pointer;
+    right: 25px;
+    top: 43px;
+    position: absolute;
+}
+
+.close_item{
+    width: 25px;
+    height: 2px;
+    background-color: azure;
+    margin: -2.2px 0;
+}
+.menu_list{
+    list-style-type: none;
+}
+
+.menu_item{
+    width:100%;
+    text-align: left;
+    height: 60px;
+    border-bottom: 1px solid #adadad;
+    box-sizing: border-box;
+    display: flex;
+   
+    justify-content: flex-start;
+    align-items:center;
+    cursor: pointer;
+    transition: .5s ;
+	padding:0;
+}
+.menu_item:hover{
+    background-color:#907a94;
+}
+.close_item:first-child{
+    transform: rotate(-45deg);
+}
+
+.close_item:nth-child(2){
+    transform: rotate(45deg);
+}
+.menu_item a{
+
+	padding-left:20px;
+	padding-top:18px;
+	box-sizing:border-box;
+    text-decoration: none;
+    color: azure;
+    font-size: 1.1em;
+	height:100%;
+	width:100%;
+	display:block;
+}
+
+
+
+@media (max-width:768px) {
+
+    .menu_icon{
+        display: block;
+    }
+
+    .logo{
+        margin-left:25px;
+    }
+
+    .user{
+        width:60%;
+    }
+
+    .list{
+        justify-content: center;
+    }
+	
+	.list_item:nth-child(2){
+		display:none;
+	}
+	
+	
+	h1{
+		font-size:25px;
+	}
+}
+
+@media (min-width:769px) {
+	#sidenav{
+		display:none;
+	}
+	
+}

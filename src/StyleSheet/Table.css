@@ -1,0 +1,109 @@
+.UserTable {
+    width: 100%;
+    height: 100%;
+    background-color: #f1f1f1;
+    color: #513654;
+    box-sizing: border-box;
+	padding:25px;
+	overflow:hidden;
+}
+#scroll{
+	width: 100%;
+    height: 80%;
+	overflow:scroll;
+}
+.table {
+    width: 100%;
+    margin: 0px auto;
+    border: solid 2px #504b4b;
+    border-collapse: collapse;
+	
+
+}
+.table td{
+	border:solid 2px #504b4b;
+	border-collapse: collapse;
+	text-align: center;
+}
+.table th{
+	border:solid 2px #504b4b;
+	border-collapse: collapse;
+	text-align: center;
+}
+.tableheader{
+	width: 100%;
+	text-align: center;
+	color: white;
+}
+.addtablerow{
+	width: 100%;
+}
+.editbutton{
+	border-radius: 5px;
+	background: #009688;
+	color: white;
+	margin: 5px;
+}
+.deletebutton{
+	border-radius: 5px;
+	background: #e91e63;
+	color:white;
+	margin: 5px;
+}
+.savebutton{
+	border-radius: 5px;
+	background: blue;
+	color:white;
+	margin: 5px;
+}
+#theader{
+	height: 30px;
+    color: #666467;
+    text-align: center;
+    font-size: 2.5em;
+    padding: 10px;
+}
+
+.AddRow{
+	display:inline-block;
+    margin-top: 10px;
+}
+
+.btn_table{
+	padding: 10px;
+    color: #fff;
+    background-color: #009688;
+    border-radius: .1rem;
+	border: 0px solid transparent;
+    transition: .5s;
+    cursor: pointer;
+	box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
+}
+
+
+.btn_table:hover{
+	 background-color: #735a73; 
+}
+	
+	@media (max-width:768px) {
+
+	.UserTable{
+		width:100%;
+	}
+
+}
+
+@media (max-width:468px) {
+#theader{
+	height: 30px;
+    color: #666467;
+    text-align: center;
+    font-size: 1.5em;
+   
+}
+#scroll{
+	
+	
+}
+
+}

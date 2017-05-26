@@ -1,0 +1,30 @@
+.wrapper {
+    width: 80%;
+	margin:0 auto;
+}
+
+.list_options{
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    display: block;
+    font-size: 16px;
+    font-family: "Helvetica","Arial",sans-serif;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    background: 0 0;
+    text-align: left;
+    color: inherit;
+    background: #735a73;
+    margin: 5px 0px;
+    cursor: pointer;
+    
+}
+
+.send{
+        float: right;
+}
+
+.mdl-textfield {
+	display: block;
+	width: auto;
+}

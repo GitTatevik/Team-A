@@ -1,0 +1,153 @@
+.list_head {
+	text-align: center;
+	color: rgba(115, 90, 115, 0.56);
+	font-family: cursive;
+}
+
+.mail_area {
+	min-height: 300px;
+	overflow-y: auto;
+	border: solid 1px #735a73;
+    margin: 5px 0;
+}
+
+.add_list {
+	margin: 0 auto;
+	overflow: auto;
+}
+
+.mdl-textfield {
+	display: block;
+	width: auto;
+}
+
+.save_list {
+	float: right;
+	margin: 2% 0;
+	width: 17%;
+}
+
+.list_input {
+	text-indent: 2%;
+	outline: none;
+    padding: 10px 0px;
+    font-size: 14px;
+    width: 688px;
+    margin: 5px 0px;
+    border: solid 1px #735a73;
+}
+
+.list_input:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+.list_input:focus:-moz-placeholder {
+	color: transparent;
+}
+
+.list_input:focus::-moz-placeholder {
+	color: transparent;
+}
+
+.list_input:focus:-ms-input-placeholder {
+	color: transparent;
+}
+
+.menuListWrap {
+	width: 690px;
+	margin: 0 auto;
+}
+
+.searchRes {
+	position: relative;
+	padding: 1% 1%;
+	background: rgba(115, 90, 115, 0.56);
+	cursor: pointer;
+	border-bottom: 1px solid white;
+}
+
+
+.searchMail {
+	width: 690px;
+    z-index: 23333;
+    background: aliceblue;
+    position: absolute;
+}
+
+.searchRes:hover {
+	background: cadetblue;
+}
+
+.mdl-chip {
+	background: rgba(115, 90, 115, 0.56)
+}
+
+.mailingListTable {
+	width: 690px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.mainCont {
+	width: 690px;
+	margin: 0 auto;
+	
+}
+.mailingListTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.tablehead {
+	padding: 8px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+	font-size: 24px;
+}
+
+.tabledata {
+	padding: 8px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+.listbut {
+    padding: 10px;
+    color: black;
+  
+    border-radius: .1rem;
+    border: 0px solid transparent;
+    -webkit-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
+    box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
+	background: #735a73;
+}
+
+.mailVal {
+	background: #735a73;
+	cursor: auto;
+	margin: 0;
+	min-width: 64px;
+	padding: 11px 16px;
+	color: white;
+	font-size: 14px;
+	border-radius: 2px;
+}
+
+.mail_row:hover {
+	background-color: #735a73;
+	cursor: pointer;
+}
+
+
+
+@media (max-width: 768px) {
+	.menuListWrap {
+		width: 90%;
+	}
+}
