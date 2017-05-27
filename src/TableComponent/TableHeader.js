@@ -8,6 +8,7 @@ class TableHeader extends Component{
 			  for(let i in obj){
 			  		headers.push(i);
 			  }
+			  headers = headers.slice(0, 5);
 		  //console.log("TableHeader Data :",headers);
 		  let header = headers.map((headers,index)=>
 		  	<th key={index}>{headers}</th>
@@ -16,8 +17,9 @@ class TableHeader extends Component{
 		 	return(
 		 <thead>
 		 	<tr >
+				 <th>  Action</th>
 		 		{header}
-		 		<th colSpan="2">Actions</th>
+		 		
 		 	</tr>
 		 </thead>
 		 	);

@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import TableHeader from'./TableHeader.js';
-import Fetch from '../Fetch.js';
 import TableRow from './TableRow.js';
 import AddRowTable from './AddRowTable.js';
+import Fetch from '../Fetch.js';
 import '../StyleSheet/Table.css';
 
-import array from '../array.js';
+
+//	import array from '../array.js';
 
 class Table extends Component{
 			constructor(props){
 				super(props);
 				this.state={
-				data:array
+				data:[]
 				};
 				this.updateTable=this.updateTable.bind(this);
 			}
 			updateTable(){
-		      this.setState({data:array});
-		      console.log("update table, and Data",array);
+		      this.setState({data:[]});
+		      //console.log("update table, and Data",array);
+			}
+			componentDidMount(){
+				//console.log("componentDidMount");
+				Fetch.getData('http://crmbeta.azurewebsites.net/api/contacts').then(response =>{
+					this.setState({data:response});
+					console.log(response);
+				} );
+
 			}
 			render(){
 		     	return(

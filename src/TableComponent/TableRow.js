@@ -9,12 +9,15 @@ class TableRow extends Component{
 		     this.state={
 		                editingShow:false,
 		                editRowData:{},
-		      			editRowIndex:""
+		      			editRowIndex:"",
+						guidArray: []
 		     			}
 			     this.deleteRow=this.deleteRow.bind(this);
 			     this.editRow=this.editRow.bind(this);
 			     this.saveEditing=this.saveEditing.bind(this);
 			     this.cancel=this.cancel.bind(this);
+				 this.chackechange = this.chackechange.bind(this);
+				 this.sentDataBtn = this.sentDataBtn.bind(this);
 			    // var editRowData={};
 		     }
 	     deleteRow(event){
@@ -46,31 +49,54 @@ class TableRow extends Component{
 		     				editingShow:false 
 		     				});
 	     }
+		 sentDataBtn(){
+			Fetch.postData('http://localhost:50522/api/EmailSender?TemplateId=1', this.state.guid);
+		 }
+		 chackechange(event){
+			let guidArray = this.state.guidArray;
+			if(event.target.checked === true){
+					guidArray.push(this.props.dataArray[event.target.id].guid);
+			}
+			else{
+				for(let i = 0; i < this.state.guidArray.length; ++i){
+					if(this.props.dataArray[event.target.id].guid === this.state.guidArray[i]){
+						this.state.guidArray.splice(i,1);
+						
+					}
+				}
+			}
+			console.log(guidArray);
+		 }
 	     render(){
 		     const data=this.props.dataArray
 		      //console.log("TableRow Data :",data);
 		      if(this.state.editingShow){
-		          const editingrow = data[this.state.editRowIndex];
-		          const editrow=
-		     	<tr  id ="editingrow">
-			     	<td key={editingrow.Firstname}>
-				     	<EditRow update={this.props.update} data={editingrow.Firstname} propName="Firstname" editingData={this.state.editRowData} 
+		         /* const editingrow = data[this.state.editRowIndex];
+		          const editrow=*/
+		     {/*	<tr  id ="editingrow">
+			     	<td key={editingrow.fullName}>
+				     	<EditRow update={this.props.update} data={editingrow.fullName} propName="fullName" editingData={this.state.editRowData} 
 				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
 				     
 			     	</td>
-			     	<td key={editingrow.Lastname}>
-				     	<EditRow update={this.props.update} data={editingrow.Lastname} propName="Lastname" editingData={this.state.editRowData} 
+			     	<td key={editingrow.companyName}>
+				     	<EditRow update={this.props.update} data={editingrow.companyName} propName="companyName" editingData={this.state.editRowData} 
 				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
 				     	
 				     </td>
-			     	<td key={editingrow.Mail}>
-			     	    <EditRow update={this.props.update} data={editingrow.Mail} propName="Mail" editingData={this.state.editRowData} show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
+			     	<td key={editingrow.position}>
+			     	    <EditRow update={this.props.update} data={editingrow.position} propName="position" editingData={this.state.editRowData} show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
 			     	    
 			     	</td>
-			     	<td key={editingrow.Id} id ="ids">
-			     	   {editingrow.Id}
+			     	<td key={editingrow.country}>
+			     	   {editingrow.country}
 			     	</td>
-			     	<td colSpan="2"><button onClick={this.saveEditing} className="savebutton" >Save Change</button><button onClick={this.cancel}>Cancel</button></td>
+			     	</td>
+					 	<td key={data.email}>
+				     	<EditRow update={this.props.update} data={data.email} propName="email" editingData={this.state.editRowData} 
+				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
+				     	{data.email}
+				     </td>
 		     	</tr>
 		     	 const row = data.map((data,index)=>
 		     	
@@ -97,36 +123,42 @@ class TableRow extends Component{
 		     			{editrow}
 		     			{row}
 		     		
-		     		</tbody>
-		     	);
+		     		</tbody>*/}
+				// );
 
 		      }
-		      const row = data.map((data,index)=>
+		      const tablerows = data.map((data,index)=>
 		     	<tr key={index} ref={index}>
-			     	<td key={data.Firstname}>
-				     	<EditRow update={this.props.update} data={data.Firstname} propName="Firstname" editingData={this.state.editRowData} 
+
+					<td> <input type="checkbox" onChange={this.chackechange} id={index} /> {/* <button id ={index} onClick={this.editRow} className="editbutton">Edit</button><button className ="deletebutton" onClick={this.deleteRow}  id={index}>Delete</button>*/}</td>
+			     	<td key={data.fullName}>
+				     	<EditRow update={this.props.update} data={data.fullName} propName="fullName" editingData={this.state.editRowData} 
 				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
-				     	{data.Firstname}
+				     	{data.fullName}
 			     	</td>
-			     	<td key={data.Lastname}>
-				     	<EditRow update={this.props.update} data={data.Lastname} propName="Lastname" editingData={this.state.editRowData} 
+			     	<td key={data.companyName}>
+				     	<EditRow update={this.props.update} data={data.companyName} propName="companyName" editingData={this.state.editRowData} 
 				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
-				     	{data.Lastname}
+				     	{data.companyName}
 				     </td>
-			     	<td key={data.Mail}>
-			     	    <EditRow update={this.props.update} data={data.Mail} propName="Mail" editingData={this.state.editRowData} show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
-			     	    {data.Mail}
+			     	<td key={data.position}>
+			     	    {data.position}
 			     	</td>
-			     	<td key={data.Id} id ="ids">
-			     	    {data.Id}
+			     	<td key={data.country}>
+			     	    {data.country}
 			     	</td>
-			     	<td colSpan="2"> <input type="checkbox"/> {/* <button id ={index} onClick={this.editRow} className="editbutton">Edit</button><button className ="deletebutton" onClick={this.deleteRow}  id={index}>Delete</button>*/}</td>
+					 	<td key={data.email}>
+				     	<EditRow update={this.props.update} data={data.email} propName="email" editingData={this.state.editRowData} 
+				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
+				     	{data.email}
+				     </td>
+			     	
 		     	</tr>
 		     	);
 		     	return(
 		     		<tbody>
-		     			{row}
-		     		
+		     			{tablerows}
+						<button onClick = {this.sentDataBtn}>SentPostMethodDatas</button>
 		     		</tbody>
 		     	);
 		      
