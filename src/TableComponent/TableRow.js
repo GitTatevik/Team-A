@@ -50,7 +50,7 @@ class TableRow extends Component{
 		     				});
 	     }
 		 sentDataBtn(){
-			Fetch.postData('http://localhost:50522/api/EmailSender?TemplateId=1', this.state.guid);
+			Fetch.postData('http://crmbeta.azurewebsites.net/api/EmailSender?TemplateId=1', this.state.guid);
 		 }
 		 chackechange(event){
 			let guidArray = this.state.guidArray;
