@@ -11,6 +11,7 @@
 	width: 100%;
     height: 80%;
 	overflow:scroll;
+	
 }
 .table {
     width: 100%;
@@ -70,6 +71,7 @@
 }
 
 .btn_table{
+	width:100%;
 	padding: 10px;
     color: #fff;
     background-color: #009688;

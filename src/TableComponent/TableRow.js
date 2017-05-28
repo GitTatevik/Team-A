@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditRow from './EditRow.js';
 import array from '../array.js';
-import Fetch from '../Fetch.js';
+
 
 class TableRow extends Component{
 		     constructor(props){
@@ -10,16 +10,27 @@ class TableRow extends Component{
 		                editingShow:false,
 		                editRowData:{},
 		      			editRowIndex:"",
-						guidArray: []
+						//guidArray: []
 		     			}
 			     this.deleteRow=this.deleteRow.bind(this);
 			     this.editRow=this.editRow.bind(this);
 			     this.saveEditing=this.saveEditing.bind(this);
 			     this.cancel=this.cancel.bind(this);
 				 this.chackechange = this.chackechange.bind(this);
-				 this.sentDataBtn = this.sentDataBtn.bind(this);
+				 this.deleteChecks=this.deleteChecks.bind(this);
+				 this.checkboxes=[];
+				
 			    // var editRowData={};
 		     }
+			 
+			 deleteChecks(){
+				 for(let i of this.checkboxes){
+					 
+					 i.checked = false;
+					 
+				 }
+				 
+			 }
 	     deleteRow(event){
 		      // console.log(event.target.id);
 		     //console.log(array);
@@ -49,11 +60,9 @@ class TableRow extends Component{
 		     				editingShow:false 
 		     				});
 	     }
-		 sentDataBtn(){
-			Fetch.postData('http://crmbeta.azurewebsites.net/api/EmailSender?TemplateId=1', this.state.guid);
-		 }
+		
 		 chackechange(event){
-			let guidArray = this.state.guidArray;
+			 /*let guidArray = this.state.guidArray;
 			if(event.target.checked === true){
 					guidArray.push(this.props.dataArray[event.target.id].guid);
 			}
@@ -64,9 +73,11 @@ class TableRow extends Component{
 						
 					}
 				}
-			}
-			console.log(guidArray);
+			 }*/
+			this.props.selectedMailsAddDelete(event.target.id, event.target.checked);
+			
 		 }
+		 
 	     render(){
 		     const data=this.props.dataArray
 		      //console.log("TableRow Data :",data);
@@ -130,7 +141,7 @@ class TableRow extends Component{
 		      const tablerows = data.map((data,index)=>
 		     	<tr key={index} ref={index}>
 
-					<td> <input type="checkbox" onChange={this.chackechange} id={index} /> {/* <button id ={index} onClick={this.editRow} className="editbutton">Edit</button><button className ="deletebutton" onClick={this.deleteRow}  id={index}>Delete</button>*/}</td>
+					<td> <input type="checkbox" ref={checkbox=>{this.checkboxes.push(checkbox)}} onChange={this.chackechange} id={index} /> {/* <button id ={index} onClick={this.editRow} className="editbutton">Edit</button><button className ="deletebutton" onClick={this.deleteRow}  id={index}>Delete</button>*/}</td>
 			     	<td key={data.fullName}>
 				     	<EditRow update={this.props.update} data={data.fullName} propName="fullName" editingData={this.state.editRowData} 
 				     	show={this.state.editingShow} indexEdit={this.state.editRowIndex}/>
@@ -156,10 +167,12 @@ class TableRow extends Component{
 		     	</tr>
 		     	);
 		     	return(
+				
 		     		<tbody>
 		     			{tablerows}
-						<button onClick = {this.sentDataBtn}>SentPostMethodDatas</button>
+						
 		     		</tbody>
+					
 		     	);
 		      
 

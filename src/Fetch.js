@@ -1,18 +1,26 @@
-class Fetch{
-  static getData(url){
-return new Promise((resolve, reject) => {
-        fetch(url).then(response => resolve(response.json()), err => reject(err));
-      })     
-  } 
-  static postData(url,data){
-    return new Promise((resolve,reject) =>{
-      fetch(url,{method: "POST", headers: {'Accept': 'application/json',
-          'Content-Type': 'application/json'},
-          body: JSON.stringify(data)})
-          .then(response => resolve(response.text(), err => reject(err)))   
-    }) 
+export default function call(uri, method, body = false){
+  if(body !== false && method!=="GET"){
+    body = JSON.stringify(body);
   }
+  return fetch('http://crmbeta.azurewebsites.net/'+uri,{method: method,
+    headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+    body : body,
+    }
+  )
+  .then(function(response){
+    if (!response.ok) {
+      return {error: true, message: response.statusText};
+    }
+	const contentType = response.headers.get("content-type");
+  if(contentType && contentType.indexOf("application/json") !== -1) {
+    return response.json();
+  } else {
+    return response.text();
+  }
+  })
+  .then(data => Promise.resolve(data))
+  .catch((error) => {
+      return {error: true, message: error.message};
+    });
 }
-//Fetch.getData('http://crmbeta.azurewebsites.net/api/contacts').then(response => console.log(response));
 
-export default Fetch;
