@@ -60,6 +60,7 @@
 #theader{
 	height: 30px;
     color: #666467;
+	
     text-align: center;
     font-size: 2.5em;
     padding: 10px;
@@ -71,20 +72,22 @@
 }
 
 .btn_table{
-	width:100%;
+	width:25.4%;
 	padding: 10px;
     color: #fff;
-    background-color: #009688;
+    background-color: #504254;
     border-radius: .1rem;
 	border: 0px solid transparent;
     transition: .5s;
     cursor: pointer;
 	box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
+	font-size: 1.2em;
 }
 
 
 .btn_table:hover{
-	 background-color: #735a73; 
+	 background-color: #62bbb3; 
+	 
 }
 	
 	@media (max-width:768px) {
