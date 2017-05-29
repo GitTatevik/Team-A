@@ -1,6 +1,15 @@
 import React,{Component} from 'react';
 
 class TableHeader extends Component{
+	constructor(props){
+	super(props);
+	this.selectAll = this.selectAll.bind(this);
+	}
+	 selectAll(event){
+		 this.props.selectAll(event.target.checked);
+		 console.log("cherevac");
+	 }
+		 
 		 render(){
 
 		 const obj=this.props.headerdata;
@@ -14,10 +23,15 @@ class TableHeader extends Component{
 		  	<th key={index}>{headers}</th>
 
 		  );
+		  
+		 
 		 	return(
 		 <thead>
 		 	<tr >
-				 <th>  Action</th>
+				 <th> 
+				 Select All
+				 <input onChange={this.selectAll}type="checkbox" />
+				 </th>
 		 		{header}
 		 		
 		 	</tr>

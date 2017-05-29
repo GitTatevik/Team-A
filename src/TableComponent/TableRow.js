@@ -79,7 +79,8 @@ class TableRow extends Component{
 		 }
 		 
 	     render(){
-		     const data=this.props.dataArray
+		     const data=this.props.dataArray;
+			 this.checkboxes=[];
 		      //console.log("TableRow Data :",data);
 		      if(this.state.editingShow){
 		         /* const editingrow = data[this.state.editRowIndex];
