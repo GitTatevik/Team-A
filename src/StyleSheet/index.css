@@ -4,6 +4,7 @@
 }
 html,body{
 	height:100%;
+  background-color: #f1f1f1;
 }
 
 @font-face {
@@ -21,23 +22,25 @@ main{
     float: left;
 	margin-left:20%;
 	margin-top:61px;
-	
+
 }
 a{
     display: block;
     height: 100%;
     width: 100%;
+    padding-left:35px;
+    padding-top:17px;
     text-decoration: none;
-    
+
 }
 
- 
-@media (max-width:768px) {
+
+@media (max-width:866px) {
 
     main{
         width: 100%;
 		margin-left:0;
     }
-	
+
 
 }

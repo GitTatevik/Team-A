@@ -1,135 +1,262 @@
 import React, { Component } from 'react';
 import TableHeader from'./TableHeader.js';
 import TableRow from './TableRow.js';
-import AddRowTable from './AddRowTable.js';
-import call from '../Fetch.js';
 import '../StyleSheet/Table.css';
-import Overlay from './Overlay.js';
+import call from '../Fetch.js';
+import Edit from './Edit.js';
+import AddContact from './AddContact.js';
+import UploadFile from './UploadFile.js';
+import TemplateSelect from './TemplateSelect.js';
 
-
-
-//	import array from '../array.js';
-
-class Table extends Component{
-			constructor(props){
-				super(props);
-				this.state={
-				data:[],
-				isCheckedMails:false,
-				overlay:false
-				};
-				this.updateTable=this.updateTable.bind(this);
-				this.sentDataBtn = this.sentDataBtn.bind(this);
-				this.selectedMailsAddDelete = this.selectedMailsAddDelete.bind(this);
-				this.selectedMails=[];
-				this.selectAll = this.selectAll.bind(this); 
-				this.createEmailList = this.createEmailList.bind(this);
-				this.DeleteSelected = this.DeleteSelected.bind(this);
-				this.AddContact =  this.AddContact.bind(this);
-				this.UploadFileToContacts = this.UploadFileToContacts.bind(this);
- 			}
-			
-			
-			selectedMailsAddDelete(id,isChecked){ // is checked-ov imanalu enq check exel e te che,checkboxy
-			if(isChecked===true){
-				if(this.selectedMails.length == 0){
-					this.setState({isCheckedMails:true});	
-				}
-			this.selectedMails.push(this.state.data[id].guid);
+class Table extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: [],
+			guids: [],
+			edit: false,
+			editObj: {},
+			disabled: true,
+			addContact: false,
+			checkedBoxArray: [],
+			creatListBtndisabled:true,
+			uploadFile:false,
+			TemplateId:"4"
+		};
+		this.sendMail = this.sendMail.bind(this);
+		this.getGuid = this.getGuid.bind(this);
+		this.saveFromEdit = this.saveFromEdit.bind(this);
+		this.cancel = this.cancel.bind(this);
+		this.onClickEditBtn = this.onClickEditBtn.bind(this);
+		this.isDisable = this.isDisable.bind(this);
+		this.addContact = this.addContact.bind(this);
+		this.back = this.back.bind(this);
+		this.delete = this.delete.bind(this);
+		this.update = this.update.bind(this);
+		this.checkBoxChanges = this.checkBoxChanges.bind(this);
+		this.createMailList = this.createMailList.bind(this);
+		this.mailListName = this.mailListName.bind(this);
+		this.backfromUploadFile = this.backfromUploadFile.bind(this);
+		this.getSeletValue = this.getSeletValue.bind(this);
+		this.cancelUpload = this.cancelUpload.bind(this);
+	}
+			checkBoxChanges(target) {
+				this.state.checkedBoxArray.push(target);
 			}
-			else{
-				let idChecking = this.selectedMails.indexOf(this.state.data[id].guid);
-				if(idChecking !== -1){ 
-				this.selectedMails.splice(idChecking,1);
-				if(this.selectedMails.length == 0){
-					this.setState({isCheckedMails:false}); // erb vor lriv datarkvum e array-y nor verjum anum enq
-				}
-				}
-				
-			}
-			
-			}
-			// Updates after demo day
-			createEmailList(){
-				this.setState({overlay:true});
-			}
-			DeleteSelected(){
-				this.setState({overlay:true});
-			}
-			AddContact(){
-				this.setState({overlay:true});
-			}
-			UploadFileToContacts(){
-				this.setState({overlay:true});
-			}
-			
-			
-			selectAll(selectedChecks){
-				for(let i of this.tablerow.checkboxes){
-					console.log(i);
-					i.checked = selectedChecks;
-				
-					this.selectedMailsAddDelete(i.id, i.checked);  // null e uxarkum, inchu?
-				}	
-			}
-			
-			updateTable(){
-		      this.setState({data:[]});
-		      //console.log("update table, and Data",array);
-			}
-			
-			componentDidMount(){
-				//console.log("componentDidMount");
-				call('api/contacts','GET').then((response)=>{
-				if(response.error){
-				alert(response.message)
-				}
-				else{
-					console.log(response);
-				this.setState({data:response});
-				}
+			isDisable(disabled) {
+				this.setState({
+					disabled: disabled
 				});
 			}
-			sentDataBtn(){
-				this.setState({overlay:true});
-				call('api/EmailSender?TemplateId=1','POST', this.selectedMails).then(function(response){
-				if(response.error){
-			
-				alert(response.message); 
-				}
-				else{
-				
-				alert("Message sent!");
-				}
+
+			getGuid(guidArray) {
+				this.setState({
+					guids: guidArray
 				});
-			
-			this.selectedMails=[];
-			this.setState({isCheckedMails:false}) // disabled enq sarqum
-			this.tablerow.deleteChecks();
-		 }
-			
+			}
+			componentDidMount() {
+				call('http://crmbeta.azurewebsites.net/api/Contacts', 'GET').then(response => {
+					this.setState({
+						data: response
+					});
+					console.log("GET Data",response);
+				});
+			}
+			sendMail() {
+
+
+				if (this.state.guids.length !== 0) {
+					call('http://crmbeta.azurewebsites.net/api/EmailSender?TemplateId='+this.state.TemplateId, 'POST', this.state.guids).then(function(response) {
+						console.log("status",response);
+						alert("Send");
+					});
+				}
+
+				this.setState({
+					disabled: true,
+					guids: []
+				});
+				for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
+					this.state.checkedBoxArray[i].checked = false;
+				}
+
+			}
+			onClickEditBtn(event) {
+				this.setState({
+					editObj: this.state.data[event.target.id]
+				});
+				this.setState({
+					edit: true
+				});
+			}
+			cancel() {
+				this.setState({
+					edit: false
+				});
+			}
+			saveFromEdit() {
+				this.setState({
+					edit: false
+				});
+			}
+			addContact() {
+				this.setState({
+					addContact: true
+				});
+			}
+			uploadFile() {
+				this.setState({
+					uploadFile: true
+				});
+			}
+			backfromUploadFile(){
+				this.setState({
+					uploadFile: false
+				});
+			}
+
+
+			delete() {
+				let self = this;
+				call('http://crmbeta.azurewebsites.net/api/Contacts', 'DELETE', this.state.guids).then(function(data) {
+					self.update();
+					//alert("detele");
+					self.setState({
+						disabled: true
+					});
+				});
+				for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
+					this.state.checkedBoxArray[i].checked = false;
+				}
+
+			}
+			update() {
+				call('http://crmbeta.azurewebsites.net/api/Contacts', 'GET').then(response => {
+					this.setState({
+						data: response,
+						guids: []
+					});
+				});
+			}
+			mailListName(){
+				if(this.refs.creatMList.value){
+					this.setState({
+					creatListBtndisabled:false
+
+				})
+				}else{
+					this.setState({
+					creatListBtndisabled:true
+
+				})
+				}
+			}
+			createMailList(){
+				let self = this;
+				if(this.refs.creatMList.value){
+						if(this.state.guids.length > 0){
+								call('http://crmbeta.azurewebsites.net/api/EmailLists', 'POST', {EmailListName :this.refs.creatMList.value,
+									                                                                Contacts:this.state.guids}).then(function(){
+									self.setState({
+												creatListBtndisabled: true,
+												disabled: true,
+												guids: []
+											});
+									self.refs.creatMList.value="";
+
+								for (let i = 0; i < self.state.checkedBoxArray.length; ++i) {
+									self.state.checkedBoxArray[i].checked = false;
+									}
+								})
+								console.log("creat New Mail List");
+
+						}else{
+							alert("Did not Choose Contact");
+						}
+				}else{
+					alert("Mail List Name No valid");
+				}
+			}
+			getSeletValue(value){
+					this.state.TemplateId=value;
+               //console.log("In State Id",this.state.TemplateId);
+			}
+
+			openUpload(){
+    this.setState({
+     popup: true,
+     upload: true,
+     addContact: false
+    })
+   }
+
+   cancelUpload(){
+                this.setState({
+                    popup: false,
+                    addContact: false
+                })
+   }
+   addContact() {
+    this.setState({
+     popup: true,
+     upload: false,
+     addContact: true
+    });
+		
+   }
+   back() {
+    this.setState({
+     popup: false,
+                    upload: false,
+                    addContact: false
+    });
+   }
 			render(){
+				//console.log("this.state.guids",this.state.guids);
+				if(this.state.edit){
+					return(
+				<div className="UserTable">
+					<div id="scroll">
+			        <Edit data={this.state.editObj} save={this.saveFromEdit}  cancel={this.cancel} update={this.update}/>
+			        </div>
+				</div>
+					);
+				}
 		     	return(
 		     	<div className="UserTable">
-				{this.state.overlay && <Overlay />} {/*dzax masy false e aj masy true, (or` mer overlay-y), ev-ov stugum enq, 
-				ete 2 sn el cisht en, uremn paymani mijiny katarum e` render e linum overlay-y*/}
-				<div id="theader">stex inch-vor info petq e cuyc tanq?</div>
-					<div id="scroll">
-			     	<table className="table">
-			     	<TableHeader selectAll={this.selectAll} headerdata={this.state.data[0]} className="tableheader"/>
-			     	<TableRow ref={childTableRow=>{this.tablerow=childTableRow}} selectedMailsAddDelete={this.selectedMailsAddDelete} update={this.updateTable} dataArray={this.state.data}/>
-			     	</table> 
-					
-			     </div>
-			     <button className="" disabled={!this.state.isCheckedMails} onClick = {this.createEmailList}>Create Email List</button>
-				 <button className="" disabled={!this.state.isCheckedMails}onClick = {this.DeleteSelected}>Delete selected</button>
-				 <button className="" onClick = {this.AddContact}>Add contact</button>
-				 <button className="" onClick = {this.UploadFileToContacts}>Upload file to contacts</button>
-				 <button className="" disabled={!this.state.isCheckedMails} onClick = {this.sentDataBtn}>Send data</button>
-				 <AddRowTable  update={this.updateTable} Id={this.state.data.length + 1} className="addrowtable"/>
+							<div className="openWindow"  style={{display:this.state.popup?'flex':'none'}} >
+	             	<div className = "formContainer">
+	        				<div style={{display:this.state.addContact?'flex':'none'}}>
+	         					<AddContact className="openWindow" back={this.back} update={this.update}/>
+									</div>
+        					<div style={{display:this.state.upload?'flex':'none'}} >
+         							<UploadFile cancelUpload={this.cancelUpload} className="openWindow" />
+        					</div>
+									</div>
+ 							</div>
+							<div id='scroll'>
+						     	<table className="table">
+						     	<TableHeader headerdata={this.state.data[0]} className="tableheader" checkedChange={this.checkedChange} checked={this.state.allchecked}/>
+						     	<TableRow isdisabledprop={this.isDisable}  dataArray={this.state.data} guids={this.state.guids} editBtn={this.onClickEditBtn} checkBoxChanges={this.checkBoxChanges}/>
+						     	</table>
+							</div>
+				 <div className="btnBox">
+					 <div id="templateSelectBox">
+						 <span>Template&nbsp;&nbsp;</span>
+					 <TemplateSelect getValue={this.getSeletValue} />
+					 <button  id="sendBtn" disabled={this.state.disabled} onClick={this.sendMail} className="tableButtons">Send Email</button>
+
+					 </div>
+ 					<button  id="deleteBtn" disabled={this.state.disabled} className="deleteBtn tableButtons" onClick={this.delete}>Delete Selected</button>
+ 					 <button  id="addBtn"  onClick={this.addContact} className="tableButtons">Add Contact</button>
+ 					 <button className="createBtn tableButtons">Create New List</button>
+ 					 <button className="tableButtons" onClick={this.openUpload.bind(this)} >Upload</button>
 				 </div>
+				 </div>
+
+
 		     	);
 		     }
-     	
+
 	}
     export default Table;

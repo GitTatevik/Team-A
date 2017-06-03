@@ -35,7 +35,7 @@ class Header extends Component{
                   <div className="user flex">
                       <ul className="list flex">
                           {/*<li className="list_item">Username</li>*/}
-						  {/*<li className="list_item"><NavLink activeStyle={{ backgroundColor: '#907a94' }} to='/login'>Log out</NavLink></li>*/}
+                          {/*<li className="list_item"><NavLink activeClassName="active" to='/login'>Log out</NavLink></li>*/}
                       </ul>
                   </div>
               </div>
@@ -47,11 +47,11 @@ class Header extends Component{
                  <div className="close_item"></div>
              </div>
              <ul className="menu_list">
-                 <li className="menu_item"><NavLink activeStyle={{ backgroundColor: '#907a94' }} to='/table'>Contact List</NavLink></li>
-                {/* <li className="menu_item"><NavLink activeStyle={{ backgroundColor: '#907a94' }} to='/addmailinglist'>MailList</NavLink></li>*/}
-				{/*<li className="menu_item"><NavLink activeStyle={{ backgroundColor: '#907a94' }} to='/sendemails'> Send Email </NavLink></li>*/}
-				{/*<li className="menu_item"><NavLink activeStyle={{ backgroundColor: '#907a94' }} to='/login'>Log Out </NavLink></li>*/}
-			</ul>
+                 <li className="menu_item"><NavLink activeClassName="active" to='/table'>Contacts</NavLink></li>
+                {/* <li className="menu_item"><NavLink activeClassName="active" to='/addmailinglist'>MailList </NavLink></li>
+                 <li className="menu_item"><NavLink activeClassName="active" to='/sendemails'> Send Email </NavLink></li>
+                 <li className="menu_item"><NavLink activeClassName="active" to='/login'>Log Out </NavLink></li>*/}
+             </ul>
          </div>
       </div>
     );

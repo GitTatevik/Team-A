@@ -1,39 +1,26 @@
 import React,{Component} from 'react';
+import '../StyleSheet/Table.css';
 
 class TableHeader extends Component{
-	constructor(props){
-	super(props);
-	this.selectAll = this.selectAll.bind(this);
-	}
-	 selectAll(event){
-		 this.props.selectAll(event.target.checked);
-		 console.log("cherevac");
-	 }
-		 
 		 render(){
 
 		 const obj=this.props.headerdata;
+		 //console.log("header obj",obj)
 		 let headers =[];
 			  for(let i in obj){
 			  		headers.push(i);
-			  }
-			  headers = headers.slice(0, 5);
-		  //console.log("TableHeader Data :",headers);
-		  let header = headers.map((headers,index)=>
-		  	<th key={index}>{headers}</th>
 
-		  );
-		  
-		 
+			  }
+			let header=  headers.splice(0,5);
+
+         let head= header.map((headers,index)=>
+				 <th key={index}>{headers}</th>);
 		 	return(
 		 <thead>
 		 	<tr >
-				 <th> 
-				 Select All
-				 <input onChange={this.selectAll}type="checkbox" />
-				 </th>
-		 		{header}
-		 		
+				<th>Select</th>
+                 {head}
+				 <th>Edit</th>
 		 	</tr>
 		 </thead>
 		 	);

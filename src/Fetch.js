@@ -1,26 +1,23 @@
-export default function call(uri, method, body = false){
+export function call(url, method, body = false, error_message = "Something went wrong"){
   if(body !== false && method!=="GET"){
     body = JSON.stringify(body);
   }
-  return fetch('http://crmbeta.azurewebsites.net/'+uri,{method: method,
+  return fetch(url,{method: method,
     headers: {'Accept': 'application/json','Content-Type': 'application/json'},
     body : body,
     }
   )
   .then(function(response){
     if (!response.ok) {
-      return {error: true, message: response.statusText};
+      return response;
     }
-	const contentType = response.headers.get("content-type");
-  if(contentType && contentType.indexOf("application/json") !== -1) {
-    return response.json();
-  } else {
-    return response.text();
-  }
+     //console.log(response);
+    return response;
+   
   })
-  .then(data => Promise.resolve(data))
+  .then(response => response.json())
   .catch((error) => {
-      return {error: true, message: error.message};
+      return error;
     });
 }
-
+export default call;

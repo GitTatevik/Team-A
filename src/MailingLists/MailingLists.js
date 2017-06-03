@@ -1,102 +1,127 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import '../StyleSheet/MailingLists.css';
-import { EditAddList } from './EditAddList';
-
-
-const datab = ["ATAMNABUJNER", "MARKETOLOGNER", "BJISHKNER", "BUSAKERNER", "SIRELI HAYRENAKICNER"]
-const Database = { name: "Marketologs", emails: ["eagis92@gmail.com", "easdsgis92@gmail.com", "eauytrfsgis92@gmail.com", "eagssfe@gmail.com", "mkhitaryan@mail.ru", "movsiyan@mail.ru", "petrosyan@mail.ru", "esiminchyan@esiminch.ru"] }
+import call from '../Fetch.js';
+import MailListContacts from './MailListContacts.js';
 
 class MailingLists extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { edit: false, addNew: false, };
-        this.addEdit = this.addEdit.bind(this);
-        this.addNew = this.addNew.bind(this);
-        this.closeEmailsDiv=this.closeEmailsDiv.bind(this);
+	constructor(props) {
+		super(props);
+		this.state = {
+			maillists: [],
+			mailListContacts: [],
+			mailListHeader: "",
+			checkedBoxArray: [],
+			selectedMailListId: []
+		}
+		this.seeContacts = this.seeContacts.bind(this);
+		this.checkBoxOnChange = this.checkBoxOnChange.bind(this);
+		this.delete = this.delete.bind(this);
+		this.update = this.update.bind(this);
+	}
 
-    }
+	componentDidMount() {
+		let self = this;
+		call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(function(list) {
+			 console.log("maillists",list);
+			self.setState({
+				maillists: list
+			});
+		})
+	}
+	delete() {
 
-    addEdit() {
-        return (
-            <div>
-                <div>{this.renderExistedList()}</div>
-                <div><EditAddList closeMode={this.closeEmailsDiv} editMode={this.state.edit} database={Database} /></div>
-            </div>
-        )
-    }
+		let self = this;
+		call('http://crmbeta.azurewebsites.net/api/EmailLists'+this.state.selectedMailListId, 'DELETE').then(function() {
+			self.update();
+			alert("Delete Mail Lists")
+			self.setState({
+				selectedMailListId: []
+			});
+		})
+		for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
+			this.state.checkedBoxArray[i].checked = false;
+		}
+	}
+	update() {
+		let self = this;
+		call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(function(list) {
+			console.log("maillists", list);
+			self.setState({
+				maillists: list
+			});
+		})
+	}
+	seeContacts(event) {
+		console.log(event.target.id);
+		let datalist = this.state.maillists[event.target.id].Contacts;
+		this.setState({
+			mailListContacts: datalist,
+			mailListHeader: this.state.maillists[event.target.id].EmailListName
+		})
+	}
+	checkBoxOnChange(event) {
+		// console.log(event.target.id);
+		this.state.checkedBoxArray.push(event.target);
+		let index = event.target.id;
+		if (event.target.checked === true) {
+			this.state.selectedMailListId.push(this.state.maillists[index].EmailListID);
 
+		} else {
+			for (let i = 0; i < this.state.selectedMailListId.length; ++i) {
 
-    closeEmailsDiv(e) {
-        e.preventDefault();
-        if (this.state.edit) {
-            this.setState({ edit: !this.state.edit })
-        }
-        else {
-            this.setState({ addNew: !this.state.addNew })
-        }
+				if (this.state.maillists[index].EmailListID === this.state.selectedMailListId[i]) {
+					this.state.selectedMailListId.splice(i, 1);
 
+				}
 
-        console.log(this.state.edit)
-    }
+			}
+		}
+		console.log("MailListId Array",this.state.selectedMailListId);
+	}
 
-    handleEdit() {
-        this.setState({ edit: true });
-        this.setState({ addNew: false });
-    }
-    handleNew() {
-        this.setState({ addNew: true });
-        this.setState({ edit: false });
-    }
-
-    addNew() {
-        return (
-            <div>
-                <div>{this.renderExistedList()}</div>
-                <h3 className="list_head">Add new Mailing List</h3>
-                <div><EditAddList closeMode={this.closeEmailsDiv} database={Database} /></div>
-            </div>
-        )
-    }
-
-    renderTbody() {
-        let that = this;
-        return (
-            datab.map(function (value, key) {
-                return (<tr key={key} className="mail_row"><td className=" tabledata mailVal">{value}</td>
-                    <td className="tabledata"><button className="listbut btn_table" onClick={that.handleEdit.bind(that)}>EDIT</button></td>
-                    <td className="tabledata"><button onClick={that.handleNew.bind(that)} className="listbut btn_table">ADD NEW</button></td></tr>)
-            })
-        )
-    }
-
-    renderExistedList() {
-        return (
-            <div className="mainCont">
-                <table className="mailingListTable">
-                    <thead>
-                        <tr>
-                            <th className="tablehead">NAME</th>
-                            <th className="tablehead">EDIT</th>
-                            <th className="tablehead">ADD NEW</th>
-                        </tr>
-                    </thead>
-                    <tbody>{this.renderTbody()}</tbody>
-                </table>
-            </div>
-        )
-    }
 
     render() {
-        if (this.state.edit) {
-            return this.addEdit()
-        }
-        else if (this.state.addNew) {
-            return this.addNew()
-        }
+        const headers = <thead>
+                           <tr>
+                                {/*<th>Choose</th>*/}
+                                <th>Name</th>
+                                <th>Contacts </th>
+                                <th>Action</th>
+                            </tr>
+                       </thead>
+         const data=this.state.maillists
+		      const row = data.map((data,index)=>
+		     	<tr key={index} ref={index}>
+                     {/*<td key={index} id="checkbox">
+						 <input type="checkbox" ref={index} id={index} onChange={this.checkBoxOnChange} />
+					 </td>*/}
+			     	 <td key={data.EmailListName}>
+				     	{data.EmailListName}
+                     </td>
+					  <td key={data.Contacts.length}>
+				     	{data.Contacts.length}
+                     </td>
+			     	<td ><button  id={index} onClick={this.seeContacts}>See Contacts</button></td>
+		     	</tr>
+		     	);
+		     	return(
+                     <div>
+                        <div className ="Block">
+                            <table>
+                                {headers}
+                                <tbody>
+                                    {row}
+                                </tbody>
+                            </table>
+                             {/*<button  id="deleteBtn" disabled={this.state.disabled} className="deleteBtn" onClick={this.delete}>Delete Selected</button>*/}
+                        </div>
+                        <div className="Block">
+                          <MailListContacts data={this.state.mailListContacts} header={this.state.mailListHeader} />
+                        </div>
+                     </div>
 
-        return this.renderExistedList()
+		     	);
+
     }
 }
 export default MailingLists;
-
-
