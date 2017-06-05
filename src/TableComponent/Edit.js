@@ -17,14 +17,16 @@ class Edit extends Component {
 		let self = this;
 		//console.log("save edited data",editObj);
 		//alert("Save edited contact");
-		call('http://crmbeta.azurewebsites.net/api/Contacts?Guid=' + this.props.data.Guid, "PUT", editObj).then(function(data) {
+		call('http://crmbeta.azurewebsites.net/api/Contacts/' + this.props.data.Guid, "PUT", editObj).then(function(data) {
 			self.props.update();
 
 		});
 		this.props.save();
+
 	}
 
 			render(){
+
 				return(
 				<div className="formContainer">
 				<div id="flexEdit">
@@ -33,7 +35,9 @@ class Edit extends Component {
 					<p>Position <input type="text"  defaultValue={this.props.data.Position} ref="position"/></p>
 					<p>Country <input type="text"  defaultValue={this.props.data.Country} ref="country"/></p>
 					<p>Email <input type="email"  defaultValue={this.props.data.Email} ref="email"/></p>
-					<p><button id="btnEdit"className="addBtn" onClick={this.save}>Save</button><button className="addBtn" onClick={this.props.cancel}>Cancel</button></p>
+					<p><button className="addBtn saveBtn" onClick={this.save}>Save</button>
+						<button className="addBtn" onClick={this.props.cancel}>Cancel</button>
+					</p>
 				</div>
 				</div>
 				);

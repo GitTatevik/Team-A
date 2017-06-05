@@ -1,3 +1,56 @@
+.buttonsCont{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+.savebutton{  /* Edit section*/
+	border-radius: 5px;
+	background: blue;
+	color:white;
+	margin: 10px 10px;
+}
+.addBtn{ /*Add Contact buttons*/
+	width:90px;
+	padding:7px;
+	border: none;
+	border-radius: 1px;
+	cursor:pointer;
+	color:#fff;
+	background-color: #735a73;
+	transition: background-color 0.5s ease;
+	margin-top:10px;
+}
+.back{
+	margin-left:20px;
+}
+/*Edit contact row edit button*/
+.saveBtn{
+
+	margin-right:37%;
+}
+.addBtn:hover{  /*Edit contact row edit button*/
+	background-color:#60c5bb;
+}
+
+.tableButtons{
+	height: 37px;
+	color:#fff;
+	padding: 0 10px;
+	background-color: #735a73;
+	margin:15px 10px 10px 10px;
+	font-size: 1em;
+	box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
+}
+.tableButtons:disabled {
+	color: #735a73;
+	background-color: #ddd;
+}
+.deleteBtn{
+	background-color:#ff5353;
+	cursor:pointer;
+	color:#fff;
+}
+
 .UserTable {
     width: 100%;
     height: 100%;
@@ -5,7 +58,8 @@
     color: #513654;
     box-sizing: border-box;
 	padding:25px;
-	overflow:hidden;
+	overflow-x:auto;
+	overflow-y:hidden;
 }
 #scroll{
   height:90%;
@@ -28,6 +82,7 @@
   border: solid 0 transparent;
 
 }
+
 
 #checkbox{
 	text-align: center;
@@ -52,31 +107,6 @@
 	outline: none;
 }
 
-#sendBtn{
-  background-color:#735a73;
-	cursor:pointer;
-}
-
-#deleteBtn{
-	background-color:#ff5353;
-	cursor:pointer;
-}
-.savebutton{
-	border-radius: 5px;
-	background: blue;
-	color:white;
-	margin: 10px 10px;
-}
-
-#sendBtn:disabled{
- background: #dddddd;
- color:#735a73;
-}
-
-#deleteBtn:disabled{
-  background: #dddddd;
-  color:#735a73;
-}
 
 
 #theader{
@@ -98,11 +128,6 @@
 	align-items: center;
 }
 
-.buttonsCont{
-	display: flex;
-	justify-content: space-between;
-	margin-top: 15px;
-}
 
 .addInput{
 
@@ -111,7 +136,7 @@
   border-radius:1px solid grey;
 }
 
-.addBtn{
+.addBtn{ /*Add Contact buttons*/
 	width:90px;
 	padding:7px;
 	border: none;
@@ -121,13 +146,15 @@
   background-color: #735a73;
   transition: background-color 0.5s ease;
 }
-#btnEdit{
+/*Edit contact row edit button*/
+.saveBtn{
 
   margin-right:37%;
 }
-.addBtn:hover{
+.addBtn:hover{  /*Edit contact row edit button*/
   background-color:#60c5bb;
 }
+
 .closeWindow{
 	display:none;
 }
@@ -137,6 +164,9 @@ display:flex;
 justify-content: space-around;
 align-content: space-around;
 
+}
+.formContainerUpload {
+	background-color: #bbb0bd;
 }
 .formContainer{
   position: fixed;
@@ -157,21 +187,32 @@ display:inline-flex;
   width:100%;
 }
 
-.formContainer p{
 
-}
 .uploadContainer{
 	padding:50px;
 	display: flex;
 	flex-direction:column;
+	background-color:#dbd7dc;
+
+
 }
+
 
 .uploadButtonsCont{
 	display:flex;
 	margin-top:10px;
 	justify-content:space-between;
-}
 
+
+}
+.maillist{
+	margin-top:13px;
+	display: inline-block;
+
+	padding: 5px;
+	height: 40px;
+	border-radius: 5px;
+}
 
 .uploadButtons{
 	width:65px;
@@ -179,6 +220,7 @@ display:inline-flex;
 	border: none;
 	border-radius: 2px;
 	cursor:pointer;
+	color:#fff;
 }
 
 
@@ -189,29 +231,13 @@ display:inline-flex;
     margin-top: 10px;
 }
 
-.btn_table{
-	padding: 10px;
-    color: #fff;
-    background-color: #009688;
-    border-radius: .1rem;
-	border: 0px solid transparent;
-    transition: .5s;
-    cursor: pointer;
-	box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
-}
+
 
 .btnBox{
   display: flex;
 }
 
-.tableButtons{
-	height: 37px;
-	border: 1px solid #735a73;
-	padding: 0 10px;
-  background-color: #735a73;
-	margin:15px 10px 10px 10px;
-	font-size: 1em;
-}
+
 
 #templateSelectBox{
     display: flex;
@@ -223,28 +249,6 @@ display:inline-flex;
 justify-content: center;
 border: none;
 }
-
-.btn_table:hover{
-	 background-color: #735a73;
-}
-
-.send_mail{
-	padding: 6px;
-	color: #fff;
-    background-color: #009688;
-    border-radius: .1rem;
-	border: 0px solid transparent;
-    transition: .5s;
-    cursor: pointer;
-	box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
-}
-
-.send_mail:hover{
-	 background-color: #735a73;
-}
-
-
-
 
 	@media (max-width:866px) {
 

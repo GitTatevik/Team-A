@@ -25,14 +25,28 @@ class AddContact extends Component{
 				 
 			this.props.update();
 			let self =this;
-			call('http://crmbeta.azurewebsites.net/api/Contacts','POST',newContact).then(function(data){
-				self.props.update();
 
-			});
+                  fetch('http://crmbeta.azurewebsites.net/api/Contacts',{method:"POST",
+                          headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+                          body : JSON.stringify(newContact),
+                      }
+                  )
+                      .then(function(response){
+                          if (!response.ok) {
+                          	alert(response.statusText);
+                          }
+                          //console.log(response);
+					else {
+
+                              self.props.update();
+                          }
+                      });
+
+
 			 	//alert("save");
 				 this.props.back();
 			   }else{
-				alert("no valid contact");
+				alert("Please enter a valid Email");
 			}
 		  }
 

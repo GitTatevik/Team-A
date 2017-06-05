@@ -1,126 +1,114 @@
 import React, {Component} from 'react';
 import '../StyleSheet/MailingLists.css';
 import call from '../Fetch.js';
-import MailListContacts from './MailListContacts.js';
+import MailingListContacts from './MailingListContacts.js';
 
 class MailingLists extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			maillists: [],
-			mailListContacts: [],
-			mailListHeader: "",
-			checkedBoxArray: [],
-			selectedMailListId: []
-		}
-		this.seeContacts = this.seeContacts.bind(this);
-		this.checkBoxOnChange = this.checkBoxOnChange.bind(this);
-		this.delete = this.delete.bind(this);
-		this.update = this.update.bind(this);
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            maillists: [],
+            mailListContacts: [],
+            mailListHeader: "",
+            mailListId:0,
+            checkedMailLists:0
+        }
+        this.seeContacts = this.seeContacts.bind(this);
+        this.delete = this.delete.bind(this);
+        this.update = this.update.bind(this);
+        this.tabliToxery = [];
+         this.checkedMailList = [];
+    }
 
-	componentDidMount() {
-		let self = this;
-		call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(function(list) {
-			 console.log("maillists",list);
-			self.setState({
-				maillists: list
-			});
-		})
-	}
-	delete() {
-
-		let self = this;
-		call('http://crmbeta.azurewebsites.net/api/EmailLists'+this.state.selectedMailListId, 'DELETE').then(function() {
-			self.update();
-			alert("Delete Mail Lists")
-			self.setState({
-				selectedMailListId: []
-			});
-		})
-		for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
-			this.state.checkedBoxArray[i].checked = false;
-		}
-	}
-	update() {
-		let self = this;
-		call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(function(list) {
-			console.log("maillists", list);
-			self.setState({
-				maillists: list
-			});
-		})
-	}
-	seeContacts(event) {
-		console.log(event.target.id);
-		let datalist = this.state.maillists[event.target.id].Contacts;
-		this.setState({
-			mailListContacts: datalist,
-			mailListHeader: this.state.maillists[event.target.id].EmailListName
-		})
-	}
-	checkBoxOnChange(event) {
-		// console.log(event.target.id);
-		this.state.checkedBoxArray.push(event.target);
-		let index = event.target.id;
-		if (event.target.checked === true) {
-			this.state.selectedMailListId.push(this.state.maillists[index].EmailListID);
-
-		} else {
-			for (let i = 0; i < this.state.selectedMailListId.length; ++i) {
-
-				if (this.state.maillists[index].EmailListID === this.state.selectedMailListId[i]) {
-					this.state.selectedMailListId.splice(i, 1);
-
-				}
-
-			}
-		}
-		console.log("MailListId Array",this.state.selectedMailListId);
-	}
+     checkMailList(event){
+        if(event.target.checked){
+            this.checkedMailList.push(event.target);
+            this.setState({checkedMailLists:this.state.checkedMailLists + 1});
+        }
+        else{
+            this.setState({checkedMailLists:this.state.checkedMailLists - 1});
+        }
+    }
 
 
+    
+
+    delete(event) {
+       // console.log("maillist",this.state.maillists[event.target.id]);
+        let self = this;
+        call('http://crmbeta.azurewebsites.net/api/EmailLists/delete/'+ this.state.maillists[event.target.id].EmailListID  , 'DELETE').then(function () {
+            self.update();
+        })
+    }
+
+    update() {
+
+        let self = this;
+        call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(function (list) {
+
+            console.log("maillists", list);
+            self.setState({
+                maillists: list
+            });
+        })
+    }
+
+    seeContacts(event) {
+        let id = this.state.maillists[event.target.id];
+        call('http://crmbeta.azurewebsites.net/api/EmailLists?id=' + id.EmailListID, 'GET')
+
+            .then(list=>{
+                this.setState({
+                    mailListId:id.EmailListID,
+                    mailListContacts: list.Contacts,
+                    mailListHeader: id.EmailListName
+                })
+            })
+    }
+    componentDidMount() {
+            this.update();
+    }
     render() {
         const headers = <thead>
-                           <tr>
-                                {/*<th>Choose</th>*/}
-                                <th>Name</th>
-                                <th>Contacts </th>
-                                <th>Action</th>
-                            </tr>
-                       </thead>
-         const data=this.state.maillists
-		      const row = data.map((data,index)=>
-		     	<tr key={index} ref={index}>
-                     {/*<td key={index} id="checkbox">
-						 <input type="checkbox" ref={index} id={index} onChange={this.checkBoxOnChange} />
-					 </td>*/}
-			     	 <td key={data.EmailListName}>
-				     	{data.EmailListName}
-                     </td>
-					  <td key={data.Contacts.length}>
-				     	{data.Contacts.length}
-                     </td>
-			     	<td ><button  id={index} onClick={this.seeContacts}>See Contacts</button></td>
-		     	</tr>
-		     	);
-		     	return(
-                     <div>
-                        <div className ="Block">
-                            <table>
-                                {headers}
-                                <tbody>
-                                    {row}
-                                </tbody>
-                            </table>
-                             {/*<button  id="deleteBtn" disabled={this.state.disabled} className="deleteBtn" onClick={this.delete}>Delete Selected</button>*/}
-                        </div>
-                        <div className="Block">
-                          <MailListContacts data={this.state.mailListContacts} header={this.state.mailListHeader} />
-                        </div>
-                     </div>
+        <tr>
+            <th>Choose a MailList</th>
 
-		     	);
+        </tr>
+        </thead>
+        const data = this.state.maillists;
+        const row = data.map((data, index) =>
+            <tr key={index} ref={tRDomElemy => {
+                this.tabliToxery.push(tRDomElemy)
+            }}>
+                 {/*<td><input id={index} type="checkbox" onChange={this.checkMailList.bind(this)}/></td>*/}
+                <td  onClick={this.seeContacts}  id={index} key={data.EmailListName}>
+                    {data.EmailListName}
+                </td>
+                <td >
+                    <i className="glyphicon glyphicon-trash trash" id ={index} onClick={this.delete} />
+                </td>
+
+            </tr>
+        );
+        return (
+                <div className="scroll">
+
+                    <table className="mailingListTable" >
+                        {headers}
+                        <tbody>
+                        {row}
+                        </tbody>
+                    </table>
+                <MailingListContacts
+                 //checkedMailList = {this.state.checkedMailLists}
+                    updateContent = {this.seeContacts}
+                    mailListId={this.state.mailListId}
+                    data={this.state.mailListContacts}
+                    mailListInfo={this.state.mailListHeader}
+                />
+                </div>
+
+        );
 
     }
 }

@@ -34,13 +34,13 @@
 }
 
 .menu_item:hover{
-    background-color:#513654;
+    background-color:#a795a7;
 }
 .active{
-    background-color:#513654;
+    background-color:#a795a7;
 }
 a :active{
-    background-color:#513654;
+    background-color:#a795a7;
 }
 
 @media (max-width:866px) {

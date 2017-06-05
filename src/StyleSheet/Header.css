@@ -1,5 +1,5 @@
 .header_container{
-position:fixed;
+    position:fixed;
     height:10%;
 	width:100%;
 	top:0;
@@ -128,10 +128,10 @@ h1{
     font-size: 1.2em;
 }
 .active{
-    background-color:#513654;
+    background-color:#a795a7;
 }
 a :active{
-    background-color:#513654;
+    background-color:#a795a7;
 }
 
 

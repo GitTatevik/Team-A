@@ -1,26 +1,121 @@
-.Block{
-	float: left;
-}
-table {
-    width: 100%;
-    margin: 0px auto;
-    border: solid 2px #504b4b;
-    border-collapse: collapse;
-	 border-bottom: 0;
-	 
+
+
+.scroll{
+	width:100%;
+	display: flex;
+	padding:10px 10px 5px 10px;
+	justify-content:space-between;
+	overflow: auto;
+	flex-direction:column;
 }
 
-table td{
-	border:solid 2px #504b4b;
+
+.mailingListTable {
+	width: 100%;
+	margin: 0px auto;
+	border: solid 0 transparent;
 	border-collapse: collapse;
-	text-align: left;
-	padding-left: 5px;
-	
+	border-bottom: 0;
 }
-table th{
-	border:solid 2px #504b4b;
-	border-collapse: collapse;
+
+.mailingListTable tr:nth-child(even) {           
+    background-color: #f1f1f1;    
+	 }
+
+.mailingListTable tr:nth-child(odd) {     
+background-color:#dddddd; 
+}
+
+.mailingListTable tr{
+	display: flex;
+	justify-content: space-between;
+}
+
+.mailingListTable tr td{
+	width:100%;
+	padding: 3px 0 3px 0;
+	cursor:pointer;
+}
+.mailingListTable td{
 	text-align: left;
 	padding-left: 5px;
-	
+	border: solid 0 transparent;
+}
+
+.mailingListTable th{
+	text-align: left;
+	border:none;
+}
+
+.trash{
+	align-self:flex-end;
+	cursor: pointer;
+}
+
+.mailListContainer{
+	width:100%;
+}
+
+.mailingListContactsTable {
+	width:100%;
+	border-collapse: collapse;
+
+
+}
+
+.mailingListContactsTable thead tr{
+	border-bottom:1px solid lightgrey;
+}
+
+.mailingListContactsTable tr{
+	border-bottom:1px solid lightgrey;
+}
+.mailingListContactsTable td{
+	border-collapse: collapse;
+	text-align: left;
+	padding: 5px 0 5px 5px;
+}
+
+
+.mailingListContactsTable th{
+	text-align: left;
+	padding-left: 5px;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+#trLine{
+
+	border-bottom:1 px solid lightgrey;
+}
+
+.h2{
+	font-size: 1.8em;
+	text-align: center;
+	color: #009688;
+	border-bottom: 1px solid #009688;
+
+}
+
+.btnContainer{
+	width:100%;
+}
+
+.mailBtn{
+	height: 37px;
+	border: 1px solid #735a73;
+	padding: 0 10px;
+	margin: 15px 10px 10px 10px;
+	font-size: 1em;
+	background: #735a73;
+	color: #fff;
+	transition: background-color 0.5s ease;
+}
+
+.mailBtn:hover{  /*Edit contact row edit button*/
+	background-color:#60c5bb;
+}
+
+.mailBtn:disabled{
+	color: #735a73;
+	background-color: #ddd;
 }
