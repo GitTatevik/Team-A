@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TableHeader from'./TableHeader.js';
 import TableRow from './TableRow.js';
-import '../StyleSheet/Table.css';
+import '../StyleSheet/Contacts.css';
 import call from '../Fetch.js';
 import Edit from './Edit.js';
 import AddContact from './AddContact.js';
@@ -116,9 +116,18 @@ class Table extends Component {
     }
 
     uploadFile() {
-        this.setState({
-            uploadFile: true
-        });
+       let data = new FormData();
+    	let fileData = document.querySelector('input[type="file"]').files[0];
+    	data.append("data", fileData);	
+			fetch("http://crmbeta.azurewebsites.net/api/contacts/upload", {
+				method: "POST",
+				"Content-Type": "multipart/form-data",
+				"Accept": "application/json",
+				body: data
+			}).then(function (res) {
+				console.log(res)
+				return res.json()
+			}).then(res => console.log(res))
     }
 
     backfromUploadFile() {

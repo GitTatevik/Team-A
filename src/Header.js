@@ -30,7 +30,7 @@ class Header extends Component{
              </div>
               <div className="header flex">
                   <div className="logo">
-                      <h1>BetBoard</h1>
+                      <h1>Bet CRM</h1>
                   </div>
                   <div className="user flex">
                       <ul className="list flex">
@@ -47,8 +47,8 @@ class Header extends Component{
                  <div className="close_item"></div>
              </div>
              <ul className="menu_list">
-                 <li className="menu_item"><NavLink activeClassName="active" to='/table'>Contacts</NavLink></li>
-                 <li className="menu_item"><NavLink activeClassName="active" to='/addmailinglist'>MailList </NavLink></li>
+                 <li className="menu_item"><NavLink activeClassName="active" to='/contacts'>Contacts</NavLink></li>
+                 <li className="menu_item"><NavLink activeClassName="active" to='/addmailinglist'>Mailing list </NavLink></li>
                  {/* <li className="menu_item"><NavLink activeClassName="active" to='/sendemails'> Send Email </NavLink></li>
                  <li className="menu_item"><NavLink activeClassName="active" to='/login'>Log Out </NavLink></li>*/}
              </ul>

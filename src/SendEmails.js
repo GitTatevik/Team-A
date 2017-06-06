@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './StyleSheet/SendEmails.css';
 const databaseGroup = ["Marcetologs", "Engineers", "Programmers", "Dancers", "Singers"];
 const databaseTemplate = ["Marcetologs", "Engineers", "Programmers", "Dancers", "Singers"];
 

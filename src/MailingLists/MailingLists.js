@@ -55,7 +55,7 @@ class MailingLists extends Component {
 
     seeContacts(event) {
         let id = this.state.maillists[event.target.id];
-        call('http://crmbeta.azurewebsites.net/api/EmailLists?id=' + id.EmailListID, 'GET')
+        call('http://crmbeta.azurewebsites.net/api/EmailLists/' + id.EmailListID, 'GET')
 
             .then(list=>{
                 this.setState({
@@ -70,18 +70,18 @@ class MailingLists extends Component {
     }
     render() {
         const headers = <thead>
-        <tr>
+        <tr  >
             <th>Choose a MailList</th>
 
         </tr>
         </thead>
         const data = this.state.maillists;
         const row = data.map((data, index) =>
-            <tr key={index} ref={tRDomElemy => {
+            <tr key={index} ref={tRDomElemy => {  // recycle bin icon
                 this.tabliToxery.push(tRDomElemy)
             }}>
                  {/*<td><input id={index} type="checkbox" onChange={this.checkMailList.bind(this)}/></td>*/}
-                <td  onClick={this.seeContacts}  id={index} key={data.EmailListName}>
+                <td  onClick={this.seeContacts}  id={index} key={data.EmailListName} >
                     {data.EmailListName}
                 </td>
                 <td >

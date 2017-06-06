@@ -1,4 +1,4 @@
-import '../StyleSheet/Table.css';
+import '../StyleSheet/Contacts.css';
 import React,{Component} from 'react';
 class UploadFile extends Component {
 
@@ -16,3 +16,4 @@ class UploadFile extends Component {
 
 }
 export default UploadFile;
+
