@@ -30,7 +30,7 @@ class TemplateSelect extends Component {
         //     <option key={data.Id} value={data.Id} >{data.TemplateName}</option>
         // })
         return(
-            <select onChange={this.selectOnChange} defaultValue="" >
+            <select onChange={this.selectOnChange} defaultValue=""  >
                 <option value="0">No selected</option>
                 <option value="1">Anniversary</option>
                 <option value="2">Birthday</option>

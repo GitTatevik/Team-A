@@ -62,8 +62,9 @@ export default class MailingListContacts extends Component{
 
 
     deleteEmails(){
+        console.log("mail list id",this.props.mailListId);
         let that = this;
-        fetch('http://crmbeta.azurewebsites.net/api/EmailLists/remove/' + this.props.mailListId,{
+        return fetch('http://crmbeta.azurewebsites.net/api/EmailLists/remove/' + this.props.mailListId,{
             method: 'PUT',
         headers: {'Accept': 'application/json','Content-Type': 'application/json'},
             body:
@@ -87,9 +88,11 @@ export default class MailingListContacts extends Component{
     }
     componentWillReceiveProps(nextProps){
         this.setState({disabledValue:nextProps.checkedMailList});
+        console.log("contacts",nextProps.data);
     }
 
     render(){
+ console.log("contacts",this.props.data);
         this.emptyCheckedList();
         return(
             <div className="mailListContainer">
@@ -127,9 +130,8 @@ export default class MailingListContacts extends Component{
                     </tbody>
                 </table>
                 <div className="btnContainer">
-                    <TemplateSelect getValue={this.getValue} enableSelect={this.props.data.length}/>
-                    <button onClick={this.sendEmails}  disabled={(this.props.data.length > 0)?'':'disabled'} className="mailBtn">Send</button>
-                    <button onClick={this.deleteEmails} disabled={(this.props.data.length > 0)?'':'disabled'} className="mailBtn dltMailBtn">Delete</button>
+                    <button onClick={this.deleteEmails} disabled={(this.props.data.length > 0)?'':'disabled'}
+                            className="mailBtn dltMailBtn">Delete checks</button>
 
                 </div>
             </div>

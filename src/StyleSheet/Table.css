@@ -9,6 +9,16 @@
 	color:white;
 	margin: 10px 10px;
 }
+#templateSelectBox {
+	display: flex;
+	align-items: center;
+}
+
+.glyphicon{
+	color:#735a73;
+	font-size: 1.5em;
+}
+
 .addBtn{ /*Add Contact buttons*/
 	width:90px;
 	padding:7px;
@@ -33,22 +43,24 @@
 }
 
 .tableButtons{
-	height: 37px;
-	color:#fff;
+	box-sizing:border-box;
+	height:auto;
+	color: #735a73;
 	padding: 0 10px;
-	background-color: #735a73;
-	margin:15px 10px 10px 10px;
-	font-size: 1em;
-	box-shadow: 0 0px 0px 0 rgba(56,38,0,1);
+	margin-left:5px;
+	background-color:transparent;
+	border:1px solid #735a73;
 }
 .tableButtons:disabled {
 	color: #735a73;
-	background-color: #ddd;
+	border:0;
+	background-color:transparent;
+
 }
 .deleteBtn{
-	background-color:#ff5353;
+	border:1px solid red;
 	cursor:pointer;
-	color:#fff;
+	color:#735a73;
 }
 
 .UserTable {
@@ -208,7 +220,6 @@ display:inline-flex;
 .maillist{
 	margin-top:13px;
 	display: inline-block;
-
 	padding: 5px;
 	height: 40px;
 	border-radius: 5px;
@@ -226,6 +237,7 @@ display:inline-flex;
 
 
 .AddRow{
+
 	display:inline-flex;
 	flex-direction: column;
     margin-top: 10px;
@@ -239,27 +251,7 @@ display:inline-flex;
 
 
 
-#templateSelectBox {
-	display: flex;
-	align-items: center;
-}
 
-.flexButton{
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-
-}
-
-.glyphicon-envelope{
-
-	color:#735a73;
-	font-size: 25px;
-
-}
-.glyphicon-envelope:disabled{
-	color:#ddd;
-}
 
 .edit{
   display: flex;

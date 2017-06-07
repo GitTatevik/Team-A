@@ -8,6 +8,7 @@ import AddContact from './AddContact.js';
 import UploadFile from './UploadFile.js';
 import TemplateSelect from './TemplateSelect.js';
 import Overlay from './Overlay.js';
+import AddtoExisting from './AddtoExisting.js';
 
 class Table extends Component {
     constructor(props) {
@@ -24,7 +25,8 @@ class Table extends Component {
             uploadFile: false,
             TemplateId: "",
             sendButton: false,
-            mailList:''
+            mailList:'',
+            closeAddTo:false
         };
         this.sendMail = this.sendMail.bind(this);
         this.getGuid = this.getGuid.bind(this);
@@ -42,6 +44,9 @@ class Table extends Component {
         this.backfromUploadFile = this.backfromUploadFile.bind(this);
         this.getSeletValue = this.getSeletValue.bind(this);
         this.cancelUpload = this.cancelUpload.bind(this);
+        this.closeAddTo = this.closeAddTo.bind(this);
+        this.addToExisting = this.addToExisting.bind(this);
+
     }
 
     checkBoxChanges(target) {
@@ -229,6 +234,14 @@ class Table extends Component {
         });
     }
 
+    closeAddTo(){
+        this.setState({closeAddTo:false});
+
+    }
+    addToExisting(){
+
+        this.setState({closeAddTo:true});
+    }
     render() {
         //console.log("this.state.guids",this.state.guids);
         if (this.state.edit) {
@@ -251,7 +264,12 @@ class Table extends Component {
                         <div style={{display: this.state.upload ? 'flex' : 'none'}}>
                             <UploadFile cancelUpload={this.cancelUpload} update={this.update} className="openWindow"/>
                         </div>
+
                     </div>
+
+                </div>
+                <div style={{display: this.state.closeAddTo ? 'flex' : 'none'}}>
+                    <AddtoExisting selectedContacts={this.state.guids} closePopup={this.closeAddTo}/>
                 </div>
                 <div id='scroll'>
                     <table className="table">
@@ -266,18 +284,21 @@ class Table extends Component {
                         <span>Template&nbsp;&nbsp;</span>
                          <TemplateSelect disabled={this.state.disabled} getValue={this.getSeletValue} />
                         <div className="flexButton">
-                        <i disabled={this.state.sendButton ? '' : 'disabled'} onClick={this.sendMail}
-                           className="glyphicon glyphicon-envelope" />
-                            <span>Send Email</span>
+                            <button disabled={this.state.sendButton ? '' : 'disabled'} className="tableButtons" onClick={this.sendMail}>
+                             <i className="glyphicon glyphicon-envelope" /><br />Send Email</button>
                         </div>
                     </div>
+                     <button disabled={this.state.disabled} className="tableButtons" onClick={this.addToExisting}>
+                         <i className="glyphicon glyphicon-folder-open" /><br /> Add to Mailist</button>
                     <button disabled={this.state.disabled} className="deleteBtn tableButtons" onClick={this.delete}>
                         Delete Selected</button>
-                    <button onClick={this.addContact} className="tableButtons">Add Contact</button>
+                    <button onClick={this.addContact} className="tableButtons">
+                        <i className="glyphicon glyphicon-user" /><br />Add Contact</button>
                     <div className="maillist">
                     <input type="text" ref="creatMList" className="inputMail" placeholder="Mail List Name" onChange={this.mailListName}/>
                     </div>
-                        <button onClick={this.createMailList} disabled={(!this.state.disabled && this.state.mailList.length > 0)?false:true} className="tableButtons">Create New List</button>
+                        <button onClick={this.createMailList} disabled={(!this.state.disabled && this.state.mailList.length > 0)?false:true}
+                                className="tableButtons">Create New List</button>
                     <button className="tableButtons" onClick={this.openUpload.bind(this)}>Upload</button>
                 </div>
             </div>

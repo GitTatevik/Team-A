@@ -51,12 +51,12 @@ UploadFile(){
      }
 	render(){
         return(
-            <div className="uploadCSV">
-                
-                   <input name="data" type="file" onChange={this.fileInputOnChange}></input>
-                   <button id="sendBtn" onClick={this.UploadFile} >Upload</button>
-                
-                <button className="deleteBtn" onClick={this.props.cancelUpload}>Back</button>
+            <div className="uploadContainer">
+                   <input name="data" type="file" onChange={this.fileInputOnChange} ></input>
+                <div className="fileButtons">
+                   <button className="addBtn" id="sendBtn" onClick={this.UploadFile} >Upload</button>
+                    <button className="back addBtn" onClick={this.props.cancelUpload}>Back</button>
+                </div>
             </div>
         );
     }
