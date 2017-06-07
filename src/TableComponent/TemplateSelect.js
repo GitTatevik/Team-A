@@ -32,9 +32,9 @@ class TemplateSelect extends Component {
         return(
             <select onChange={this.selectOnChange} defaultValue="" >
                 <option value="0">No selected</option>
-                <option value="4">Happy Birthday</option>
-                <option value="6">Merry Christmas</option>
-                <option value="5">Congratulations</option>
+                <option value="1">Anniversary</option>
+                <option value="2">Birthday</option>
+                <option value="3">Christmas</option>
                 {/*{options}*/}
             </select>
         );

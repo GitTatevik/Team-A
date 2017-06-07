@@ -48,7 +48,7 @@ class Header extends Component{
              </div>
              <ul className="menu_list">
                  <li className="menu_item"><NavLink activeClassName="active" to='/contacts'>Contacts</NavLink></li>
-                 <li className="menu_item"><NavLink activeClassName="active" to='/addmailinglist'>Mailing list </NavLink></li>
+                 <li className="menu_item"><NavLink activeClassName="active" to='/mailinglist'>Mailing list </NavLink></li>
                  {/* <li className="menu_item"><NavLink activeClassName="active" to='/sendemails'> Send Email </NavLink></li>
                  <li className="menu_item"><NavLink activeClassName="active" to='/login'>Log Out </NavLink></li>*/}
              </ul>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TableHeader from'./TableHeader.js';
 import TableRow from './TableRow.js';
-import '../StyleSheet/Contacts.css';
+import '../StyleSheet/Table.css';
 import call from '../Fetch.js';
 import Edit from './Edit.js';
 import AddContact from './AddContact.js';
@@ -115,19 +115,10 @@ class Table extends Component {
         });
     }
 
-    uploadFile() {
-       let data = new FormData();
-    	let fileData = document.querySelector('input[type="file"]').files[0];
-    	data.append("data", fileData);	
-			fetch("http://crmbeta.azurewebsites.net/api/contacts/upload", {
-				method: "POST",
-				"Content-Type": "multipart/form-data",
-				"Accept": "application/json",
-				body: data
-			}).then(function (res) {
-				console.log(res)
-				return res.json()
-			}).then(res => console.log(res))
+   uploadFile() {
+        this.setState({
+            uploadFile: true
+        });
     }
 
     backfromUploadFile() {
@@ -135,6 +126,7 @@ class Table extends Component {
             uploadFile: false
         });
     }
+
 
 
     delete() {
@@ -257,7 +249,7 @@ class Table extends Component {
                             <AddContact className="openWindow" back={this.back} update={this.update}/>
                         </div>
                         <div style={{display: this.state.upload ? 'flex' : 'none'}}>
-                            <UploadFile cancelUpload={this.cancelUpload} className="openWindow"/>
+                            <UploadFile cancelUpload={this.cancelUpload} update={this.update} className="openWindow"/>
                         </div>
                     </div>
                 </div>
@@ -273,8 +265,11 @@ class Table extends Component {
                     <div id="templateSelectBox">
                         <span>Template&nbsp;&nbsp;</span>
                          <TemplateSelect disabled={this.state.disabled} getValue={this.getSeletValue} />
-                        <button disabled={this.state.sendButton ? '' : 'disabled'} onClick={this.sendMail}
-                            className="tableButtons">Send Email</button>
+                        <div className="flexButton">
+                        <i disabled={this.state.sendButton ? '' : 'disabled'} onClick={this.sendMail}
+                           className="glyphicon glyphicon-envelope" />
+                            <span>Send Email</span>
+                        </div>
                     </div>
                     <button disabled={this.state.disabled} className="deleteBtn tableButtons" onClick={this.delete}>
                         Delete Selected</button>

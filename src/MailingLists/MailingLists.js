@@ -2,36 +2,42 @@ import React, {Component} from 'react';
 import '../StyleSheet/MailingLists.css';
 import call from '../Fetch.js';
 import MailingListContacts from './MailingListContacts.js';
+import TemplateSelect from '../TableComponent/TemplateSelect.js';
 
 class MailingLists extends Component {
     constructor(props) {
         super(props);
+        this.TemplateId="";
         this.state = {
             maillists: [],
             mailListContacts: [],
             mailListHeader: "",
             mailListId:0,
             checkedMailLists:0
+
+
         }
         this.seeContacts = this.seeContacts.bind(this);
         this.delete = this.delete.bind(this);
         this.update = this.update.bind(this);
         this.tabliToxery = [];
          this.checkedMailList = [];
-    }
-
-     checkMailList(event){
-        if(event.target.checked){
-            this.checkedMailList.push(event.target);
-            this.setState({checkedMailLists:this.state.checkedMailLists + 1});
-        }
-        else{
-            this.setState({checkedMailLists:this.state.checkedMailLists - 1});
-        }
+         this.getValue= this.getValue.bind(this);
+         this.sendToAll =this.sendToAll.bind(this);
     }
 
 
-    
+    sendToAll(event){
+        let self = this;
+        console.log(this.TemplateId);
+        console.log( "maillist",this.state. maillists[event.target.id].EmailListID);
+        call('http://crmbeta.azurewebsites.net/api/EmailSender/'+  self.state. maillists[event.target.id].EmailListID +"/"+ self.TemplateId,  'POST')
+            .then(function () {
+            self.update();
+        })
+    }
+
+
 
     delete(event) {
        // console.log("maillist",this.state.maillists[event.target.id]);
@@ -68,6 +74,10 @@ class MailingLists extends Component {
     componentDidMount() {
             this.update();
     }
+    getValue(value){
+        console.log("value",value);
+       this.TemplateId=value;
+    }
     render() {
         const headers = <thead>
         <tr  >
@@ -83,6 +93,12 @@ class MailingLists extends Component {
                  {/*<td><input id={index} type="checkbox" onChange={this.checkMailList.bind(this)}/></td>*/}
                 <td  onClick={this.seeContacts}  id={index} key={data.EmailListName} >
                     {data.EmailListName}
+                </td>
+				 <td >
+                    <TemplateSelect getValue={this.getValue}  disabled={this.state.disabled} />
+                </td>
+                <td>
+                    <i className="glyphicon glyphicon-send" id ={index} onClick={this.sendToAll} />
                 </td>
                 <td >
                     <i className="glyphicon glyphicon-trash trash" id ={index} onClick={this.delete} />

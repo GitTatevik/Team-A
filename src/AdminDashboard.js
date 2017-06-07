@@ -1,6 +1,6 @@
 import './StyleSheet/Dashboard.css';
 import React, { Component } from 'react';
-import Table from './TableComponent/Contacts.js'
+import Table from './TableComponent/Table.js'
 import Header from "./Header.js"
 import Menu from "./Menu.js";
 import MailingLists from'./MailingLists/MailingLists';
@@ -22,7 +22,7 @@ class AdminDashboard extends Component{
             <main role="main"  >
        <Switch>
 				      <Route path='/contacts' component={Table}/>
-							<Route path='/addmailinglist' component={MailingLists}/>
+							<Route path='/mailinglist' component={MailingLists}/>
               <Route path='/sendemails' component={SendEmails}/>
               <Redirect to="/contacts"/>
 				</Switch>

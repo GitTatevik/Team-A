@@ -239,9 +239,26 @@ display:inline-flex;
 
 
 
-#templateSelectBox{
-    display: flex;
-    align-items: center;
+#templateSelectBox {
+	display: flex;
+	align-items: center;
+}
+
+.flexButton{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+
+}
+
+.glyphicon-envelope{
+
+	color:#735a73;
+	font-size: 25px;
+
+}
+.glyphicon-envelope:disabled{
+	color:#ddd;
 }
 
 .edit{

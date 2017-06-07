@@ -1,19 +1,66 @@
-import '../StyleSheet/Contacts.css';
 import React,{Component} from 'react';
-class UploadFile extends Component {
 
-    render(){
+class UploadFile extends Component {
+        constructor(props){
+            super(props);
+            this.state={
+                disabled:true
+            }
+
+            this.UploadFile =this.UploadFile.bind(this);
+            this.fileInputOnChange = this.fileInputOnChange.bind(this);
+            
+        }
+
+UploadFile(){
+    if( document.querySelector('input[type="file"]').files[0]){
+    let self = this;
+        let data = new FormData();
+    	let fileData = document.querySelector('input[type="file"]').files[0];
+    	data.append("data", fileData);	
+			fetch("http://crmbeta.azurewebsites.net/api/contacts/upload", {
+				method: "POST",
+				"Content-Type": "multipart/form-data",
+				"Accept": "application/json",
+				body: data
+			}).then(function (res) {
+				console.log("response",res)
+                if(res.status === 200){
+                    self.props.cancelUpload();
+                    self.props.update();
+                }
+                if(res.status===409){
+                    alert("File have been added");
+                }
+				return res.json()
+			})//.then(res => console.log(res))
+      }else{
+          alert("No File");
+      }
+         }
+     fileInputOnChange(){
+         if( document.querySelector('input[type="file"]').files[0]){
+             this.setState({
+                 disabled:false
+             })
+         }else{
+             this.setState({
+                 disabled:true
+             })
+         }
+     }
+	render(){
         return(
-            <div className="uploadContainer">
-                <form className="uploadCSV" action="http://crmbeta.azurewebsites.net/api/contacts/upload" encType="multipart/form-data" method="POST" >
-                    <input name="data"type="file" className="fileButtons"></input>
-                    <input className="addBtn" type="submit" id="sendBtn"></input>
-                <button className=" back addBtn" onClick={this.props.back}>Back</button>
-                  </form>
+            <div className="uploadCSV">
+                
+                   <input name="data" type="file" onChange={this.fileInputOnChange}></input>
+                   <button id="sendBtn" onClick={this.UploadFile} >Upload</button>
+                
+                <button className="deleteBtn" onClick={this.props.cancelUpload}>Back</button>
             </div>
         );
     }
-
-}
-export default UploadFile;
+	
+	}
+    export default UploadFile;
 

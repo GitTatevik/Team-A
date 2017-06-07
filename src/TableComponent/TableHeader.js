@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import '../StyleSheet/Contacts.css';
+import '../StyleSheet/Table.css';
 
 class TableHeader extends Component{
 		 render(){
