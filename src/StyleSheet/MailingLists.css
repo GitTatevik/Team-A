@@ -8,7 +8,9 @@
 	flex-direction:column;
 }
 
-
+.change{
+	font-size:1.2em;
+}
 .mailingListTable tr :hover{
     cursor:pointer;
     background: #a795a7;

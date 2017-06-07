@@ -16,8 +16,9 @@
 
 .glyphicon{
 	color:#735a73;
-	font-size: 1.5em;
+	font-size: 1.7em;
 }
+
 
 .addBtn{ /*Add Contact buttons*/
 	width:90px;
@@ -49,19 +50,14 @@
 	padding: 0 10px;
 	margin-left:5px;
 	background-color:transparent;
-	border:1px solid #735a73;
+	border:0;
 }
 .tableButtons:disabled {
-	color: #735a73;
-	border:0;
-	background-color:transparent;
+	color: lightgrey;
+	border: 0;
+	background-color: transparent;
+}
 
-}
-.deleteBtn{
-	border:1px solid red;
-	cursor:pointer;
-	color:#735a73;
-}
 
 .UserTable {
     width: 100%;
@@ -70,8 +66,7 @@
     color: #513654;
     box-sizing: border-box;
 	padding:25px;
-	overflow-x:auto;
-	overflow-y:hidden;
+
 }
 #scroll{
   height:90%;
@@ -247,11 +242,9 @@ display:inline-flex;
 
 .btnBox{
   display: flex;
+
+
 }
-
-
-
-
 
 .edit{
   display: flex;
@@ -259,21 +252,7 @@ justify-content: center;
 border: none;
 }
 
-	@media (max-width:866px) {
-
-	.UserTable{
-		width:100%;
-	}
-
-}
-@media (max-width:468px) {
-#theader{
-	height: 30px;
-    color: #666467;
-    text-align: center;
-    font-size: 1.5em;
-
-}
 
 
-}
+
+

@@ -25,8 +25,8 @@ class Table extends Component {
             uploadFile: false,
             TemplateId: "",
             sendButton: false,
-            mailList:'',
-            closeAddTo:false
+            mailList: '',
+            closeAddTo: false
         };
         this.sendMail = this.sendMail.bind(this);
         this.getGuid = this.getGuid.bind(this);
@@ -120,7 +120,7 @@ class Table extends Component {
         });
     }
 
-   uploadFile() {
+    uploadFile() {
         this.setState({
             uploadFile: true
         });
@@ -131,7 +131,6 @@ class Table extends Component {
             uploadFile: false
         });
     }
-
 
 
     delete() {
@@ -159,23 +158,25 @@ class Table extends Component {
     }
 
     mailListName() {
-       this.setState({mailList:this.refs.creatMList.value});
+        this.setState({mailList: this.refs.createMList.value});
     }
 
     createMailList() {
         let self = this;
-        if (this.refs.creatMList.value) {
+        if (this.refs.createMList.value) {
             if (this.state.guids.length > 0) {
                 call('http://crmbeta.azurewebsites.net/api/EmailLists', 'POST', {
-                    EmailListName: this.refs.creatMList.value,
+                    EmailListName: this.refs.createMList.value,
                     Contacts: this.state.guids
                 }).then(function () {
+
                     self.setState({
                         creatListBtndisabled: true,
                         disabled: true,
                         guids: []
-                    });
-                    self.refs.creatMList.value = "";
+                    })
+
+                    self.refs.createMList.value = "";
 
                     for (let i = 0; i < self.state.checkedBoxArray.length; ++i) {
                         self.state.checkedBoxArray[i].checked = false;
@@ -194,10 +195,10 @@ class Table extends Component {
     getSeletValue(value) {
         this.state.TemplateId = value;
         if (value !== '') {
-            this.setState({ sendButton: true });
+            this.setState({sendButton: true});
         }
         else {
-            this.setState({ sendButton: false });
+            this.setState({sendButton: false});
         }
         //console.log("In State Id",this.state.TemplateId);
     }
@@ -234,16 +235,17 @@ class Table extends Component {
         });
     }
 
-    closeAddTo(){
-        this.setState({closeAddTo:false});
+    closeAddTo() {
+        this.setState({closeAddTo: false});
 
     }
-    addToExisting(){
 
-        this.setState({closeAddTo:true});
+    addToExisting() {
+
+        this.setState({closeAddTo: true});
     }
+
     render() {
-        //console.log("this.state.guids",this.state.guids);
         if (this.state.edit) {
             return (
                 <div className="UserTable">
@@ -264,13 +266,13 @@ class Table extends Component {
                         <div style={{display: this.state.upload ? 'flex' : 'none'}}>
                             <UploadFile cancelUpload={this.cancelUpload} update={this.update} className="openWindow"/>
                         </div>
-
+                        <div style={{display: this.state.closeAddTo ? 'flex' : 'none'}}>
+                            <AddtoExisting selectedContacts={this.state.guids} closePopup={this.closeAddTo}
+                                           className="openWindow"/>
+                        </div>
                     </div>
+                </div>
 
-                </div>
-                <div style={{display: this.state.closeAddTo ? 'flex' : 'none'}}>
-                    <AddtoExisting selectedContacts={this.state.guids} closePopup={this.closeAddTo}/>
-                </div>
                 <div id='scroll'>
                     <table className="table">
                         <TableHeader headerdata={this.state.data[0]} className="tableheader"
@@ -279,27 +281,40 @@ class Table extends Component {
                                   editBtn={this.onClickEditBtn} checkBoxChanges={this.checkBoxChanges}/>
                     </table>
                 </div>
-                 <div className="btnBox">
+                {/*Buttons for Table Box*/}
+                <div className="btnBox">
                     <div id="templateSelectBox">
-                        <span>Template&nbsp;&nbsp;</span>
-                         <TemplateSelect disabled={this.state.disabled} getValue={this.getSeletValue} />
-                        <div className="flexButton">
-                            <button disabled={this.state.sendButton ? '' : 'disabled'} className="tableButtons" onClick={this.sendMail}>
-                             <i className="glyphicon glyphicon-envelope" /><br />Send Email</button>
-                        </div>
+                        <span>Template&nbsp;</span>
+                        <TemplateSelect disabled={this.state.disabled} getValue={this.getSeletValue}/>
+                        <button disabled={this.state.sendButton ? '' : 'disabled'} className="tableButtons"
+                                onClick={this.sendMail}>
+                            <i className="glyphicon glyphicon-envelope"/><br />Send Email
+                        </button>
                     </div>
-                     <button disabled={this.state.disabled} className="tableButtons" onClick={this.addToExisting}>
-                         <i className="glyphicon glyphicon-folder-open" /><br /> Add to Mailist</button>
+                    <button disabled={this.state.disabled} className="tableButtons" onClick={this.addToExisting}>
+                        <i className="glyphicon glyphicon-folder-open"/><br /> Add to Mailist
+                    </button>
                     <button disabled={this.state.disabled} className="deleteBtn tableButtons" onClick={this.delete}>
-                        Delete Selected</button>
+                        <i className="glyphicon glyphicon-trash"/><br />Delete Selected
+                    </button>
+
                     <button onClick={this.addContact} className="tableButtons">
-                        <i className="glyphicon glyphicon-user" /><br />Add Contact</button>
+                        <i className="glyphicon glyphicon-user"/><br />Add Contact
+                    </button>
+
                     <div className="maillist">
-                    <input type="text" ref="creatMList" className="inputMail" placeholder="Mail List Name" onChange={this.mailListName}/>
+                        <input type="text" ref="createMList" className="inputMail" placeholder="Mail List Name"
+                               onChange={this.mailListName}/>
                     </div>
-                        <button onClick={this.createMailList} disabled={(!this.state.disabled && this.state.mailList.length > 0)?false:true}
-                                className="tableButtons">Create New List</button>
-                    <button className="tableButtons" onClick={this.openUpload.bind(this)}>Upload</button>
+
+                    <button onClick={this.createMailList}
+                            disabled={(!this.state.disabled && this.state.mailList.length > 0) ? false : true}
+                            className="tableButtons"><i className="glyphicon glyphicon-list-alt"/><br />Create New List
+                    </button>
+
+                    <button className="tableButtons" onClick={this.openUpload.bind(this)}>
+                        <i className="glyphicon glyphicon-upload"/><br />Upload
+                    </button>
                 </div>
             </div>
 

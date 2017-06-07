@@ -13,36 +13,34 @@ class MailingLists extends Component {
         this.checkedMailLists="";
         this.state = {
             maillists: [],
-            mailListContacts: [],
+            mailListContacts: [],//all contacts
             mailListHeader: "",
             mailListId:0,
             checkedMailLists:0,
             templatePopup:false
 
 
-        }
-        this.seeContacts = this.seeContacts.bind(this);
-        this.delete = this.delete.bind(this);
-        this.update = this.update.bind(this);
-        this.tabliToxery = [];
+        };
+         this.seeContacts = this.seeContacts.bind(this);
+         this.delete = this.delete.bind(this);
+         this.update = this.update.bind(this);
+         this.tabliToxery = [];
          this.checkedMailList = [];
          this.getValue= this.getValue.bind(this);
          this.sendToAll =this.sendToAll.bind(this);
          this.popupCancel = this.popupCancel.bind(this);
          this.popupOpen =  this.popupOpen.bind(this);
+         this.getNewContactList = this.getNewContactList.bind(this);
     }
 
 
     popupOpen(event){
         this.setState({templatePopup:true});
         this.lineNum =event.target.id;
-        console.log("ROWINDEX", this.lineNum);
     }
     sendToAll(){
         let self = this;
         self.popupCancel();
-        console.log(this.TemplateId);
-        console.log( "maillist",this.state. maillists[this.lineNum].EmailListID);
         call('http://crmbeta.azurewebsites.net/api/EmailSender/'+  self.state. maillists[this.lineNum].EmailListID +"/"+ self.TemplateId,  'POST')
             .then(function () {
                 self.update();
@@ -60,50 +58,44 @@ class MailingLists extends Component {
     }
 
     update() {
-
-        let self = this;
-        call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(function (list) {
-
-            console.log("maillists", list);
-            self.setState({
+        call('http://crmbeta.azurewebsites.net/api/EmailLists', 'GET').then(list => {
+            this.setState({
                 maillists: list
             });
         })
     }
 
     seeContacts(event) {
-        // let id = this.state.maillists[event.target.id];
-        // call('http://crmbeta.azurewebsites.net/api/EmailLists/' + id.EmailListID, 'GET')
-        //
-        //     .then(list=>{
-        //         this.setState({
-        //             mailListId:id.EmailListID,
-        //             mailListContacts: list.Contacts,
-        //             mailListHeader: id.EmailListName
-        //         })
-        //     })
-        console.log(this.state.maillists[event.target.id].EmailListID);
-        let self =this;
-        return fetch( 'http://crmbeta.azurewebsites.net/api/EmailLists/'+self.state.maillists[event.target.id].EmailListID )
+        this.setState({checkedMailLists:this.state.maillists[event.target.id].EmailListID});
+        return fetch( 'http://crmbeta.azurewebsites.net/api/EmailLists/' + this.state.maillists[event.target.id].EmailListID )
             .then(response=>{
 
                 return response.json();
             }).then(response=>{
-
-                if(response)
-                    console.log("ok",response.Contacts);
-                    self.setState({
-                        mailListContacts:response.Contacts
-
-                })
-                    //console.log("contact data",response);
+                    if(response.Contacts.length > 0){
+                        this.setState({
+                            selectedMailList:response.EmailListID,
+                            mailListContacts:response.Contacts
+                        });
+                    }
             }
+            );
+    }
 
-            )
+   getNewContactList(){
+        return fetch( 'http://crmbeta.azurewebsites.net/api/EmailLists/' + this.state.selectedMailList)
+            .then(response=>{
+                return response.json();
+            }).then(response=>{
+                    if(response.Contacts.length > 0){
+                        this.setState({
+                            mailListContacts:response.Contacts
+                        });
+                    }
+                }
+            );
     }
-    componentDidMount() {
-            this.update();
-    }
+
     getValue(value){
         console.log("value",value);
        this.TemplateId=value;
@@ -111,8 +103,10 @@ class MailingLists extends Component {
     popupCancel(){
         this.setState({templatePopup:false})
     }
+    componentDidMount() {
+        this.update();
+    }
     render() {
-
         const headers = <thead>
         <tr  >
             <th>Choose a MailList</th>
@@ -125,23 +119,21 @@ class MailingLists extends Component {
                 this.tabliToxery.push(tRDomElemy)
             }}>
                  {/*<td><input id={index} type="checkbox" onChange={this.checkMailList.bind(this)}/></td>*/}
-                <td  onClick={this.seeContacts}  id={index} key={data.EmailListName} >
+                <td  onClick={this.seeContacts} ref="click1" id={index} key={data.EmailListName} >
                     {data.EmailListName}
                 </td>
 
                 <td>
-                    <i className="glyphicon glyphicon-send" id ={index} onClick={this.popupOpen} />
+                    <i className="glyphicon glyphicon-envelope change" id ={index} onClick={this.popupOpen} />
                 </td>
                 <td >
-                    <i className="glyphicon glyphicon-trash trash" id ={index} onClick={this.delete} />
+                    <i className="glyphicon glyphicon-trash trash change" id ={index} onClick={this.delete} />
                 </td>
 
             </tr>
         );
         return (
                 <div className="scroll">
-
-
                         <div style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
                             <div className="formContainer">
                                 <span>Choose a Template</span>
@@ -150,7 +142,6 @@ class MailingLists extends Component {
                                 <button onClick={this.popupCancel}>cancel</button>
                             </div>
                         </div>
-
                     <table className="mailingListTable" >
                         {headers}
                         <tbody>
@@ -159,13 +150,12 @@ class MailingLists extends Component {
                     </table>
                 <MailingListContacts
                  //checkedMailList = {this.state.checkedMailLists}
-                    updateContent = {this.seeContacts}
+                    updateContent = {this.getNewContactList}
                     mailListId={this.state.checkedMailLists}
                     data={this.state.mailListContacts}
                     mailListInfo={this.state.mailListHeader}
                 />
                 </div>
-
         );
 
     }

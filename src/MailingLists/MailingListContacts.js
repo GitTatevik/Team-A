@@ -7,8 +7,9 @@ export default class MailingListContacts extends Component{
     constructor(props){
         super(props);
         this.state = {
-            disabledValue:0
-        }
+            disabledValue:0,
+            mailListId:0
+        };
 
         this.selectedBoxes=[];
         this.selectedContacts= [];
@@ -25,7 +26,7 @@ export default class MailingListContacts extends Component{
     }
     selectCheck(event){
         if(event.target.checked === true) {
-            this.selectedContacts.push(event.target.id)
+            this.selectedContacts.push(event.target.id);
             this.selectedBoxes.push(event.target);
         }
         else{
@@ -35,10 +36,9 @@ export default class MailingListContacts extends Component{
                 this.selectedBoxes.splice(index,1);
             }
         }
+        console.log(this.selectedContacts);
     }
     sendEmails() {
-        console.log("selectedcontacts",this.selectedContacts);
-        console.log( this.templId);
 
        /*call('http://crmbeta.azurewebsites.net/api/EmailSender/' +  this.templId, {
             method:'POST',
@@ -52,8 +52,6 @@ export default class MailingListContacts extends Component{
         call('http://crmbeta.azurewebsites.net/api/EmailSender/' + self.templId, 'POST', self.selectedContacts).then(function (response) {
             //console.log("status", this.state.TemplateId, response);
             alert("Email sent");
-            console.log(self.templId)
-            console.log(self.selectedContacts)
 
         });
         this.emptyCheckedList();
@@ -62,18 +60,14 @@ export default class MailingListContacts extends Component{
 
 
     deleteEmails(){
-        console.log("mail list id",this.props.mailListId);
-        let that = this;
-        return fetch('http://crmbeta.azurewebsites.net/api/EmailLists/remove/' + this.props.mailListId,{
+        return fetch('http://crmbeta.azurewebsites.net/api/EmailLists/remove/' + this.state.mailListId,{
             method: 'PUT',
         headers: {'Accept': 'application/json','Content-Type': 'application/json'},
-            body:
-               JSON.stringify(this.selectedContacts)
+            body: JSON.stringify(this.selectedContacts)
         }).then(response=>{
 
-            console.log(response.status);
             if(response.ok === true){
-                //this.props.updateContent();
+                this.props.updateContent();
                 alert("Contact deleted");
             }
             else{
@@ -87,12 +81,10 @@ export default class MailingListContacts extends Component{
         this.selectedBoxes=[];
     }
     componentWillReceiveProps(nextProps){
-        this.setState({disabledValue:nextProps.checkedMailList});
-        console.log("contacts",nextProps.data);
+        this.setState({disabledValue:nextProps.checkedMailLists,mailListId:nextProps.mailListId});
     }
-
     render(){
- console.log("contacts",this.props.data);
+     console.log("render");
         this.emptyCheckedList();
         return(
             <div className="mailListContainer">
@@ -132,7 +124,6 @@ export default class MailingListContacts extends Component{
                 <div className="btnContainer">
                     <button onClick={this.deleteEmails} disabled={(this.props.data.length > 0)?'':'disabled'}
                             className="mailBtn dltMailBtn">Delete checks</button>
-
                 </div>
             </div>
         );
