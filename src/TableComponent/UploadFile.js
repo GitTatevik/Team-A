@@ -12,32 +12,31 @@ class UploadFile extends Component {
             
         }
 
-UploadFile(){
-    if( document.querySelector('input[type="file"]').files[0]){
-    let self = this;
-        let data = new FormData();
-    	let fileData = document.querySelector('input[type="file"]').files[0];
-    	data.append("data", fileData);	
-			fetch("http://crmbeta.azurewebsites.net/api/contacts/upload", {
-				method: "POST",
-				"Content-Type": "multipart/form-data",
-				"Accept": "application/json",
-				body: data
-			}).then(function (res) {
-				console.log("response",res)
-                if(res.status === 200){
-                    self.props.cancelUpload();
-                    self.props.update();
+    UploadFile() {
+        if (document.querySelector('input[type="file"]').files[0]) {
+            let data = new FormData();
+            let fileData = document.querySelector('input[type="file"]').files[0];
+            data.append("data", fileData);
+            fetch("http://crmbeta.azurewebsites.net/api/contacts/upload", {
+                method: "POST",
+                "Content-Type": "multipart/form-data",
+                "Accept": "application/json",
+                body: data
+            }).then(res => {
+                if (res.status === 200) {
+                    this.props.cancelUpload();
+                    this.props.update();
                 }
-                if(res.status===409){
+                if (res.status === 409) {
                     alert("File have been added");
                 }
-				return res.json()
-			})//.then(res => console.log(res))
-      }else{
-          alert("No File");
-      }
-         }
+                return res.json()
+            });
+        } else {
+            alert("No chosen file");
+        }
+          this.props.closePopUp();
+    }
      fileInputOnChange(){
          if( document.querySelector('input[type="file"]').files[0]){
              this.setState({
@@ -52,7 +51,7 @@ UploadFile(){
 	render(){
         return(
             <div className="uploadContainer">
-                   <input name="data" type="file" onChange={this.fileInputOnChange} ></input>
+                   <input name="data" type="file" onChange={this.fileInputOnChange} />
                 <div className="fileButtons">
                    <button className="addBtn" id="sendBtn" onClick={this.UploadFile} >Upload</button>
                     <button className="back addBtn" onClick={this.props.cancelUpload}>Back</button>

@@ -4,6 +4,7 @@ import call from '../Fetch.js';
 import MailingListContacts from './MailingListContacts.js';
 import TemplateSelect from '../TableComponent/TemplateSelect.js';
 import '../StyleSheet/Table.css';
+import Overlay from "../TableComponent/Overlay";
 
 class MailingLists extends Component {
     constructor(props) {
@@ -110,7 +111,8 @@ class MailingLists extends Component {
         const headers = <thead>
         <tr  >
             <th>Choose a MailList</th>
-
+			<th>Send Email</th>
+			<th>Remove a MailList</th>
         </tr>
         </thead>
         const data = this.state.maillists;
@@ -133,8 +135,13 @@ class MailingLists extends Component {
             </tr>
         );
         return (
+
                 <div className="scroll">
-                        <div style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
+                    {
+                        this.state.maillists.length < 1 &&
+                            <Overlay />
+                    }
+                    <div style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
                             <div className="formContainer">
                                 <span>Choose a Template</span>
                             <TemplateSelect getValue={this.getValue} />

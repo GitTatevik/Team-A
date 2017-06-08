@@ -22,7 +22,6 @@ class Table extends Component {
             addContact: false,
             checkedBoxArray: [],
             creatListBtndisabled: true,
-            uploadFile: false,
             TemplateId: "",
             sendButton: false,
             mailList: '',
@@ -46,7 +45,7 @@ class Table extends Component {
         this.cancelUpload = this.cancelUpload.bind(this);
         this.closeAddTo = this.closeAddTo.bind(this);
         this.addToExisting = this.addToExisting.bind(this);
-
+        this.closeUpload = this.closeUpload.bind(this);
     }
 
     checkBoxChanges(target) {
@@ -120,15 +119,10 @@ class Table extends Component {
         });
     }
 
-    uploadFile() {
-        this.setState({
-            uploadFile: true
-        });
-    }
-
     backfromUploadFile() {
         this.setState({
-            uploadFile: false
+            upload:false,
+            popup:false
         });
     }
 
@@ -240,6 +234,13 @@ class Table extends Component {
 
     }
 
+    closeUpload(){
+        this.setState({
+            upload:false,
+            popup:false
+        })
+    }
+
     addToExisting() {
 
         this.setState({closeAddTo: true});
@@ -258,13 +259,16 @@ class Table extends Component {
         }
         return (
             <div className="UserTable">
+                {   !this.state.data.length &&
+                    <Overlay />
+                }
                 <div className="openWindow" style={{display: this.state.popup ? 'flex' : 'none'}}>
                     <div className="formContainer">
                         <div style={{display: this.state.addContact ? 'flex' : 'none'}}>
                             <AddContact className="openWindow" back={this.back} update={this.update}/>
                         </div>
                         <div style={{display: this.state.upload ? 'flex' : 'none'}}>
-                            <UploadFile cancelUpload={this.cancelUpload} update={this.update} className="openWindow"/>
+                            <UploadFile cancelUpload={this.cancelUpload} update={this.update} closePopUp={this.closeUpload} className="openWindow"/>
                         </div>
                         <div style={{display: this.state.closeAddTo ? 'flex' : 'none'}}>
                             <AddtoExisting selectedContacts={this.state.guids} closePopup={this.closeAddTo}
@@ -308,8 +312,8 @@ class Table extends Component {
                     </div>
 
                     <button onClick={this.createMailList}
-                            disabled={(!this.state.disabled && this.state.mailList.length > 0) ? false : true}
-                            className="tableButtons"><i className="glyphicon glyphicon-list-alt"/><br />Create New List
+                            disabled={(!(!this.state.disabled && this.state.mailList.length > 0))}
+                            className="tableButtons"><i className="glyphicon glyphicon-list-alt" /><br />Create New List
                     </button>
 
                     <button className="tableButtons" onClick={this.openUpload.bind(this)}>
@@ -317,8 +321,6 @@ class Table extends Component {
                     </button>
                 </div>
             </div>
-
-
         );
     }
 

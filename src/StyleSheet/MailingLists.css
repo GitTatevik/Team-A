@@ -34,12 +34,14 @@ background-color:#dddddd;
 .mailingListTable tr{
 	display: flex;
 	justify-content: space-between;
+	
 }
 
 .mailingListTable tr td{
 	width:100%;
 	padding: 3px 0 3px 0;
 	cursor:pointer;
+	
 	
 }
 .mailingListTable td{
@@ -51,8 +53,10 @@ background-color:#dddddd;
 }
 
 .mailingListTable th{
-	text-align: left;
+	text-align:center;
 	border:none;
+	
+	
 }
 
 .trash{

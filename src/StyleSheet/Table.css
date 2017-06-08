@@ -17,6 +17,7 @@
 .glyphicon{
 	color:#735a73;
 	font-size: 1.7em;
+	
 }
 
 
@@ -69,7 +70,7 @@
 
 }
 #scroll{
-  height:90%;
+  height:85%;
   width:100%;
 	overflow: auto;
 }
@@ -80,7 +81,6 @@
     border: solid 0 transparent;
     border-collapse: collapse;
 	border-bottom: 0;
-
 }
 
 .table td{
@@ -105,16 +105,16 @@
 	text-align: center;
 	color: white;
 }
+
 .addtablerow{
 	width: 100%;
 }
+
 .editbutton{
 	cursor:pointer;
 	color:#fff;
 	outline: none;
 }
-
-
 
 #theader{
 	height: 30px;
@@ -137,10 +137,8 @@
 
 
 .addInput{
-
   padding: 7px;
   margin: 5px;
-  border-radius:1px solid grey;
 }
 
 .addBtn{ /*Add Contact buttons*/
@@ -214,7 +212,7 @@ display:inline-flex;
 }
 .maillist{
 	margin-top:13px;
-	display: inline-block;
+	display: inline-flex;
 	padding: 5px;
 	height: 40px;
 	border-radius: 5px;
@@ -241,10 +239,14 @@ display:inline-flex;
 
 
 .btnBox{
-  display: flex;
-
-
+ padding-bottom: 1%;
+    padding-top: 4%;
+    display: flex;
+    box-sizing: border-box;
+   
 }
+
+
 
 .edit{
   display: flex;
@@ -253,6 +255,28 @@ border: none;
 }
 
 
+@media screen and (max-width:768px){
 
+	.btnBox{
+		flex-wrap: wrap;
+		flex-direction:column;
+		
+	}
+
+	#templateSelectBox{
+		flex-direction: column;
+	}
+
+	.maillist{
+		justify-content:center;
+	}
+	.glyphicon{
+		z-index:-1;
+	}
+	.change{
+		z-index:0;
+	}
+	
+}
 
 
