@@ -17,7 +17,7 @@
 }
 .mailingListTable {
 	width: 100%;
-	margin: 0px auto;
+	margin: 0 auto;
 	border: solid 0 transparent;
 	border-collapse: collapse;
 	border-bottom: 0;
@@ -34,7 +34,6 @@ background-color:#dddddd;
 .mailingListTable tr{
 	display: flex;
 	justify-content: space-between;
-	
 }
 
 .mailingListTable tr td{
@@ -52,11 +51,9 @@ background-color:#dddddd;
 	
 }
 
-.mailingListTable th{
-	text-align:center;
+.mailingListTable tr th{
+	text-align:left;
 	border:none;
-	
-	
 }
 
 .trash{

@@ -8,7 +8,8 @@ export default class MailingListContacts extends Component{
         super(props);
         this.state = {
             disabledValue:0,
-            mailListId:0
+            mailListId:0,
+            emailListName:''
         };
 
         this.selectedBoxes=[];
@@ -22,8 +23,8 @@ export default class MailingListContacts extends Component{
 
     getValue(templateId){
         this.templId = templateId;
-
     }
+
     selectCheck(event){
         if(event.target.checked === true) {
             this.selectedContacts.push(event.target.id);
@@ -38,16 +39,8 @@ export default class MailingListContacts extends Component{
         }
         console.log(this.selectedContacts);
     }
+
     sendEmails() {
-
-       /*call('http://crmbeta.azurewebsites.net/api/EmailSender/' +  this.templId, {
-            method:'POST',
-            body: this.selectedContacts
-        }).then(response=>{
-
-
-
-        })*/
         let self = this;
         call('http://crmbeta.azurewebsites.net/api/EmailSender/' + self.templId, 'POST', self.selectedContacts).then(function (response) {
             //console.log("status", this.state.TemplateId, response);
@@ -81,14 +74,18 @@ export default class MailingListContacts extends Component{
         this.selectedBoxes=[];
     }
     componentWillReceiveProps(nextProps){
-        this.setState({disabledValue:nextProps.checkedMailLists,mailListId:nextProps.mailListId});
+        this.setState({
+            disabledValue:nextProps.checkedMailLists,
+            mailListId:nextProps.mailListId,
+            emailListName:nextProps.data.length?nextProps.data[0].EmailLists[0]:''
+        });
     }
     render(){
-     console.log("render");
+     console.log("render",this.props.data);
         this.emptyCheckedList();
         return(
             <div className="mailListContainer">
-                <h2 className="h2">Name of mailing list - {this.props.mailListInfo}</h2>
+                <h2 className="h2">Name of mailing list - {this.state.emailListName}</h2>
                 <table className="mailingListContactsTable" id="scroll" >
                     <thead >
                     <tr >

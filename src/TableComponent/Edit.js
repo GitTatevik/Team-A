@@ -28,6 +28,7 @@ class Edit extends Component {
 			render(){
 
 				return(
+					<div className="openWindow">
 				<div className="formContainer">
 				<div id="flexEdit">
 					<p><span>Full name</span> <input type="text" defaultValue={this.props.data["Full Name"]} ref="FullName"/></p>
@@ -40,6 +41,7 @@ class Edit extends Component {
 					</p>
 				</div>
 				</div>
+					</div>
 				);
 			}
 

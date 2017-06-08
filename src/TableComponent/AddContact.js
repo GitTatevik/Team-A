@@ -44,7 +44,7 @@ class AddContact extends Component{
 
 
 			 	//alert("save");
-				 this.props.back();
+				 this.props.closePopup();
 			   }else{
 				alert("Please enter a valid Email");
 			}
@@ -53,7 +53,7 @@ class AddContact extends Component{
 		render(){
 
 			return(
-				<div className="AddRow">
+				<div className="AddRow1">
       <input type="text"  ref="fullName" className="addInput" placeholder="Full Name"/>
       <input type="text"  ref="companyName" className="addInput" placeholder="Company"/>
       <input type="text"  ref="position" className="addInput" placeholder="Position"/>
@@ -61,7 +61,7 @@ class AddContact extends Component{
       <input type="email" ref="email" className="addInput" placeholder="Email"/>
      <div className="buttonsCont">
          <button className="addBtn" onClick={this.saveContact}>Save</button>
-      <button className="addBtn" onClick={this.props.back}>Cancel</button>
+      <button className="addBtn" onClick={this.props.closePopup}>Cancel</button>
      </div>
     </div>
 

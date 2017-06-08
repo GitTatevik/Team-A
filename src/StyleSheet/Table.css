@@ -20,7 +20,6 @@
 	
 }
 
-
 .addBtn{ /*Add Contact buttons*/
 	width:90px;
 	padding:7px;
@@ -77,7 +76,7 @@
 
 .table {
     width: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     border: solid 0 transparent;
     border-collapse: collapse;
 	border-bottom: 0;
@@ -86,7 +85,7 @@
 .table td{
 	text-align: left;
 	padding-left: 5px;
-  border: solid 0 transparent;
+ 	 border: solid 0 transparent;
 
 }
 
@@ -96,9 +95,7 @@
 }
 .table th{
 	text-align: left;
-  border:none;
-
-
+  	border:none;
 }
 .tableheader{
 	width: 100%;
@@ -174,22 +171,22 @@ align-content: space-around;
 	background-color: #bbb0bd;
 }
 .formContainer{
-  position: fixed;
+	margin:0 auto;
+  	position: absolute;
+	width:400px;
 	min-width: 30%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding: 10px 0 10px 0;
-  z-index: 99;
-  border: 1px solid #fff;
-  background-color: rgba(0,0,0,0.23);
+	padding: 15px 0 15px 0;
+  	border: 1px solid #fff;
+  	background-color: rgba(0,0,0,0.23);
 }
 #flexEdit input{
-display:inline-flex;
-  padding: 5px;
-  border-radius:1px solid grey;
-  width:100%;
+	display:inline-flex;
+  	padding: 5px;
+  	width:100%;
 }
 
 
@@ -198,17 +195,23 @@ display:inline-flex;
 	display: flex;
 	flex-direction:column;
 	background-color:#dbd7dc;
-
-
 }
 
+.addToExisting{
+	display:flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
 
 .uploadButtonsCont{
 	display:flex;
 	margin-top:10px;
 	justify-content:space-between;
+}
 
+.inputMail{
 
+	padding-left:5px;
 }
 .maillist{
 	margin-top:13px;
@@ -217,6 +220,7 @@ display:inline-flex;
 	height: 40px;
 	border-radius: 5px;
 }
+
 
 .uploadButtons{
 	width:65px;
@@ -227,16 +231,29 @@ display:inline-flex;
 	color:#fff;
 }
 
-
-
-.AddRow{
-
+.selectPopup{
+	width:100%;
 	display:inline-flex;
 	flex-direction: column;
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
+.AddRow{
+	box-sizing:border-box;
+	padding:5px;
+	width:70%;
+	display:inline-flex;
+	flex-direction: column;
+    justify-content:center;
+	align-items:center;
+}
 
+.AddRow1{
+	width:100%;
+	display:inline-flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
 
 .btnBox{
  padding-bottom: 1%;

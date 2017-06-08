@@ -54,7 +54,7 @@ class UploadFile extends Component {
                    <input name="data" type="file" onChange={this.fileInputOnChange} />
                 <div className="fileButtons">
                    <button className="addBtn" id="sendBtn" onClick={this.UploadFile} >Upload</button>
-                    <button className="back addBtn" onClick={this.props.cancelUpload}>Back</button>
+                    <button className="back addBtn" onClick={this.props.closePopup}>Back</button>
                 </div>
             </div>
         );

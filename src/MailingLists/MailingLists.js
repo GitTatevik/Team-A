@@ -9,29 +9,28 @@ import Overlay from "../TableComponent/Overlay";
 class MailingLists extends Component {
     constructor(props) {
         super(props);
-        this.TemplateId="";
-        this.lineNum ="";
-        this.checkedMailLists="";
+
         this.state = {
             maillists: [],
             mailListContacts: [],//all contacts
             mailListHeader: "",
             mailListId:0,
             checkedMailLists:0,
-            templatePopup:false
-
+            templatePopup:false,
 
         };
          this.seeContacts = this.seeContacts.bind(this);
          this.delete = this.delete.bind(this);
          this.update = this.update.bind(this);
          this.tabliToxery = [];
-         this.checkedMailList = [];
          this.getValue= this.getValue.bind(this);
          this.sendToAll =this.sendToAll.bind(this);
          this.popupCancel = this.popupCancel.bind(this);
          this.popupOpen =  this.popupOpen.bind(this);
          this.getNewContactList = this.getNewContactList.bind(this);
+        this.TemplateId="";
+        this.lineNum ="";
+        this.checkedMailLists="";
     }
 
 
@@ -40,21 +39,17 @@ class MailingLists extends Component {
         this.lineNum =event.target.id;
     }
     sendToAll(){
-        let self = this;
-        self.popupCancel();
-        call('http://crmbeta.azurewebsites.net/api/EmailSender/'+  self.state. maillists[this.lineNum].EmailListID +"/"+ self.TemplateId,  'POST')
-            .then(function () {
-                self.update();
-
+        this.popupCancel();
+        call('http://crmbeta.azurewebsites.net/api/EmailSender/'+  this.state. maillists[this.lineNum].EmailListID +"/"+ this.TemplateId,  'POST')
+            .then(() => {
+                this.update();
            })
     }
 
 
     delete(event) {
-       // console.log("maillist",this.state.maillists[event.target.id]);
-        let self = this;
-        call('http://crmbeta.azurewebsites.net/api/EmailLists/delete/'+ this.state.maillists[event.target.id].EmailListID  , 'DELETE').then(function () {
-            self.update();
+        call('http://crmbeta.azurewebsites.net/api/EmailLists/deleteContact/'+ this.state.maillists[event.target.id].EmailListID  , 'DELETE').then(() => {
+            this.update();
         })
     }
 
@@ -63,7 +58,7 @@ class MailingLists extends Component {
             this.setState({
                 maillists: list
             });
-        })
+        });
     }
 
     seeContacts(event) {
@@ -138,15 +133,18 @@ class MailingLists extends Component {
 
                 <div className="scroll">
                     {
-                        this.state.maillists.length < 1 &&
-                            <Overlay />
+                        ((!this.state.maillists.length) ) && <Overlay />
                     }
-                    <div style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
+                    <div className="openWindow" style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
                             <div className="formContainer">
-                                <span>Choose a Template</span>
+                                <div className="uploadContainer">
                             <TemplateSelect getValue={this.getValue} />
-                                <button onClick={this.sendToAll}>send</button>
-                                <button onClick={this.popupCancel}>cancel</button>
+                                <span>Choose a Template</span>
+                                <div className="fileButtons">
+                                <button onClick={this.sendToAll} className="addBtn" id="sendBtn">send</button>
+                                <button onClick={this.popupCancel} className="back addBtn">cancel</button>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     <table className="mailingListTable" >
