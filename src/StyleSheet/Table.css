@@ -17,7 +17,6 @@
 .glyphicon{
 	color:#735a73;
 	font-size: 1.7em;
-	
 }
 
 .addBtn{ /*Add Contact buttons*/
@@ -31,16 +30,18 @@
 	transition: background-color 0.5s ease;
 	margin-top:10px;
 }
+
+.addBtn:hover{  /*Edit contact row edit button*/
+	background-color:#60c5bb;
+}
+
 .back{
 	margin-left:20px;
 }
 /*Edit contact row edit button*/
-.saveBtn{
 
+.saveBtn{
 	margin-right:37%;
-}
-.addBtn:hover{  /*Edit contact row edit button*/
-	background-color:#60c5bb;
 }
 
 .tableButtons{
@@ -58,20 +59,19 @@
 	background-color: transparent;
 }
 
-
 .UserTable {
     width: 100%;
     height: 100%;
     background-color: #f1f1f1;
     color: #513654;
     box-sizing: border-box;
-	padding:25px;
-
+    padding:25px;
 }
+
 #scroll{
-  height:85%;
-  width:100%;
-	overflow: auto;
+    height:85%;
+    width:100%;
+    overflow: auto;
 }
 
 .table {
@@ -79,24 +79,24 @@
     margin: 0 auto;
     border: solid 0 transparent;
     border-collapse: collapse;
-	border-bottom: 0;
+    border-bottom: 0;
 }
 
 .table td{
-	text-align: left;
-	padding-left: 5px;
- 	 border: solid 0 transparent;
-
+    text-align: left;
+    padding-left: 5px;
+    border: solid 0 transparent;
 }
 
-
-#checkbox{
-	text-align: center;
-}
 .table th{
 	text-align: left;
   	border:none;
 }
+
+#checkbox{
+	text-align: center;
+}
+
 .tableheader{
 	width: 100%;
 	text-align: center;
@@ -115,10 +115,10 @@
 
 #theader{
 	height: 30px;
-    color: #666467;
-    text-align: center;
-    font-size: 2.5em;
-    padding: 10px;
+        color: #666467;
+        text-align: center;
+        font-size: 2.5em;
+        padding: 10px;
 }
 
 .openWindow{
@@ -132,44 +132,25 @@
 	align-items: center;
 }
 
-
 .addInput{
-  padding: 7px;
-  margin: 5px;
-}
-
-.addBtn{ /*Add Contact buttons*/
-	width:90px;
-	padding:7px;
-	border: none;
-	border-radius: 1px;
-	cursor:pointer;
-  color:#fff;
-  background-color: #735a73;
-  transition: background-color 0.5s ease;
-}
-/*Edit contact row edit button*/
-.saveBtn{
-
-  margin-right:37%;
-}
-.addBtn:hover{  /*Edit contact row edit button*/
-  background-color:#60c5bb;
+	padding: 7px;
+	margin: 5px;
 }
 
 .closeWindow{
 	display:none;
 }
 #flexEdit{
-  flex-direction: column;
-display:flex;
-justify-content: space-around;
-align-content: space-around;
-
+  	flex-direction: column;
+	display:flex;
+	justify-content: space-around;
+	align-content: space-around;
 }
+
 .formContainerUpload {
 	background-color: #bbb0bd;
 }
+
 .formContainer{
 	margin:0 auto;
   	position: relative;
@@ -184,12 +165,12 @@ align-content: space-around;
   	border: 1px solid #fff;
   	background-color: rgba(0,0,0,0.23);
 }
+
 #flexEdit input{
 	display:inline-flex;
   	padding: 5px;
   	width:100%;
 }
-
 
 .uploadContainer{
 	padding:50px;
@@ -199,22 +180,22 @@ align-content: space-around;
 	z-index: 99;
 }
 
-.addToExisting{
-	display:flex;
-	flex-direction: column;
-	margin-top: 10px;
-}
-
 .uploadButtonsCont{
 	display:flex;
 	margin-top:10px;
 	justify-content:space-between;
 }
 
-.inputMail{
+.addToExisting{
+	display:flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
 
+.inputMail{
 	padding-left:5px;
 }
+
 .maillist{
 	margin-top:13px;
 	display: inline-flex;
@@ -222,7 +203,6 @@ align-content: space-around;
 	height: 40px;
 	border-radius: 5px;
 }
-
 
 .uploadButtons{
 	width:65px;
@@ -246,7 +226,7 @@ align-content: space-around;
 	width:70%;
 	display:inline-flex;
 	flex-direction: column;
-    justify-content:center;
+        justify-content:center;
 	align-items:center;
 }
 
@@ -258,11 +238,10 @@ align-content: space-around;
 }
 
 .btnBox{
- padding-bottom: 1%;
-    padding-top: 4%;
-    display: flex;
-    box-sizing: border-box;
-   
+        padding-bottom: 1%;
+        padding-top: 4%;
+        display: flex;
+        box-sizing: border-box;
 }
 
 .responseContainer{
@@ -272,6 +251,12 @@ align-content: space-around;
 	justify-content:center;
 	align-items:center;
 	background-color: #735a73;
+}
+
+.responseWindow{
+	height:100%;
+	width: 100%;
+	background-color: #60c5bb;
 }
 
 .edit{
@@ -284,12 +269,6 @@ align-content: space-around;
 	text-align: center;
 	color:azure;
 	font-size:1.3em;
-}
-
-.responseWindow{
-	height:100%;
-	width: 100%;
-	background-color: #60c5bb;
 }
 
 select{
