@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import './StyleSheet/Login.css';
-class Login extends Component {
+
+export default class Login extends Component {
     render() {
         return (
             <div id="login_container" className="flex">
@@ -14,6 +15,4 @@ class Login extends Component {
         );
     }
 }
-
-export default Login;
 
