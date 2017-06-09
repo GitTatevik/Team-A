@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+
 const databaseGroup = ["Marcetologs", "Engineers", "Programmers", "Dancers", "Singers"];
 const databaseTemplate = ["Marcetologs", "Engineers", "Programmers", "Dancers", "Singers"];
 
-
-class SendEmails extends Component {
+export default class SendEmails extends Component {
     optionGroup(databaseGroup) {
         return databaseGroup.map((option, key) => <option key={key}> {option} </option>);
     }
@@ -48,4 +48,3 @@ class SendEmails extends Component {
         )
     }
 }
-export default  SendEmails ;
