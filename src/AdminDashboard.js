@@ -8,7 +8,7 @@ import SendEmails from './SendEmails.js';
 import { Switch } from 'react-router-dom';
 import { Route, Redirect} from 'react-router';
 
-class AdminDashboard extends Component{
+export default class AdminDashboard extends Component{
   render(){
     return(
       <div  className="return ">
@@ -25,6 +25,4 @@ class AdminDashboard extends Component{
       </div>
     );
   }
-
 }
-export default AdminDashboard;
