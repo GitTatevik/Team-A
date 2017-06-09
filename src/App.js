@@ -6,7 +6,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="global_container" >
-                    <AdminDashboard/>
+        <AdminDashboard/>
       </div>
     );
   }
