@@ -5,9 +5,8 @@ class UploadFile extends Component {
             super(props);
             this.state={
                 disabled:true
-            }
-
-            this.UploadFile =this.UploadFile.bind(this);
+            };
+            this.UploadFile = this.UploadFile.bind(this);
             this.fileInputOnChange = this.fileInputOnChange.bind(this);
             
         }
@@ -23,19 +22,20 @@ class UploadFile extends Component {
                 "Accept": "application/json",
                 body: data
             }).then(res => {
-                if (res.status === 200) {
-                    this.props.cancelUpload();
-                    this.props.update();
+                if (res.ok) {
+                    this.props.getResponseText("Added successfully");
                 }
                 if (res.status === 409) {
-                    alert("File have been added");
+                   this.props.getResponseText("This file already exists");
                 }
                 return res.json()
             });
-        } else {
-            alert("No chosen file");
         }
-          this.props.closePopUp();
+        else {
+            this.props.getResponseText("Please choose a file");
+        }
+            this.props.update();
+            this.props.closePopup();
     }
      fileInputOnChange(){
          if( document.querySelector('input[type="file"]').files[0]){

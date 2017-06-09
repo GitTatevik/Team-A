@@ -13,34 +13,30 @@ class Edit extends Component {
 			Country: this.refs.country.value,
 			Email: this.refs.email.value
 
-		}
-		let self = this;
-		//console.log("save edited data",editObj);
-		//alert("Save edited contact");
-		call('http://crmbeta.azurewebsites.net/api/Contacts/' + this.props.data.Guid, "PUT", editObj).then(function(data) {
-			self.props.update();
+		};
 
+		call('http://crmbeta.azurewebsites.net/api/Contacts/' + this.props.data.Guid, "PUT", editObj).then(() => {
+			this.props.update();
 		});
 		this.props.save();
-
 	}
 
 			render(){
-
 				return(
-					<div className="openWindow">
-				<div className="formContainer">
-				<div id="flexEdit">
-					<p><span>Full name</span> <input type="text" defaultValue={this.props.data["Full Name"]} ref="FullName"/></p>
-					<p><span>Company name</span> <input type="text"  defaultValue={this.props.data["Company Name"]}ref="CompanyName"/></p>
-					<p>Position <input type="text"  defaultValue={this.props.data.Position} ref="position"/></p>
-					<p>Country <input type="text"  defaultValue={this.props.data.Country} ref="country"/></p>
-					<p>Email <input type="email"  defaultValue={this.props.data.Email} ref="email"/></p>
-					<p><button className="addBtn saveBtn" onClick={this.save}>Save</button>
-						<button className="addBtn" onClick={this.props.cancel}>Cancel</button>
-					</p>
-				</div>
-				</div>
+					<div className="openWindow" >
+						<div className="formContainer">
+							<div id="flexEdit">
+								<p><span>Full name</span> <input type="text" defaultValue={this.props.data["Full Name"]} ref="FullName"/></p>
+								<p><span>Company name</span> <input type="text"  defaultValue={this.props.data["Company Name"]}ref="CompanyName"/></p>
+								<p>Position <input type="text"  defaultValue={this.props.data.Position} ref="position"/></p>
+								<p>Country <input type="text"  defaultValue={this.props.data.Country} ref="country"/></p>
+								<p>Email <input type="email"  defaultValue={this.props.data.Email} ref="email"/></p>
+								<p>
+									<button className="addBtn saveBtn" onClick={this.save}>Save</button>
+									<button className="addBtn" onClick={this.props.cancel}>Cancel</button>
+								</p>
+							</div>
+						</div>
 					</div>
 				);
 			}

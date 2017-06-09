@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import '../StyleSheet/MailingLists.css';
-import TemplateSelect from '../TableComponent/TemplateSelect.js';
 import call from '../Fetch.js';
 
 export default class MailingListContacts extends Component{
@@ -41,11 +40,8 @@ export default class MailingListContacts extends Component{
     }
 
     sendEmails() {
-        let self = this;
-        call('http://crmbeta.azurewebsites.net/api/EmailSender/' + self.templId, 'POST', self.selectedContacts).then(function (response) {
-            //console.log("status", this.state.TemplateId, response);
-            alert("Email sent");
-
+        call('http://crmbeta.azurewebsites.net/api/EmailSender/' + this.templId, 'POST', this.selectedContacts).then(() => {
+            this.props.getResponseText('Email sent');
         });
         this.emptyCheckedList();
     }
@@ -58,14 +54,18 @@ export default class MailingListContacts extends Component{
         headers: {'Accept': 'application/json','Content-Type': 'application/json'},
             body: JSON.stringify(this.selectedContacts)
         }).then(response=>{
-
             if(response.ok === true){
-                this.props.updateContent();
-                alert("Contact deleted");
+                this.props.update();
+             
+				 //this.props.getResponseText('Contact deleted');
             }
             else{
-                alert("Sending failure :" + response.statusText);
+				
+                this.props.getResponseText('Sending failure :' + response.statusText);
             }
+			
+			 this.props.update();
+			 this.props.updateContent();
         })
     }
     emptyCheckedList(){
@@ -81,7 +81,6 @@ export default class MailingListContacts extends Component{
         });
     }
     render(){
-     console.log("render",this.props.data);
         this.emptyCheckedList();
         return(
             <div className="mailListContainer">

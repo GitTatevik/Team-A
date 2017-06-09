@@ -7,8 +7,6 @@ class TemplateSelectPopup extends Component {
             disabled:true
         }
     }
-
-
     render(){
         return(
             <div className="uploadContainer">

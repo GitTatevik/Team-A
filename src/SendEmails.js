@@ -36,7 +36,7 @@ class SendEmails extends Component {
                             </select>
 
                             <div className="mdl-textfield mdl-js-textfield">
-                                <textarea className="mdl-textfield__input" type="text" rows="3" id="message" name="message_send"></textarea>
+                                <textarea className="mdl-textfield__input" type="text" rows="3" id="message" name="message_send"/>
                                 <label className="mdl-textfield__label" htmlFor="message">Message</label>
                             </div>
 

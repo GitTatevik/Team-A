@@ -21,10 +21,10 @@ class AddtoExisting extends Component {
            body: JSON.stringify(this.props.selectedContacts)
              }).then(response=>{
             if(response.ok === true){
-                alert("Contacts added to mailing list");
+                this.props.getResponseText('Contacts added to mailing list');
             }
             else{
-                alert("Sending failure :" + response.statusText);
+                this.props.getResponseText("Sending failure :" + response.statusText);
             }
         })
         this.close();

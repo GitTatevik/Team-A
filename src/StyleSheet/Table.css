@@ -172,7 +172,8 @@ align-content: space-around;
 }
 .formContainer{
 	margin:0 auto;
-  	position: absolute;
+  	position: relative;
+	z-index: 99;
 	width:400px;
 	min-width: 30%;
 	display: flex;
@@ -194,7 +195,8 @@ align-content: space-around;
 	padding:50px;
 	display: flex;
 	flex-direction:column;
-	background-color:#dbd7dc;
+	position: relative;
+	z-index: 99;
 }
 
 .addToExisting{
@@ -263,12 +265,36 @@ align-content: space-around;
    
 }
 
-
+.responseContainer{
+	height: 140px;
+	width:90%;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	background-color: #735a73;
+}
 
 .edit{
-  display: flex;
-justify-content: center;
-border: none;
+	display: flex;
+	justify-content: center;
+	border: none;
+}
+
+.windowText{
+	text-align: center;
+	color:azure;
+	font-size:1.3em;
+}
+
+.responseWindow{
+	height:100%;
+	width: 100%;
+	background-color: #60c5bb;
+}
+
+select{
+	padding:5px;
+	background-color: #efefef;
 }
 
 

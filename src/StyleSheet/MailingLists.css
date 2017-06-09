@@ -1,4 +1,3 @@
-
 .scroll{
 	width:100%;
 	display: flex;
@@ -12,9 +11,11 @@
 	font-size:1.2em;
 }
 .mailingListTable tr :hover{
-    cursor:pointer;
-    background: #a795a7;
+	cursor:pointer;
+	background: #a795a7;
 }
+
+
 .mailingListTable {
 	width: 100%;
 	margin: 0 auto;
@@ -23,12 +24,12 @@
 	border-bottom: 0;
 }
 
-.mailingListTable tr:nth-child(even) {           
-    background-color: #f1f1f1;    
-	 }
+.mailingListTable tr:nth-child(odd) {
+	background-color: #dddddd ;
+}
 
-.mailingListTable tr:nth-child(odd) {     
-background-color:#dddddd; 
+.mailingListTable tr:nth-child(even) {
+	background-color:#f1f1f1;
 }
 
 .mailingListTable tr{
@@ -40,24 +41,28 @@ background-color:#dddddd;
 	width:100%;
 	padding: 3px 0 3px 0;
 	cursor:pointer;
-	
-	
+
+
 }
 .mailingListTable td{
 	text-align: left;
 	padding-left: 5px;
 	border: solid 0 transparent;
-	
-	
+
 }
+
 
 .mailingListTable tr th{
 	text-align:left;
 	border:none;
 }
 
+#ChooseSendRemove{
+	background-color: #f1f1f1;
+}
 .trash{
-	align-self:flex-end;
+	align-items: right;
+	justify-content: center;
 	cursor: pointer;
 }
 
@@ -78,24 +83,28 @@ background-color:#dddddd;
 
 .mailingListContactsTable tr{
 	border-bottom:1px solid lightgrey;
-	
+
 }
 .mailingListContactsTable td{
 	border-collapse: collapse;
 	text-align: left;
 	padding: 5px 0 5px 5px;
-	
 }
+
 
 .mailingListContactsTable th{
 	text-align: left;
 	padding-left: 5px;
 	border-bottom: 1px solid #f1f1f1;
-	
 }
 
+#sendIconBtn{
+	margin-right: 4%;
+}
 
-
+#btrashIconBtn{
+	margin-right: 22%;
+}
 .h2{
 	font-size: 1.8em;
 	text-align: center;
@@ -119,7 +128,7 @@ background-color:#dddddd;
 	transition: background-color 0.5s ease;
 }
 
-.mailBtn:hover{  
+.mailBtn:hover{
 	background-color:#60c5bb;
 }
 

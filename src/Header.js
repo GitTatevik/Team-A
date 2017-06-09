@@ -24,9 +24,9 @@ class Header extends Component{
       <div className="header_container flex">
          <div className="row flex">
              <div className="menu_icon" id="menu_icon" onClick={this.openNav}>
-                 <div className="icon_item"></div>
-                 <div className="icon_item"></div>
-                 <div className="icon_item"></div>
+                 <div className="icon_item"/>
+                 <div className="icon_item"/>
+                 <div className="icon_item"/>
              </div>
               <div className="header flex">
                   <div className="logo">
@@ -34,8 +34,6 @@ class Header extends Component{
                   </div>
                   <div className="user flex">
                       <ul className="list flex">
-                          {/*<li className="list_item">Username</li>*/}
-                          {/*<li className="list_item"><NavLink activeClassName="active" to='/login'>Log out</NavLink></li>*/}
                       </ul>
                   </div>
               </div>
@@ -43,14 +41,12 @@ class Header extends Component{
 
          <div id="sidenav" style={{width:this.state.width}}>
              <div className="close_icon" onClick={this.closeNav}>
-                 <div className="close_item"></div>
-                 <div className="close_item"></div>
+                 <div className="close_item"/>
+                 <div className="close_item"/>
              </div>
              <ul className="menu_list">
                  <li className="menu_item"><NavLink activeClassName="active" to='/contacts'>Contacts</NavLink></li>
                  <li className="menu_item"><NavLink activeClassName="active" to='/mailinglist'>Mailing list </NavLink></li>
-                 {/* <li className="menu_item"><NavLink activeClassName="active" to='/sendemails'> Send Email </NavLink></li>
-                 <li className="menu_item"><NavLink activeClassName="active" to='/login'>Log Out </NavLink></li>*/}
              </ul>
          </div>
       </div>

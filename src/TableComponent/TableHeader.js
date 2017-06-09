@@ -3,9 +3,7 @@ import '../StyleSheet/Table.css';
 
 class TableHeader extends Component{
 		 render(){
-
 		 const obj=this.props.headerdata;
-		 //console.log("header obj",obj)
 		 let headers =[];
 			  for(let i in obj){
 			  		headers.push(i);

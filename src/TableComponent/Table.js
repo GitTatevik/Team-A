@@ -10,6 +10,7 @@ import TemplateSelect from './TemplateSelect.js';
 import Overlay from './Overlay.js';
 import AddtoExisting from './AddtoExisting.js';
 import AlertWindow from '../AlertWindow';
+import Window from '../Window';
 
 class Table extends Component {
     constructor(props) {
@@ -30,15 +31,18 @@ class Table extends Component {
             alertWindow:false,
             popup:false,
             sendFunction:false,
-            deleteFunction:false
+            deleteFunction:false,
+            responseWindow:false,
+            responseText:''
         };
+
         this.sendMail = this.sendMail.bind(this);
         this.getGuid = this.getGuid.bind(this);
         this.saveFromEdit = this.saveFromEdit.bind(this);
         this.cancel = this.cancel.bind(this);
         this.onClickEditBtn = this.onClickEditBtn.bind(this);
         this.isDisable = this.isDisable.bind(this);
-        this.addContact = this.addContact.bind(this);
+        this.addContactToTable = this.addContactToTable.bind(this);
         this.closePopUp = this.closePopUp.bind(this);
         this.deleteContact = this.deleteContact.bind(this);
         this.update = this.update.bind(this);
@@ -50,11 +54,12 @@ class Table extends Component {
         this.addToExisting = this.addToExisting.bind(this);
         this.showSendWindow = this.showSendWindow.bind(this);
         this.showDeleteWindow = this.showDeleteWindow.bind(this);
-    }
+        this.getResponseText = this.getResponseText.bind(this);
+		this.addContact =  this.addContact.bind(this);
+    } 
 
     checkBoxChanges(target) {
-        console.log(target);
-        this.setState({checkedBoxArray:[this.state.checkedBoxArray,target]});
+        this.setState({checkedBoxArray:[...this.state.checkedBoxArray,target]});
     }
 
     isDisable(disabled) {
@@ -69,37 +74,26 @@ class Table extends Component {
         });
     }
 
-    componentDidMount() {
-        call('http://crmbeta.azurewebsites.net/api/Contacts', 'GET').then(response => {
-            this.setState({
-                data: response
-            });
-            console.log("GET Data", response);
-        });
-    }
-
     sendMail() {
         if (this.state.guids.length !== 0) {
-            call('http://crmbeta.azurewebsites.net/api/EmailSender/' + this.state.TemplateId, 'POST', this.state.guids).then(function (response) {
-                //console.log("status", this.state.TemplateId, response);
-                alert("Email sent");
+            call('http://crmbeta.azurewebsites.net/api/EmailSender/' + this.state.TemplateId, 'POST', this.state.guids).then(() => {
+                this.getResponseText('Email sent');
             });
         }
 
         this.setState({
-            sendButton: true,
+            sendButton: false,
             disabled: true,
-            guids: []
+            guids: [],
+
         });
-        for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
-            this.state.checkedBoxArray[i].checked = false;
-        }
+
         this.setState({
             sendFunction:false,
             deleteFunction:false,
             popup: false,
             upload: false,
-            addContact: false,
+            addContactState: false,
             closeAddTo:false,
             alertWindow:false,
         });
@@ -126,9 +120,9 @@ class Table extends Component {
         });
     }
 
-    addContact() {
+    addContactToTable() {
         this.setState({
-            addContact: true
+            addContactState: true
         });
     }
 
@@ -142,20 +136,20 @@ class Table extends Component {
     deleteContact() {
         call('http://crmbeta.azurewebsites.net/api/Contacts', 'DELETE', this.state.guids).then(() => {
             this.update();
-            alert("Contact deleted");
+            this.getResponseText('Deleted Successfully');
             this.setState({
                 disabled: true
             });
         });
-        for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
+		  for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
             this.state.checkedBoxArray[i].checked = false;
-        }
+		  }
         this.setState({
             sendFunction:false,
             deleteFunction:false,
             popup: false,
             upload: false,
-            addContact: false,
+            addContactState: false,
             closeAddTo:false,
             alertWindow:false,
         });
@@ -190,21 +184,14 @@ class Table extends Component {
 
                     this.refs.createMList.value = "";
 
-                    for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
-                        this.state.checkedBoxArray[i].checked = false;
-                    }
+                    this.getResponseText('Created successfully');
                 });
-            } else {
-                alert("");
             }
-        } else {
-            alert("");
         }
     }
 
     getSelectValue(value) {
-        this.state.TemplateId = value;
-        console.log(this.state.checkedBoxArray);
+        this.setState({TemplateId:value});
         if (value !== '0' && this.state.checkedBoxArray.length) {
             this.setState({sendButton: true,});
         }
@@ -217,7 +204,7 @@ class Table extends Component {
         this.setState({
             popup: true,
             upload: true,
-            addContact: false
+            addContactState: false
         })
     }
 
@@ -225,16 +212,16 @@ class Table extends Component {
         this.setState({
             popup: true,
             upload: false,
-            addContact: true
+            addContactState: true
         });
 
     }
 
     closePopUp() {
         this.setState({
-            popup: false,
+            popup:false,
             upload: false,
-            addContact: false,
+            addContactState: false,
             closeAddTo:false,
             alertWindow:false,
         });
@@ -244,7 +231,7 @@ class Table extends Component {
         this.setState({
             popup:true,
             closeAddTo: true,
-            addContact:false,
+            addContactState:false,
             upload:false,
             alertWindow:false,
         });
@@ -254,7 +241,7 @@ class Table extends Component {
         this.setState({
             sendFunction:true,
             closeAddTo: false,
-            addContact:false,
+            addContactState:false,
             upload:false,
             popup:true,
             alertWindow:true,
@@ -264,10 +251,34 @@ class Table extends Component {
         this.setState({
             deleteFunction:true,
             closeAddTo: false,
-            addContact:false,
+            addContactState:false,
             upload:false,
             popup:true,
             alertWindow:true,
+        });
+    }
+
+    getResponseText(response){
+		this.setState({
+            responseText:response,
+            responseWindow:true,
+            deleteFunction:false,
+            closeAddTo: false,
+            addContactState:false,
+            upload:false,
+            popup:true,
+            alertWindow:false,
+        });
+            setTimeout(() =>{
+                this.setState({responseWindow:false,popup:false})
+            },2000)
+    }
+
+    componentDidMount() {
+        call('http://crmbeta.azurewebsites.net/api/Contacts', 'GET').then(response => {
+            this.setState({
+                data: response
+            });
         });
     }
 
@@ -286,18 +297,21 @@ class Table extends Component {
             <div className="UserTable">
                 <div className="openWindow" style={{display: this.state.popup ? 'flex' : 'none'}}>
                     <div className="formContainer">
-                        <div className="AddRow" style={{display: this.state.addContact ? 'flex' : 'none'}}>
-                            <AddContact  update={this.update} closePopup={this.closePopUp}/>
+                        <div className="AddRow" style={{display: this.state.addContactState ? 'flex' : 'none'}}>
+                            <AddContact  update={this.update} closePopup={this.closePopUp} getResponseText={this.getResponseText}/>
                         </div>
                         <div style={{display: this.state.upload ? 'flex' : 'none'}}>
-                            <UploadFile cancelUpload={this.cancelUpload} update={this.update} closePopup={this.closePopUp} />
+                            <UploadFile cancelUpload={this.cancelUpload} update={this.update}  closePopup={this.closePopUp} getResponseText={this.getResponseText}/>
                         </div>
                         <div style={{display: this.state.closeAddTo ? 'flex' : 'none'}}>
-                            <AddtoExisting selectedContacts={this.state.guids} closePopup={this.closePopUp} />
+                            <AddtoExisting selectedContacts={this.state.guids} closePopup={this.closePopUp} getResponseText={this.getResponseText}/>
                         </div>
                         <div style={{display:this.state.alertWindow ? 'flex' : 'none' }}>
                             <AlertWindow windowAction={this.state.deleteFunction ? this.deleteContact : (this.state.sendFunction)?this.sendMail:''}
                                          closePopup={this.closePopUp} />
+                        </div>
+                        <div style={{display:this.state.responseWindow ? 'flex' : 'none' }} className="responseContainer">
+                           <Window responseText={this.state.responseText}/>
                         </div>
                     </div>
                 </div>
@@ -315,9 +329,9 @@ class Table extends Component {
                     <Overlay />
                     }
                     <div id="templateSelectBox">
-                        <TemplateSelect disabled={this.state.disabled} getValue={this.getSelectValue} />
+                        <TemplateSelect disabled={this.state.disabled} defaultValue={this.state.templateDefaultValue} getValue={this.getSelectValue} />
                         <button disabled={(this.state.sendButton && this.state.checkedBoxArray.length)? '' : 'disabled'} className="tableButtons"
-                                onClick={this.showSendWindow /*this.sendMail*/}>
+                                onClick={this.showSendWindow}>
                             <i className="glyphicon glyphicon-envelope"/><br />Send Email
                         </button>
                     </div>

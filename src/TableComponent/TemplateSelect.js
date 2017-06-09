@@ -21,7 +21,7 @@ class TemplateSelect extends Component {
     }
     render(){
         return(
-            <select onChange={this.selectOnChange} defaultValue="">
+            <select onChange={this.selectOnChange}>
                 <option value="0">Select a Template</option>
                 <option value="1">Anniversary</option>
                 <option value="2">Birthday</option>
