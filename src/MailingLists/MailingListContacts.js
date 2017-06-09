@@ -55,17 +55,17 @@ export default class MailingListContacts extends Component{
             body: JSON.stringify(this.selectedContacts)
         }).then(response=>{
             if(response.ok === true){
+                console.log(response,"responseee");
                 this.props.update();
-             
-				 //this.props.getResponseText('Contact deleted');
+                this.props.getResponseText('Contact deleted');
+
             }
             else{
-				
+                this.props.update();
                 this.props.getResponseText('Sending failure :' + response.statusText);
+
             }
-			
-			 this.props.update();
-			 this.props.updateContent();
+            this.props.update()
         })
     }
     emptyCheckedList(){

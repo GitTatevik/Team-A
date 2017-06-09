@@ -50,16 +50,16 @@ class MailingLists extends Component {
    deleteMailingList() {
         call('http://crmbeta.azurewebsites.net/api/EmailLists/delete/' + this.state.maillists[this.state.lineNum].EmailListID, 'DELETE')
             .then(response => {
-                this.update();
-       
-		//this.getResponseText("Deleted successfully");
-		 this.popupCancel();
+
+                this.getResponseText("Deleted successfully");
             });
-      	 
+       this.popupCancel();
+       this.update();
    }
     update() {
         return fetch('http://crmbeta.azurewebsites.net/api/EmailLists')
             .then(response => {
+                console.log(response,"sfsdfdssdfsfsdf");
                 if(response.ok === true) {
                     return response.json();
                 }
@@ -113,7 +113,8 @@ class MailingLists extends Component {
             deletePopUp:false,
             sendPopUp:false,
             deleteFunction:false
-        })
+        });
+
     }
 
     showSendWindow(event){
@@ -133,7 +134,8 @@ class MailingLists extends Component {
             templatePopup:true,
             sendPopUp:false,
             deletePopUp:true,
-            deleteFunction:true
+            deleteFunction:true,
+            responseWindow:(this.state.responseText !== ''),
         });
     }
     getResponseText(response){
@@ -143,13 +145,14 @@ class MailingLists extends Component {
             deleteFunction:false,
             closeAddTo: false,
             addContact:false,
+            templatePopup:true,
             upload:false,
-            popup:true,
             alertWindow:false,
         });
+        console.log(this.state);
         setTimeout(() =>{
-            this.setState({responseWindow:false,popup:false})
-        },2000)
+            this.setState({responseWindow:false,templatePopup:false})
+        },1500);
     }
 
     componentDidMount() {
@@ -202,7 +205,7 @@ class MailingLists extends Component {
                                                 closePopup={this.popupCancel}
                                     />
                                 </div>
-                                <div>
+                                <div style={{display:this.state.responseWindow  ? 'flex' : 'none' }} className="responseContainer">
                                     <Window responseText={this.state.responseText}/>
                                 </div>
                             </div>
@@ -215,7 +218,6 @@ class MailingLists extends Component {
                     </table>
                 <MailingListContacts
                     getResponseText={this.getResponseText}
-                    updateContent = {this.getNewContactList}
                     mailListId={this.state.checkedMailLists}
                     data={this.state.mailListContacts}
                     mailListInfo={this.state.mailListHeader}

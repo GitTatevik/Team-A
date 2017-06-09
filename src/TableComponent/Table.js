@@ -310,7 +310,7 @@ class Table extends Component {
                             <AlertWindow windowAction={this.state.deleteFunction ? this.deleteContact : (this.state.sendFunction)?this.sendMail:''}
                                          closePopup={this.closePopUp} />
                         </div>
-                        <div style={{display:this.state.responseWindow ? 'flex' : 'none' }} className="responseContainer">
+                        <div style={{display:this.state.responseWindow  ? 'flex' : 'none' }} className="responseContainer">
                            <Window responseText={this.state.responseText}/>
                         </div>
                     </div>
@@ -323,7 +323,6 @@ class Table extends Component {
                                   editBtn={this.onClickEditBtn} checkBoxChanges={this.checkBoxChanges}/>
                     </table>
                 </div>
-                {/*Buttons for Table Box*/}
                 <div className="btnBox">
                     {   !this.state.data.length &&
                     <Overlay />
