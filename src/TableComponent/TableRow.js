@@ -30,8 +30,6 @@ class TableRow extends Component {
 		} else {
 			this.props.isdisabledprop(false);
 		}
-
-		//console.log("GuId Array",this.state.guIdArray);
 	}
 
 	     render(){

@@ -11,7 +11,6 @@ export function call(url, method, body = false, error_message = "Something went 
     if (!response.ok) {
       return response;
     }
-     //console.log(response);
     return response;
    
   })

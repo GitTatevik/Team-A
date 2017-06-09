@@ -52,7 +52,7 @@ class MailingLists extends Component {
             .then(response => {
                 this.update();
        
-		//this.getResponseText("Deleted successfully"); 
+		//this.getResponseText("Deleted successfully");
 		 this.popupCancel();
             });
       	 

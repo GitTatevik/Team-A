@@ -10,7 +10,7 @@ import TemplateSelect from './TemplateSelect.js';
 import Overlay from './Overlay.js';
 import AddtoExisting from './AddtoExisting.js';
 import AlertWindow from '../AlertWindow';
-import Window from '../Window';
+import Window from '../Window'
 
 class Table extends Component {
     constructor(props) {
