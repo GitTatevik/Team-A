@@ -46,6 +46,7 @@ class AddtoExisting extends Component {
         return(
             <div className="addToExisting">
                <select onChange={this.selectOnChange} value={this.state.selectedMailList}>
+                <option value="">Select a mail list</option>
                    { this.state.maillists.map((value, index) => {
                        return (
                            <option key={index} value={value.EmailListID}>{value.EmailListName}</option>
