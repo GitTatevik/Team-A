@@ -9,13 +9,8 @@
     float:left;
 	position:fixed;
 	top:10%;
-	
 }
-.list_menu{
-	text-decoration: none;
-    list-style-type: none;
-    width: 100%;
-}
+
 .menu_item{
 	text-decoration: none;
     color: azure;
@@ -30,16 +25,23 @@
     align-items:center;
     cursor: pointer;
     transition: .5s ;
-    
 }
 
 .menu_item:hover{
     background-color:#a795a7;
 }
+
+.list_menu{
+	text-decoration: none;
+    list-style-type: none;
+    width: 100%;
+}
+
 .active{
     background-color:#a795a7;
 }
-a :active{
+
+a:active{
     background-color:#a795a7;
 }
 

@@ -3,12 +3,20 @@
 	justify-content: space-between;
 	margin-top: 15px;
 }
-.savebutton{  /* Edit section*/
+
+.selectContainer{
+	display: flex;
+	flex-direction:column;
+
+
+}
+.savebutton{
 	border-radius: 5px;
 	background: blue;
 	color:white;
 	margin: 10px 10px;
 }
+
 #templateSelectBox {
 	display: flex;
 	align-items: center;
@@ -17,11 +25,10 @@
 .glyphicon{
 	color:#735a73;
 	font-size: 1.7em;
-	
 }
 
-.addBtn{ /*Add Contact buttons*/
-	width:90px;
+.addBtn{
+	width:120px;
 	padding:7px;
 	border: none;
 	border-radius: 1px;
@@ -31,16 +38,14 @@
 	transition: background-color 0.5s ease;
 	margin-top:10px;
 }
+
+.addBtn:hover{
+	background-color:#60c5bb;
+}
+
+
 .back{
 	margin-left:20px;
-}
-/*Edit contact row edit button*/
-.saveBtn{
-
-	margin-right:37%;
-}
-.addBtn:hover{  /*Edit contact row edit button*/
-	background-color:#60c5bb;
 }
 
 .tableButtons{
@@ -52,12 +57,12 @@
 	background-color:transparent;
 	border:0;
 }
+
 .tableButtons:disabled {
 	color: lightgrey;
 	border: 0;
 	background-color: transparent;
 }
-
 
 .UserTable {
     width: 100%;
@@ -69,8 +74,8 @@
 
 }
 #scroll{
-  height:85%;
-  width:100%;
+	height:85%;
+	width:100%;
 	overflow: auto;
 }
 
@@ -85,14 +90,9 @@
 .table td{
 	text-align: left;
 	padding-left: 5px;
- 	 border: solid 0 transparent;
-
+ 	border: solid 0 transparent;
 }
 
-
-#checkbox{
-	text-align: center;
-}
 .table th{
 	text-align: left;
   	border:none;
@@ -101,6 +101,10 @@
 	width: 100%;
 	text-align: center;
 	color: white;
+}
+
+#checkbox{
+	text-align: center;
 }
 
 .addtablerow{
@@ -127,49 +131,32 @@
 	top: 0;
 	left: 0;
 	display:flex;
-	position:absolute;
+	position:fixed;
 	justify-content: center;
 	align-items: center;
+	z-index:999;
 }
-
 
 .addInput{
-  padding: 7px;
-  margin: 5px;
-}
-
-.addBtn{ /*Add Contact buttons*/
-	width:90px;
-	padding:7px;
-	border: none;
-	border-radius: 1px;
-	cursor:pointer;
-  color:#fff;
-  background-color: #735a73;
-  transition: background-color 0.5s ease;
-}
-/*Edit contact row edit button*/
-.saveBtn{
-
-  margin-right:37%;
-}
-.addBtn:hover{  /*Edit contact row edit button*/
-  background-color:#60c5bb;
+	padding: 7px;
+	margin: 7px 0;
 }
 
 .closeWindow{
 	display:none;
 }
-#flexEdit{
-  flex-direction: column;
-display:flex;
-justify-content: space-around;
-align-content: space-around;
 
+#flexEdit{
+	flex-direction: column;
+	display:flex;
+	justify-content: space-around;
+	align-content: space-around;
 }
+
 .formContainerUpload {
 	background-color: #bbb0bd;
 }
+
 .formContainer{
 	margin:0 auto;
   	position: relative;
@@ -184,13 +171,26 @@ align-content: space-around;
   	border: 1px solid #fff;
   	background-color: rgba(0,0,0,0.23);
 }
+
 #flexEdit input{
 	display:inline-flex;
   	padding: 5px;
   	width:100%;
 }
 
+.addToExisting{
+	display:flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
+.alertWindow{
+	justify-content:center;
+	align-items:center;
+	display:flex;
+	flex-direction: column;
+	margin-top: 10px;
 
+}
 .uploadContainer{
 	padding:50px;
 	display: flex;
@@ -199,30 +199,11 @@ align-content: space-around;
 	z-index: 99;
 }
 
-.addToExisting{
-	display:flex;
-	flex-direction: column;
-	margin-top: 10px;
-}
-
 .uploadButtonsCont{
 	display:flex;
 	margin-top:10px;
 	justify-content:space-between;
 }
-
-.inputMail{
-
-	padding-left:5px;
-}
-.maillist{
-	margin-top:13px;
-	display: inline-flex;
-	padding: 5px;
-	height: 40px;
-	border-radius: 5px;
-}
-
 
 .uploadButtons{
 	width:65px;
@@ -231,6 +212,18 @@ align-content: space-around;
 	border-radius: 2px;
 	cursor:pointer;
 	color:#fff;
+}
+
+.inputMail{
+	padding-left:5px;
+}
+
+.maillist{
+	margin-top:13px;
+	display: inline-flex;
+	padding: 5px;
+	height: 40px;
+	border-radius: 5px;
 }
 
 .selectPopup{
@@ -257,12 +250,17 @@ align-content: space-around;
 	margin-top: 10px;
 }
 
+.addForm{
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 .btnBox{
- padding-bottom: 1%;
+	padding-bottom: 1%;
     padding-top: 4%;
     display: flex;
     box-sizing: border-box;
-   
 }
 
 .responseContainer{
@@ -272,6 +270,12 @@ align-content: space-around;
 	justify-content:center;
 	align-items:center;
 	background-color: #735a73;
+}
+
+.responseWindow{
+	height:100%;
+	width: 100%;
+	background-color: #60c5bb;
 }
 
 .edit{
@@ -286,24 +290,30 @@ align-content: space-around;
 	font-size:1.3em;
 }
 
-.responseWindow{
-	height:100%;
-	width: 100%;
-	background-color: #60c5bb;
-}
-
 select{
 	padding:5px;
 	background-color: #efefef;
 }
+#fileUpload {
 
+	width:260px;
+	background-color: #ddd;
+	padding:2px;
+
+}
+
+
+.fileButtons{
+	display: flex;
+	justify-content:center;
+
+}
 
 @media screen and (max-width:768px){
 
 	.btnBox{
 		flex-wrap: wrap;
 		flex-direction:column;
-		
 	}
 
 	#templateSelectBox{

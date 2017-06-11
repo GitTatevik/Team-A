@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AdminDashboard from './AdminDashboard.js';
 import { HashRouter } from 'react-router-dom';
 import './StyleSheet/index.css';
 
 ReactDOM.render(
-<HashRouter>
-  <App/>
-</HashRouter>
-, document.getElementById('root'));
+  <HashRouter>
+      <AdminDashboard />
+  </HashRouter>,
+document.getElementById('root'));

@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import './StyleSheet/Table.css';
 
-
 class Window extends Component {
     render(){
         return(

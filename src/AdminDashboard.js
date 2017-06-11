@@ -15,18 +15,16 @@ class AdminDashboard extends Component{
   render(){
     return(
       <div  className="return ">
-            
-              <Header/>
-              <Menu/>
-            
-            <main role="main"  >
-       <Switch>
-				      <Route path='/contacts' component={Table}/>
-							<Route path='/mailinglist' component={MailingLists}/>
-              <Route path='/sendemails' component={SendEmails}/>
-              <Redirect to="/contacts"/>
-				</Switch>
-        </main>
+          <Header/>
+          <Menu/>
+          <main role="main"  >
+              <Switch>
+                  <Route path='/contacts' component={Table}/>
+                  <Route path='/mailinglist' component={MailingLists}/>
+                  <Route path='/sendemails' component={SendEmails}/>
+                  <Redirect to="/contacts"/>
+              </Switch>
+          </main>
       </div>
     );
   }

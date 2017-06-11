@@ -1,3 +1,10 @@
+.h2{
+	font-size: 1.8em;
+	text-align: center;
+	color: #735a73;
+	border-bottom: 1px solid #735a73;
+}
+
 .scroll{
 	width:100%;
 	display: flex;
@@ -10,11 +17,6 @@
 .change{
 	font-size:1.2em;
 }
-.mailingListTable tr :hover{
-	cursor:pointer;
-	background: #a795a7;
-}
-
 
 .mailingListTable {
 	width: 100%;
@@ -22,6 +24,16 @@
 	border: solid 0 transparent;
 	border-collapse: collapse;
 	border-bottom: 0;
+}
+
+.mailingListTable tr{
+	display: flex;
+	justify-content: space-between;
+}
+
+.mailingListTable tr :hover{
+	cursor:pointer;
+	background-color: #a795a7;
 }
 
 .mailingListTable tr:nth-child(odd) {
@@ -32,25 +44,17 @@
 	background-color:#f1f1f1;
 }
 
-.mailingListTable tr{
-	display: flex;
-	justify-content: space-between;
-}
-
 .mailingListTable tr td{
 	width:100%;
 	padding: 3px 0 3px 0;
 	cursor:pointer;
-
-
 }
+
 .mailingListTable td{
 	text-align: left;
 	padding-left: 5px;
 	border: solid 0 transparent;
-
 }
-
 
 .mailingListTable tr th{
 	text-align:left;
@@ -60,6 +64,7 @@
 #ChooseSendRemove{
 	background-color: #f1f1f1;
 }
+
 .trash{
 	align-items: right;
 	justify-content: center;
@@ -73,8 +78,18 @@
 .mailingListContactsTable {
 	width:100%;
 	border-collapse: collapse;
+}
 
+.mailingListContactsTable td{
+	border-collapse: collapse;
+	text-align: left;
+	padding: 5px 0 5px 5px;
+}
 
+.mailingListContactsTable th{
+	text-align: left;
+	padding-left: 5px;
+	border-bottom: 1px solid #f1f1f1;
 }
 
 .mailingListContactsTable thead tr{
@@ -83,34 +98,14 @@
 
 .mailingListContactsTable tr{
 	border-bottom:1px solid lightgrey;
-
-}
-.mailingListContactsTable td{
-	border-collapse: collapse;
-	text-align: left;
-	padding: 5px 0 5px 5px;
-}
-
-
-.mailingListContactsTable th{
-	text-align: left;
-	padding-left: 5px;
-	border-bottom: 1px solid #f1f1f1;
 }
 
 #sendIconBtn{
 	margin-right: 4%;
 }
 
-#btrashIconBtn{
+#trashIconBtn{
 	margin-right: 22%;
-}
-.h2{
-	font-size: 1.8em;
-	text-align: center;
-	color: #009688;
-	border-bottom: 1px solid #009688;
-
 }
 
 .btnContainer{
@@ -133,6 +128,11 @@
 }
 
 .mailBtn:disabled{
+	color: #735a73;
+	background-color: #ddd;
+}
+
+#sendBtn:disabled{
 	color: #735a73;
 	background-color: #ddd;
 }

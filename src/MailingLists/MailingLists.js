@@ -4,9 +4,10 @@ import call from '../Fetch.js';
 import MailingListContacts from './MailingListContacts.js';
 import TemplateSelect from '../TableComponent/TemplateSelect.js';
 import '../StyleSheet/Table.css';
-import Overlay from "../TableComponent/Overlay";
 import AlertWindow from '../AlertWindow';
 import Window from '../Window';
+import Overlay from '../TableComponent/Overlay.js';
+
 
 class MailingLists extends Component {
     constructor(props) {
@@ -15,155 +16,188 @@ class MailingLists extends Component {
             maillists: [],
             mailListContacts: [],
             mailListHeader: "",
-            mailListId:0,
-            checkedMailLists:0,
-            templatePopup:false,
-            alertWindow:false,
-            sendFunction:false,
-            deleteFunction:false,
-            lineNum:0,
-            responseWindow:false,
-            responseText:''
+            mailListId: 0,
+            checkedMailLists: 0,
+            templatePopup: false,
+            alertWindow: false,
+            sendFunction: false,
+            deleteFunction: false,
+            lineNum: 0,
+            responseWindow: false,
+            responseText: '',
+            TemplateId: "",
+            loading: false
         };
-         this.seeContacts = this.seeContacts.bind(this);
-         this.deleteMailingList = this.deleteMailingList.bind(this);
-         this.update = this.update.bind(this);
-         this.getValue= this.getValue.bind(this);
-         this.sendToAll =this.sendToAll.bind(this);
-         this.popupCancel = this.popupCancel.bind(this);
-         this.getNewContactList = this.getNewContactList.bind(this);
-         this.showSendWindow = this.showSendWindow.bind(this);
-         this.showDeleteWindow = this.showDeleteWindow.bind(this);
+        this.seeContacts = this.seeContacts.bind(this);
+        this.deleteMailingList = this.deleteMailingList.bind(this);
+        this.update = this.update.bind(this);
+        this.getValue = this.getValue.bind(this);
+        this.sendToAll = this.sendToAll.bind(this);
+        this.popupCancel = this.popupCancel.bind(this);
+        this.getNewContactList = this.getNewContactList.bind(this);
+        this.showSendWindow = this.showSendWindow.bind(this);
+        this.showDeleteWindow = this.showDeleteWindow.bind(this);
         this.getResponseText = this.getResponseText.bind(this);
-         this.tableRows = [];
-         this.TemplateId = "";
-         this.checkedMailLists = "";
+        this.tableRows = [];
+        this.checkedMailLists = "";
+
     }
-    sendToAll(){
-        call('http://crmbeta.azurewebsites.net/api/EmailSender/' + this.state.maillists[this.state.lineNum].EmailListID +'/'+ this.TemplateId ,  'POST')
-            .then(() => {
-                this.update();
-           });
+
+    sendToAll() {
+        this.setState({loading: true});
+        call('http://crmbeta.azurewebsites.net/api/EmailSender/' + this.state.maillists[this.state.lineNum].EmailListID + '/' + this.state.TemplateId, 'POST')
+            .then(response => {
+                if (response.message.includes('error')) {
+                    let error = JSON.parse(response.message);
+                    if (error.error === 409) {
+                        this.getResponseText(error.message + " Mailing list is empty");
+                    }
+                }
+                else {
+                    this.getResponseText("Sent successfully");
+                    this.update();
+                }
+                this.setState({loading:false});
+            });
+
+
         this.popupCancel();
     }
 
-   deleteMailingList() {
+    deleteMailingList() {
+        this.setState({loading: true});
         call('http://crmbeta.azurewebsites.net/api/EmailLists/delete/' + this.state.maillists[this.state.lineNum].EmailListID, 'DELETE')
             .then(response => {
-
                 this.getResponseText("Deleted successfully");
+                this.update();
+                this.setState({
+                    loading: false,
+                    mailListContacts: [],
+                    checkedMailLists: 0
+                });
+
             });
-       this.popupCancel();
-       this.update();
-   }
+        this.popupCancel();
+
+    }
+
     update() {
-        return fetch('http://crmbeta.azurewebsites.net/api/EmailLists')
+        this.setState({loading: true});
+        fetch('http://crmbeta.azurewebsites.net/api/EmailLists')
             .then(response => {
-                console.log(response,"sfsdfdssdfsfsdf");
-                if(response.ok === true) {
+                if (response.ok === true) {
                     return response.json();
                 }
             })
             .then(response => {
                     this.setState({
-                        maillists: response
+                        maillists: response,
+                        loading: false
                     });
                 }
             );
     }
 
     seeContacts(event) {
-        this.setState({checkedMailLists:this.state.maillists[event.target.id].EmailListID});
-        return fetch( 'http://crmbeta.azurewebsites.net/api/EmailLists/' + this.state.maillists[event.target.id].EmailListID )
-            .then(response=>{
+        this.setState({
+            checkedMailLists: this.state.maillists[event.target.id].EmailListID,
+            loading: true
+        });
+        fetch('http://crmbeta.azurewebsites.net/api/EmailLists/' + this.state.maillists[event.target.id].EmailListID)
+            .then(response => {
                 return response.json();
-            }).then(response=>{
-                if(response.Contacts.length > 0){
-                    this.setState({
-                        selectedMailList:response.EmailListID,
-                        mailListContacts:response.Contacts
-                    });
+            }).then(response => {
+                this.setState({loading: false});
+                this.setState({
+                    selectedMailList: response.EmailListID,
+                    mailListContacts: response.Contacts,
+
+                });
+                if (response.Contacts.length > 0) {
+
                 }
             }
-            );
+        );
     }
 
-   getNewContactList(){
-        return fetch( 'http://crmbeta.azurewebsites.net/api/EmailLists/' + this.state.selectedMailList)
-            .then(response=>{
+    getNewContactList() {
+        this.setState({loading: true});
+        fetch('http://crmbeta.azurewebsites.net/api/EmailLists/' + this.state.selectedMailList)
+            .then(response => {
                 return response.json();
-            }).then(response=>{
-                    if(response.Contacts.length > 0){
-                        this.setState({
-                            mailListContacts:response.Contacts
-                        });
-                    }
-                }
-            );
-   }
+            }).then(response => {
+                this.setState({
+                    mailListContacts: response.Contacts,
+                    loading: false
+                });
+            }
+        );
+    }
 
-   getValue(value){
-       this.TemplateId=value;
-   }
+    getValue(value) {
+        this.setState({TemplateId: value});
+    }
 
-    popupCancel(){
+    popupCancel() {
         this.setState({
-            sendFunction:false,
-            templatePopup:false,
-            deletePopUp:false,
-            sendPopUp:false,
-            deleteFunction:false
+            sendFunction: false,
+            templatePopup: false,
+            deletePopUp: false,
+            sendPopUp: false,
+            deleteFunction: false,
         });
 
     }
 
-    showSendWindow(event){
-        this.setState({lineNum:event.target.id});
+    showSendWindow(event) {
+        this.setState({lineNum: event.target.id});
         this.setState({
-            sendFunction:true,
-            templatePopup:true,
-            deletePopUp:false,
-            sendPopUp:true,
-            deleteFunction:false
+            sendFunction: true,
+            templatePopup: true,
+            deletePopUp: false,
+            sendPopUp: true,
+            deleteFunction: false
         });
     }
-    showDeleteWindow(event){
-        this.setState({lineNum:event.target.id});
+
+    showDeleteWindow(event) {
+        this.setState({lineNum: event.target.id});
         this.setState({
-            sendFunction:false,
-            templatePopup:true,
-            sendPopUp:false,
-            deletePopUp:true,
-            deleteFunction:true,
-            responseWindow:(this.state.responseText !== ''),
+            sendFunction: false,
+            templatePopup: true,
+            sendPopUp: false,
+            deletePopUp: true,
+            deleteFunction: true,
+
         });
     }
-    getResponseText(response){
+
+    getResponseText(response) {
         this.setState({
-            responseText:response,
-            responseWindow:true,
-            deleteFunction:false,
+            responseText: response,
+            responseWindow: true,
+            deleteFunction: false,
             closeAddTo: false,
-            addContact:false,
-            templatePopup:true,
-            upload:false,
-            alertWindow:false,
+            addContact: false,
+            templatePopup: true,
+            upload: false,
+            alertWindow: false,
         });
-        console.log(this.state);
-        setTimeout(() =>{
-            this.setState({responseWindow:false,templatePopup:false})
-        },1500);
+        setTimeout(() => {
+            this.setState({responseWindow: false, templatePopup: false})
+        }, 1500);
     }
 
     componentDidMount() {
         this.update();
     }
+
     render() {
         const headers = <thead>
-        <tr id = "ChooseSendRemove">
+        <tr id="ChooseSendRemove">
             <th>Choose a MailList</th>
-            <th id = "sendIconBtn">Send Email</th>
-            <th id = "btrashIconBtn">Remove a MailList</th>
+            <th id="sendIconBtn">Send Email</th>
+            <th id="trashIconBtn">Remove a MailList</th>
         </tr>
         </thead>
         const data = this.state.maillists;
@@ -171,60 +205,62 @@ class MailingLists extends Component {
             <tr key={index} ref={tRDomElemy => {
                 this.tableRows.push(tRDomElemy)
             }}>
-                <td  onClick={this.seeContacts} ref="click1" id={index} key={data.EmailListName} >
+                <td onClick={this.seeContacts} ref="list" id={index} key={data.EmailListName}>
                     {data.EmailListName}
                 </td>
-                <td>
-                    <i className="glyphicon glyphicon-envelope change" id ={index} onClick={this.showSendWindow} />
+                <td id={index} onClick={this.showSendWindow}>
+                    <i className="glyphicon glyphicon-envelope change" id={index}/>
                 </td>
-                <td >
-                    <i className="glyphicon glyphicon-trash trash change" id ={index} onClick={this.showDeleteWindow} />
+                <td id={index} onClick={this.showDeleteWindow}>
+                    <i className="glyphicon glyphicon-trash trash change" id={index}/>
                 </td>
             </tr>
         );
         return (
-
-                <div className="scroll">
-                    {
-                        !this.state.maillists.length &&
-                        <Overlay />
-                    }
-                    <div className="openWindow" style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
-                            <div className="formContainer">
-                                <div style={{display:this.state.sendPopUp?'block':'none'}}>
-                                <div className="uploadContainer">
-                                    <TemplateSelect getValue={this.getValue} />
-                                    <div className="fileButtons">
-                                    <button onClick={this.sendToAll} className="addBtn" id="sendBtn">send</button>
+            <div className="scroll">
+                {this.state.loading && <Overlay />}
+                <div className="openWindow" style={{display: this.state.templatePopup ? 'flex' : 'none'}}>
+                    <div className="formContainer">
+                        <div style={{display: this.state.sendPopUp ? 'block' : 'none'}}>
+                            <div className="uploadContainer">
+                                <TemplateSelect getValue={this.getValue}/>
+                                <div className="fileButtons">
+                                    <button onClick={this.sendToAll}
+                                            disabled={this.state.TemplateId > 0 ? '' : 'disabled'} className="addBtn"
+                                            id="sendBtn">send
+                                    </button>
                                     <button onClick={this.popupCancel} className="back addBtn">cancel</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div style={{display:this.state.deletePopUp?'block':'none'}}>
-                                    <AlertWindow windowAction={this.state.sendFunction?this.sendToAll:this.state.deleteFunction?this.deleteMailingList:''}
-                                                closePopup={this.popupCancel}
-                                    />
-                                </div>
-                                <div style={{display:this.state.responseWindow  ? 'flex' : 'none' }} className="responseContainer">
-                                    <Window responseText={this.state.responseText}/>
                                 </div>
                             </div>
                         </div>
-                    <table className="mailingListTable" >
-                        {headers}
-                        <tbody>
-                        {row}
-                        </tbody>
-                    </table>
+                        <div style={{display: this.state.deletePopUp ? 'block' : 'none'}}>
+                            <AlertWindow
+                                windowAction={this.state.sendFunction ? this.sendToAll : this.state.deleteFunction ? this.deleteMailingList : ''}
+                                closePopup={this.popupCancel}
+                            />
+                        </div>
+                        <div style={{display: this.state.responseWindow ? 'flex' : 'none'}}
+                             className="responseContainer">
+                            <Window responseText={this.state.responseText}/>
+                        </div>
+                    </div>
+                </div>
+                <table className="mailingListTable">
+                    {headers}
+                    <tbody>
+                    {row}
+                    </tbody>
+                </table>
                 <MailingListContacts
+                    mailList={this.state.maillists}
                     getResponseText={this.getResponseText}
                     mailListId={this.state.checkedMailLists}
                     data={this.state.mailListContacts}
                     mailListInfo={this.state.mailListHeader}
                     update={this.getNewContactList}
                 />
-                </div>
+            </div>
         );
-}
+    }
 }
 export default MailingLists;

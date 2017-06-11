@@ -4,7 +4,6 @@ import '../Fetch.js';
 class TableRow extends Component {
 	constructor(props) {
 		super(props);
-
 		this.checkBoxOnChange = this.checkBoxOnChange.bind(this);
 
 	}
@@ -64,9 +63,6 @@ class TableRow extends Component {
 		     			{row}
 					</tbody>
 		     	);
-
-
 	     }
-
 	}
     export default TableRow;

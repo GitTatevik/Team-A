@@ -23,8 +23,7 @@ class Table extends Component {
             disabled: true,
             addContact: false,
             checkedBoxArray: [],
-            creatListBtndisabled: true,
-            TemplateId: "",
+            TemplateId: 0,
             sendButton: false,
             mailList: '',
             closeAddTo: false,
@@ -33,7 +32,8 @@ class Table extends Component {
             sendFunction:false,
             deleteFunction:false,
             responseWindow:false,
-            responseText:''
+            responseText:'',
+            loading:false
         };
 
         this.sendMail = this.sendMail.bind(this);
@@ -59,7 +59,13 @@ class Table extends Component {
     } 
 
     checkBoxChanges(target) {
-        this.setState({checkedBoxArray:[...this.state.checkedBoxArray,target]});
+        if(target.checked){
+            this.setState({checkedBoxArray:[...this.state.checkedBoxArray,target]});
+        }
+        else{
+            let checkedIndex = this.state.checkedBoxArray.indexOf(target);
+            this.state.checkedBoxArray.splice(checkedIndex,1);
+        }
     }
 
     isDisable(disabled) {
@@ -78,14 +84,13 @@ class Table extends Component {
         if (this.state.guids.length !== 0) {
             call('http://crmbeta.azurewebsites.net/api/EmailSender/' + this.state.TemplateId, 'POST', this.state.guids).then(() => {
                 this.getResponseText('Email sent');
+                this.setState({loading:false});
             });
         }
 
         this.setState({
             sendButton: false,
-            disabled: true,
-            guids: [],
-
+            loading:true
         });
 
         this.setState({
@@ -137,14 +142,19 @@ class Table extends Component {
         call('http://crmbeta.azurewebsites.net/api/Contacts', 'DELETE', this.state.guids).then(() => {
             this.update();
             this.getResponseText('Deleted Successfully');
+
             this.setState({
-                disabled: true
+                disabled: true,
+                loading:false
             });
         });
+         let uncheckedBox = this.state.checkedBoxArray;
 		  for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
-            this.state.checkedBoxArray[i].checked = false;
+            uncheckedBox[i].checked = false;
 		  }
+
         this.setState({
+            checkedBoxArray:uncheckedBox,
             sendFunction:false,
             deleteFunction:false,
             popup: false,
@@ -152,15 +162,19 @@ class Table extends Component {
             addContactState: false,
             closeAddTo:false,
             alertWindow:false,
+            loading:true
         });
     }
 
     update() {
+        this.setState({loading:true});
         call('http://crmbeta.azurewebsites.net/api/Contacts', 'GET').then(response => {
             this.setState({
                 data: response,
-                guids: []
+                guids: [],
+                loading:false
             });
+
         });
     }
 
@@ -171,19 +185,16 @@ class Table extends Component {
     createMailList() {
         if (this.refs.createMList.value) {
             if (this.state.guids.length > 0) {
+                this.setState({loading:true});
                 call('http://crmbeta.azurewebsites.net/api/EmailLists', 'POST', {
                     EmailListName: this.refs.createMList.value,
                     Contacts: this.state.guids
                 }).then(() => {
-
                     this.setState({
-                        creatListBtndisabled: true,
-                        disabled: true,
-                        guids: []
+                        mailList:'',
+                        loading:false
                     });
-
                     this.refs.createMList.value = "";
-
                     this.getResponseText('Created successfully');
                 });
             }
@@ -191,9 +202,10 @@ class Table extends Component {
     }
 
     getSelectValue(value) {
+        value = value*1;
         this.setState({TemplateId:value});
-        if (value !== '0' && this.state.checkedBoxArray.length) {
-            this.setState({sendButton: true,});
+        if ((value !== 0) && this.state.checkedBoxArray.length) {
+            this.setState({sendButton: true});
         }
         else {
             this.setState({sendButton: false});
@@ -214,7 +226,6 @@ class Table extends Component {
             upload: false,
             addContactState: true
         });
-
     }
 
     closePopUp() {
@@ -275,9 +286,11 @@ class Table extends Component {
     }
 
     componentDidMount() {
+        this.setState({loading:true});
         call('http://crmbeta.azurewebsites.net/api/Contacts', 'GET').then(response => {
             this.setState({
-                data: response
+                data: response,
+                loading:false
             });
         });
     }
@@ -295,6 +308,7 @@ class Table extends Component {
         }
         return (
             <div className="UserTable">
+                {this.state.loading && <Overlay />}
                 <div className="openWindow" style={{display: this.state.popup ? 'flex' : 'none'}}>
                     <div className="formContainer">
                         <div className="AddRow" style={{display: this.state.addContactState ? 'flex' : 'none'}}>
@@ -324,18 +338,15 @@ class Table extends Component {
                     </table>
                 </div>
                 <div className="btnBox">
-                    {   !this.state.data.length &&
-                    <Overlay />
-                    }
                     <div id="templateSelectBox">
                         <TemplateSelect disabled={this.state.disabled} defaultValue={this.state.templateDefaultValue} getValue={this.getSelectValue} />
-                        <button disabled={(this.state.sendButton && this.state.checkedBoxArray.length)? '' : 'disabled'} className="tableButtons"
+                        <button disabled={(this.state.sendButton && (this.state.checkedBoxArray.length > 0))? '' : 'disabled'} className="tableButtons"
                                 onClick={this.showSendWindow}>
                             <i className="glyphicon glyphicon-envelope"/><br />Send Email
                         </button>
                     </div>
                     <button disabled={this.state.disabled} className="tableButtons" onClick={this.addToExisting}>
-                        <i className="glyphicon glyphicon-folder-open"/><br /> Add to Mailist
+                        <i className="glyphicon glyphicon-folder-open"/><br /> Add to Mailing list
                     </button>
                     <button disabled={this.state.disabled} className="deleteBtn tableButtons" onClick={this.showDeleteWindow}>
                         <i className="glyphicon glyphicon-trash"/><br />Delete Selected
@@ -351,8 +362,8 @@ class Table extends Component {
                     </div>
 
                     <button onClick={this.createMailList}
-                            disabled={(!(!this.state.disabled && this.state.mailList.length > 0))}
-                            className="tableButtons"><i className="glyphicon glyphicon-list-alt" /><br />Create New List
+                            disabled={((this.state.checkedBoxArray.length > 0) && (this.state.mailList.length > 0))?'':'disabled'}
+                            className="tableButtons"><i className="glyphicon glyphicon-list-alt" /><br />Create Mailing list
                     </button>
 
                     <button className="tableButtons" onClick={this.openUpload.bind(this)}>

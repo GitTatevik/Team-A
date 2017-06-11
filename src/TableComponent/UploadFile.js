@@ -1,21 +1,24 @@
 import React,{Component} from 'react';
+import '../StyleSheet/Table.css';
+import Overlay from './Overlay.js';
 
 class UploadFile extends Component {
         constructor(props){
             super(props);
             this.state={
-                disabled:true
+                disabled:true,
+                loading:false
             };
             this.UploadFile = this.UploadFile.bind(this);
             this.fileInputOnChange = this.fileInputOnChange.bind(this);
-            
         }
 
     UploadFile() {
-        if (document.querySelector('input[type="file"]').files[0]) {
+        if (this.refs.fileInput.files[0]) {
             let data = new FormData();
-            let fileData = document.querySelector('input[type="file"]').files[0];
+            let fileData = this.refs.fileInput.files[0];
             data.append("data", fileData);
+            this.setState({loading:true});
             fetch("http://crmbeta.azurewebsites.net/api/contacts/upload", {
                 method: "POST",
                 "Content-Type": "multipart/form-data",
@@ -23,22 +26,29 @@ class UploadFile extends Component {
                 body: data
             }).then(res => {
                 if (res.ok) {
-                    this.props.getResponseText("Added successfully");
+                    this.props.getResponseText('Added successfully');
                 }
                 if (res.status === 409) {
-                   this.props.getResponseText("This file already exists");
+                    this.props.getResponseText('This file already exists')
                 }
+                if(res.status === 501){
+                    this.props.getResponseText(res.statusText);
+                }
+                this.setState({loading:false});
+                this.props.update();
                 return res.json()
+
             });
         }
         else {
             this.props.getResponseText("Please choose a file");
         }
-            this.props.update();
+
+            this.refs.fileInput.files[0].value = '';
             this.props.closePopup();
     }
      fileInputOnChange(){
-         if( document.querySelector('input[type="file"]').files[0]){
+         if( this.refs.fileInput.files[0]){
              this.setState({
                  disabled:false
              })
@@ -51,10 +61,11 @@ class UploadFile extends Component {
 	render(){
         return(
             <div className="uploadContainer">
-                   <input name="data" type="file" onChange={this.fileInputOnChange} />
-                <div className="fileButtons">
-                   <button className="addBtn" id="sendBtn" onClick={this.UploadFile} >Upload</button>
-                    <button className="back addBtn" onClick={this.props.closePopup}>Back</button>
+                {this.state.loading && <Overlay />}
+                <input name="data" type="file" id="fileUpload" ref="fileInput" onChange={this.fileInputOnChange} />
+                    <div className="fileButtons">
+                     <button className="addBtn" id="sendBtn" onClick={this.UploadFile} disabled={this.state.disabled?'disabled':''} >Upload</button>
+                     <button className="back addBtn cancelUpload" onClick={this.props.closePopup}>Back</button>
                 </div>
             </div>
         );

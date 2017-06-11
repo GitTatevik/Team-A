@@ -6,54 +6,50 @@
 	align-items:center;
 	background: #735a73;
 }
+
 .flex{
 	display:flex;
 }
 
 .form-signin {
-  width:400px;
-  background-color:#fff;
-  height:300px;
-  flex-direction:column;
-justify-content:center;
+	width:400px;
+	background-color:#fff;
+	height:300px;
+	flex-direction:column;
+	justify-content:center;
 	align-items:center;	
   
 }
-  .form-signin-heading{
+
+.form-signin-heading{
 	margin:0 0 20px 0;
 	color:grey;
 	width:70%;
 	text-align:left;
 	font-size:2em;
-	}
+}
 
-	
-
-	.form-control {
+.form-control {
 	margin-bottom:15px;
 	width:70%;
 	font-size: 16px;
 	padding:15px;
-	box-sizing:border-box;
-	  
-	}
-
-
+	box-sizing:border-box; 
+}
 
 .btn {
 	 padding:15px;
-	width:70%;
-	font-size: 18px;
-	margin-bottom:20px;
-    color: #fff;
-    background-color: #513654;
-    border-color: grey;
-	border: 0px solid transparent;
-	border-radius: .1rem;
-	transition: .5s;
-	cursor:pointer;
+	 width:70%;
+	 font-size: 18px;
+	 margin-bottom:20px;
+     color: #fff;
+     background-color: #513654;
+     border-color: grey;
+	 border: 0px solid transparent;
+	 border-radius: .1rem;
+	 transition: .5s;
+	 cursor:pointer;
 }
-
 
 .btn:hover{
 	 background-color: #735a73; 
@@ -63,7 +59,6 @@ justify-content:center;
 	.form-signin {
 		width:350px;
 	}
-	
 }
 
 @media screen and (max-width:480px){

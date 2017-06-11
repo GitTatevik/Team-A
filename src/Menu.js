@@ -11,7 +11,6 @@ class Menu extends Component{
                        <li className="menu_item"><NavLink activeClassName="active" to='/mailinglist'>Mailing list </NavLink></li>
                  </ul>
           </div>
-      
     );
   }
 }

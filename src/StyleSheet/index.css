@@ -2,18 +2,21 @@
     margin: 0;
     padding: 0;
 }
+
 html,body{
 	height:100%;
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 @font-face {
     font-family: font;
     src: url(Quicksand-Regular.ttf);
 }
+
 #root{
 	height: 100%;
 }
+
 main{
     width:80%;
     height:90%;
@@ -22,8 +25,8 @@ main{
     float: left;
 	margin-left:20%;
 	margin-top:61px;
-
 }
+
 a{
     display: block;
     height: 100%;
@@ -31,9 +34,7 @@ a{
     padding-left:35px;
     padding-top:17px;
     text-decoration: none;
-
 }
-
 
 @media (max-width:866px) {
 

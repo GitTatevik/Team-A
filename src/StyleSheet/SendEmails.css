@@ -16,11 +16,10 @@
     background: #735a73;
     margin: 5px 0px;
     cursor: pointer;
-    
 }
 
 .send{
-        float: right;
+    float: right;
 }
 
 .mdl-textfield {

@@ -1,6 +1,6 @@
-import './StyleSheet/Header.css';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import './StyleSheet/Header.css';
 
 class Header extends Component{
     constructor(){
@@ -31,10 +31,6 @@ class Header extends Component{
               <div className="header flex">
                   <div className="logo">
                       <h1>Bet CRM</h1>
-                  </div>
-                  <div className="user flex">
-                      <ul className="list flex">
-                      </ul>
                   </div>
               </div>
          </div>
