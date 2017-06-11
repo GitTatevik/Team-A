@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import './StyleSheet/Header.css';
 import { NavLink } from 'react-router-dom';
 import './StyleSheet/Header.css';
 
-class Header extends Component{
+export default class Header extends Component{
     constructor(){
         super();
         this.state={width:"0"};
@@ -28,12 +29,24 @@ class Header extends Component{
                  <div className="icon_item"/>
                  <div className="icon_item"/>
              </div>
+<<<<<<< HEAD
               <div className="header flex">
                   <div className="logo">
                       <h1>Bet CRM</h1>
                   </div>
               </div>
          </div>
+=======
+             <div className="header flex">
+                 <div className="logo">
+                   <h1>Bet CRM</h1>
+                 </div>
+                 <div className="user flex">
+                    <ul className="list flex"></ul>
+                 </div>
+             </div>
+            </div>
+>>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 
          <div id="sidenav" style={{width:this.state.width}}>
              <div className="close_icon" onClick={this.closeNav}>
@@ -50,4 +63,3 @@ class Header extends Component{
   }
 }
 
-export default Header;
