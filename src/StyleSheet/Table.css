@@ -38,24 +38,9 @@
 	transition: background-color 0.5s ease;
 	margin-top:10px;
 }
-<<<<<<< HEAD
 
 .addBtn:hover{
 	background-color:#60c5bb;
-=======
-
-.addBtn:hover{  /*Edit contact row edit button*/
-	background-color:#60c5bb;
-}
-
-.back{
-	margin-left:20px;
-}
-/*Edit contact row edit button*/
-
-.saveBtn{
-	margin-right:37%;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 
@@ -85,50 +70,32 @@
     background-color: #f1f1f1;
     color: #513654;
     box-sizing: border-box;
-    padding:25px;
-}
+	padding:25px;
 
+}
 #scroll{
-<<<<<<< HEAD
 	height:85%;
 	width:100%;
 	overflow: auto;
-=======
-    height:85%;
-    width:100%;
-    overflow: auto;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .table {
     width: 100%;
     margin: 0 auto;
-    border: solid 0 transparent;
-    border-collapse: collapse;
-    border-bottom: 0;
+	border-collapse: collapse;
+	border: 0 solid transparent;
 }
 
 .table td{
-<<<<<<< HEAD
 	text-align: left;
 	padding-left: 5px;
  	border: solid 0 transparent;
-=======
-    text-align: left;
-    padding-left: 5px;
-    border: solid 0 transparent;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .table th{
 	text-align: left;
   	border:none;
 }
-
-#checkbox{
-	text-align: center;
-}
-
 .tableheader{
 	width: 100%;
 	text-align: center;
@@ -151,10 +118,10 @@
 
 #theader{
 	height: 30px;
-        color: #666467;
-        text-align: center;
-        font-size: 2.5em;
-        padding: 10px;
+    color: #666467;
+    text-align: center;
+    font-size: 2.5em;
+    padding: 10px;
 }
 
 .openWindow{
@@ -171,24 +138,15 @@
 
 .addInput{
 	padding: 7px;
-<<<<<<< HEAD
 	margin: 7px 0;
-=======
-	margin: 5px;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .closeWindow{
 	display:none;
 }
-<<<<<<< HEAD
 
 #flexEdit{
 	flex-direction: column;
-=======
-#flexEdit{
-  	flex-direction: column;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 	display:flex;
 	justify-content: space-around;
 	align-content: space-around;
@@ -219,22 +177,12 @@
   	width:100%;
 }
 
-<<<<<<< HEAD
 .addToExisting{
 	display:flex;
 	flex-direction: column;
 	margin-top: 10px;
 }
-.alertWindow{
-	justify-content:center;
-	align-items:center;
-	display:flex;
-	flex-direction: column;
-	margin-top: 10px;
 
-}
-=======
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 .uploadContainer{
 	padding:50px;
 	display: flex;
@@ -249,7 +197,6 @@
 	justify-content:space-between;
 }
 
-<<<<<<< HEAD
 .uploadButtons{
 	width:65px;
 	padding:7px;
@@ -257,12 +204,6 @@
 	border-radius: 2px;
 	cursor:pointer;
 	color:#fff;
-=======
-.addToExisting{
-	display:flex;
-	flex-direction: column;
-	margin-top: 10px;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .inputMail{
@@ -277,18 +218,6 @@
 	border-radius: 5px;
 }
 
-<<<<<<< HEAD
-=======
-.uploadButtons{
-	width:65px;
-	padding:7px;
-	border: none;
-	border-radius: 2px;
-	cursor:pointer;
-	color:#fff;
-}
-
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 .selectPopup{
 	width:100%;
 	display:inline-flex;
@@ -302,7 +231,7 @@
 	width:70%;
 	display:inline-flex;
 	flex-direction: column;
-        justify-content:center;
+    justify-content:center;
 	align-items:center;
 }
 
@@ -320,17 +249,10 @@
 }
 
 .btnBox{
-<<<<<<< HEAD
 	padding-bottom: 1%;
     padding-top: 4%;
     display: flex;
     box-sizing: border-box;
-=======
-        padding-bottom: 1%;
-        padding-top: 4%;
-        display: flex;
-        box-sizing: border-box;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .responseContainer{

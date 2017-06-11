@@ -148,14 +148,11 @@ class Table extends Component {
                 loading:false
             });
         });
-<<<<<<< HEAD
          let uncheckedBox = this.state.checkedBoxArray;
 		  for (let i = 0; i < this.state.checkedBoxArray.length; ++i) {
             uncheckedBox[i].checked = false;
 		  }
 
-=======
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
         this.setState({
             checkedBoxArray:uncheckedBox,
             sendFunction:false,
@@ -177,7 +174,6 @@ class Table extends Component {
                 guids: [],
                 loading:false
             });
-
         });
     }
 
@@ -207,7 +203,7 @@ class Table extends Component {
     getSelectValue(value) {
         value = value*1;
         this.setState({TemplateId:value});
-        if ((value !== 0) && this.state.checkedBoxArray.length) {
+        if (value !== 0) {
             this.setState({sendButton: true});
         }
         else {

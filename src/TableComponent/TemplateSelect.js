@@ -31,7 +31,7 @@ class TemplateSelect extends Component {
         return (
             <div className="selectContainer">
                 {this.state.loading && <Overlay />}
-                <select onChange={this.selectOnChange}>
+                <select onChange={this.selectOnChange} >
                     <option value="0">Select a Template</option>
                     <option value="1">Anniversary</option>
                     <option value="2">Birthday</option>

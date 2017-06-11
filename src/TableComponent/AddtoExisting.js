@@ -51,7 +51,6 @@ class AddtoExisting extends Component {
     render(){
         return(
             <div className="addToExisting">
-<<<<<<< HEAD
                 {this.state.loading && <Overlay />}
                 <div className="uploadContainer">
                    <select onChange={this.selectOnChange} value={this.state.selectedMailList}>
@@ -67,20 +66,6 @@ class AddtoExisting extends Component {
                         <button onClick={this.addToMailList} className="addBtn" id="sendBtn">Add</button>
                         <button onClick={this.close} className="addBtn back">Cancel</button>
                     </div>
-=======
-               <select onChange={this.selectOnChange} value={this.state.selectedMailList}>
-                <option value="">Select a mail list</option>
-                   { this.state.maillists.map((value, index) => {
-                       return (
-                           <option key={index} value={value.EmailListID}>{value.EmailListName}</option>
-                       );
-                   })
-                   }
-               </select>
-                <div className="fileButtons">
-                    <button onClick={this.addToMailList} className="addBtn" id="sendBtn">Add</button>
-                    <button onClick={this.close} className="addBtn back">Cancel</button>
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
                 </div>
             </div>
         );

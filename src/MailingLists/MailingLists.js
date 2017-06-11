@@ -67,7 +67,7 @@ class MailingLists extends Component {
     deleteMailingList() {
         this.setState({loading: true});
         call('http://crmbeta.azurewebsites.net/api/EmailLists/delete/' + this.state.maillists[this.state.lineNum].EmailListID, 'DELETE')
-            .then(response => {
+            .then(() => {
                 this.getResponseText("Deleted successfully");
                 this.update();
                 this.setState({
@@ -199,7 +199,7 @@ class MailingLists extends Component {
             <th id="sendIconBtn">Send Email</th>
             <th id="trashIconBtn">Remove a MailList</th>
         </tr>
-        </thead>
+        </thead>;
         const data = this.state.maillists;
         const row = data.map((data, index) =>
             <tr key={index} ref={tRDomElemy => {

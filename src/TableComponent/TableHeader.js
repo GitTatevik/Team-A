@@ -7,7 +7,6 @@ class TableHeader extends Component{
 		 let headers =[];
 			  for(let i in obj){
 			  		headers.push(i);
-
 			  }
 			let header=  headers.splice(0,5);
 

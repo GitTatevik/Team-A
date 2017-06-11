@@ -32,7 +32,7 @@ class TableRow extends Component {
 	}
 
 	     render(){
-		     const data=this.props.dataArray
+		     const data=this.props.dataArray;
 		      const row = data.map((data,index)=>
 		     	<tr key={index} ref={index}>
 					 <td key={index} id="checkbox">

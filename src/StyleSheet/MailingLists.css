@@ -1,13 +1,8 @@
 .h2{
 	font-size: 1.8em;
 	text-align: center;
-<<<<<<< HEAD
 	color: #735a73;
 	border-bottom: 1px solid #735a73;
-=======
-	color: #009688;
-	border-bottom: 1px solid #009688;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .scroll{
@@ -26,9 +21,8 @@
 .mailingListTable {
 	width: 100%;
 	margin: 0 auto;
-	border: solid 0 transparent;
 	border-collapse: collapse;
-	border-bottom: 0;
+	border: 0 solid transparent;
 }
 
 .mailingListTable tr{
@@ -36,15 +30,9 @@
 	justify-content: space-between;
 }
 
-<<<<<<< HEAD
 .mailingListTable tr :hover{
 	cursor:pointer;
 	background-color: #a795a7;
-=======
-.mailingListTable tr:hover{
-	cursor:pointer;
-	background: #a795a7;
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 .mailingListTable tr:nth-child(odd) {
@@ -55,14 +43,6 @@
 	background-color:#f1f1f1;
 }
 
-<<<<<<< HEAD
-=======
-.mailingListTable tr th{
-	text-align:left;
-	border:none;
-}
-
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 .mailingListTable tr td{
 	width:100%;
 	padding: 3px 0 3px 0;
@@ -73,14 +53,11 @@
 	text-align: left;
 	padding-left: 5px;
 	border: solid 0 transparent;
-<<<<<<< HEAD
 }
 
 .mailingListTable tr th{
 	text-align:left;
 	border:none;
-=======
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 }
 
 #ChooseSendRemove{
@@ -100,21 +77,8 @@
 .mailingListContactsTable {
 	width:100%;
 	border-collapse: collapse;
-<<<<<<< HEAD
 }
 
-=======
-}
-
-.mailingListContactsTable tr{
-	border-bottom:1px solid lightgrey;
-}
-
-.mailingListContactsTable thead tr{
-	border-bottom:1px solid lightgrey;
-}
-
->>>>>>> 48acb940f43b7c98dc05cc5e9d7c4d8306667d7d
 .mailingListContactsTable td{
 	border-collapse: collapse;
 	text-align: left;
