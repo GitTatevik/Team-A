@@ -29,10 +29,10 @@ class UploadFile extends Component {
                     this.props.getResponseText('Added successfully');
                 }
                 if (res.status === 409) {
-                    this.props.getResponseText('This file already exists')
+                    this.props.getResponseText('This file already exists or incorrect')
                 }
                 if(res.status === 501){
-                    this.props.getResponseText(res.statusText);
+                    this.props.getResponseText("Incorrect type of file");
                 }
                 this.setState({loading:false});
                 this.props.update();
